@@ -8,40 +8,29 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IBM+Plex+Mono:wght@300;400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;1,300&display=swap');
 
-  :root {
-    --bg: #f7f6f2;
-    --ink: #0e0e0e;
-    --mid: #4a4a4a;
-    --faint: #c8c6be;
-    --rule: 1px solid #0e0e0e;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html {
-    background: #f7f6f2 !important;
-    color-scheme: light only;
-  }
+  html { background: #f7f6f2 !important; color-scheme: light only; }
 
   body {
     font-family: 'IBM Plex Sans', sans-serif;
     font-weight: 300;
     font-size: 15px;
     line-height: 1.75;
-    color: #0e0e0e !important;
-    background: #f7f6f2 !important;
+    color: #0e0e0e;
+    background: #f7f6f2;
     max-width: 780px;
     margin: 0 auto;
     padding: 80px 40px 120px;
   }
 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* ── HEADER ── */
   header {
     border-top: 3px solid #0e0e0e;
-    border-bottom: var(--rule);
+    border-bottom: 1px solid #0e0e0e;
     padding: 40px 0 32px;
     margin-bottom: 60px;
   }
-
   .journal-line {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
@@ -52,7 +41,6 @@
     display: flex;
     justify-content: space-between;
   }
-
   h1 {
     font-family: 'IM Fell English', serif;
     font-size: clamp(26px, 5vw, 44px);
@@ -62,7 +50,6 @@
     margin-bottom: 24px;
     max-width: 680px;
   }
-
   .subtitle {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
@@ -73,13 +60,13 @@
     line-height: 1.6;
   }
 
+  /* ── ABSTRACT ── */
   .abstract {
-    border: var(--rule);
+    border: 1px solid #0e0e0e;
     padding: 28px 32px;
     margin-bottom: 60px;
     background: #eeecea;
   }
-
   .abstract-label {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 9px;
@@ -88,24 +75,18 @@
     margin-bottom: 12px;
     color: #4a4a4a;
   }
+  .abstract p { font-style: italic; font-size: 14px; color: #0e0e0e; margin-bottom: 0; }
 
-  .abstract p {
-    font-style: italic;
-    font-size: 14px;
-    color: #0e0e0e;
-  }
-
+  /* ── SECTION ── */
   section { margin-bottom: 56px; }
-
   .section-header {
     display: flex;
     align-items: baseline;
     gap: 16px;
-    border-bottom: var(--rule);
+    border-bottom: 1px solid #0e0e0e;
     padding-bottom: 10px;
     margin-bottom: 24px;
   }
-
   .section-num {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
@@ -113,35 +94,24 @@
     letter-spacing: 0.1em;
     flex-shrink: 0;
   }
-
-  h2 {
-    font-family: 'IM Fell English', serif;
-    font-size: 22px;
-    font-weight: 400;
-    color: #0e0e0e;
-  }
-
+  h2 { font-family: 'IM Fell English', serif; font-size: 22px; font-weight: 400; color: #0e0e0e; }
   h3 {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: #4a4a4a;
-    margin: 28px 0 10px;
+    margin: 32px 0 12px;
   }
+  p { margin-bottom: 16px; color: #0e0e0e; }
 
-  p {
-    margin-bottom: 16px;
-    color: #0e0e0e;
-  }
-
+  /* ── THEOREM ── */
   .theorem {
     border-left: 3px solid #0e0e0e;
     padding: 20px 24px;
     margin: 28px 0;
     background: #eeecea;
   }
-
   .theorem-label {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 9px;
@@ -150,7 +120,6 @@
     color: #4a4a4a;
     margin-bottom: 10px;
   }
-
   .theorem p {
     font-family: 'IM Fell English', serif;
     font-size: 16px;
@@ -161,7 +130,7 @@
     background: transparent;
   }
 
-  /* OHP grid: observation / hypothesis / prediction */
+  /* ── OHP GRID ── */
   .ohp {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -170,12 +139,7 @@
     border: 1px solid #0e0e0e;
     margin: 28px 0;
   }
-
-  .ohp-cell {
-    background: #f7f6f2;
-    padding: 18px 20px;
-  }
-
+  .ohp-cell { background: #f7f6f2; padding: 18px 20px; }
   .ohp-label {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 8px;
@@ -184,23 +148,16 @@
     color: #4a4a4a;
     margin-bottom: 10px;
   }
+  .ohp-cell p { font-size: 13px; line-height: 1.6; margin: 0; color: #0e0e0e; }
 
-  .ohp-cell p {
-    font-size: 13px;
-    line-height: 1.6;
-    margin: 0;
-    color: #0e0e0e;
-  }
-
-  /* Formal metrics */
+  /* ── METRIC BOX ── */
   .metric-box {
     background: #0e0e0e;
     color: #f7f6f2;
     padding: 24px 28px;
     margin: 28px 0;
   }
-
-  .metric-box .metric-name {
+  .metric-name {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
     letter-spacing: 0.15em;
@@ -208,30 +165,17 @@
     color: #c8c6be;
     margin-bottom: 8px;
   }
-
-  .metric-box .metric-formula {
+  .metric-formula {
     font-family: 'IM Fell English', serif;
     font-size: 18px;
     font-style: italic;
     color: #f7f6f2;
     margin-bottom: 12px;
   }
+  .metric-desc { font-size: 13px; color: #c8c6be; line-height: 1.6; margin: 0; }
 
-  .metric-box .metric-desc {
-    font-size: 13px;
-    color: #c8c6be;
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  /* Tables */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 28px 0;
-    font-size: 13px;
-  }
-
+  /* ── TABLES ── */
+  table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: 13px; }
   th {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 9px;
@@ -242,23 +186,11 @@
     border-bottom: 2px solid #0e0e0e;
     color: #4a4a4a;
   }
-
-  td {
-    padding: 11px 14px;
-    border-bottom: 1px solid #c8c6be;
-    vertical-align: top;
-    color: #0e0e0e;
-  }
-
+  td { padding: 11px 14px; border-bottom: 1px solid #c8c6be; vertical-align: top; color: #0e0e0e; }
   td.orig { font-style: italic; color: #4a4a4a; }
   td.arrow { color: #c8c6be; font-family: 'IBM Plex Mono', monospace; text-align: center; width: 5%; }
 
-  /* Prior work comparison */
-  .prior-table td:first-child { font-weight: 400; width: 22%; }
-  .prior-table td:nth-child(2) { color: #4a4a4a; font-style: italic; width: 35%; }
-  .prior-table td:nth-child(3) { width: 38%; }
-
-  /* Symmetry */
+  /* ── SYMMETRY ── */
   .symmetry {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -267,12 +199,7 @@
     margin: 28px 0;
     border: 1px solid #0e0e0e;
   }
-
-  .sym-cell {
-    background: #f7f6f2;
-    padding: 20px 22px;
-  }
-
+  .sym-cell { background: #f7f6f2; padding: 20px 22px; }
   .sym-label {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 9px;
@@ -281,7 +208,6 @@
     color: #4a4a4a;
     margin-bottom: 10px;
   }
-
   .sym-cell p {
     font-family: 'IM Fell English', serif;
     font-style: italic;
@@ -292,11 +218,53 @@
     background: transparent;
   }
 
-  ul.ilist {
-    list-style: none;
-    margin: 20px 0;
+  /* ── INVARIANTS ── */
+  .invariants {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #c8c6be;
+    border: 1px solid #c8c6be;
+    margin: 28px 0;
+  }
+  .inv-cell {
+    background: #f7f6f2;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: #0e0e0e;
+    line-height: 1.5;
+  }
+  .inv-cell::before {
+    content: '—';
+    font-family: 'IBM Plex Mono', monospace;
+    color: #c8c6be;
+    margin-right: 8px;
   }
 
+  /* ── TRAJECTORY ── */
+  .trajectory {
+    margin: 28px 0;
+    border: 1px solid #0e0e0e;
+  }
+  .traj-row {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+    align-items: center;
+    border-bottom: 1px solid #c8c6be;
+    font-size: 13px;
+  }
+  .traj-row:last-child { border-bottom: none; }
+  .traj-from { padding: 12px 18px; color: #4a4a4a; font-style: italic; }
+  .traj-arrow {
+    text-align: center;
+    color: #c8c6be;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+  }
+  .traj-to { padding: 12px 18px; color: #0e0e0e; font-weight: 400; }
+
+  /* ── LISTS ── */
+  ul.ilist { list-style: none; margin: 20px 0; }
   ul.ilist li {
     padding: 12px 0 12px 20px;
     border-bottom: 1px solid #c8c6be;
@@ -304,7 +272,6 @@
     font-size: 14px;
     color: #0e0e0e;
   }
-
   ul.ilist li::before {
     content: '—';
     position: absolute;
@@ -313,6 +280,14 @@
     font-family: 'IBM Plex Mono', monospace;
   }
 
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    border-top: 1px solid #c8c6be;
+    margin: 48px 0;
+  }
+
+  /* ── FOOTER ── */
   footer {
     border-top: 3px solid #0e0e0e;
     padding-top: 24px;
@@ -321,7 +296,6 @@
     justify-content: space-between;
     align-items: flex-start;
   }
-
   .footer-left {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 9px;
@@ -329,21 +303,20 @@
     color: #4a4a4a;
     line-height: 1.8;
   }
-
   .footer-right {
     font-family: 'IM Fell English', serif;
     font-size: 13px;
     font-style: italic;
     color: #4a4a4a;
     text-align: right;
-    max-width: 260px;
+    max-width: 280px;
     line-height: 1.5;
   }
 
   @media (max-width: 600px) {
     body { padding: 40px 20px 80px; }
-    .ohp { grid-template-columns: 1fr; }
-    .symmetry { grid-template-columns: 1fr; }
+    .ohp, .symmetry, .invariants { grid-template-columns: 1fr; }
+    .traj-row { grid-template-columns: 1fr 30px 1fr; }
     footer { flex-direction: column; gap: 24px; }
     .journal-line { flex-direction: column; gap: 4px; }
   }
@@ -353,36 +326,38 @@
 
 <header>
   <div class="journal-line">
-    <span>0penAGI Research — Working Paper v2</span>
+    <span>0penAGI Research — Working Paper v3</span>
     <span>July 2026</span>
   </div>
-  <h1>A General Theory of Civilizational Systemic Degradation</h1>
+  <h1>From Diagnosis to Architecture:<br>A General Theory of Civilizational Systemic Degradation and the CIRM Response</h1>
   <div class="subtitle">
     Attractor Degradation · Functional Inversion · Metric Substitution<br>
-    Self-Revision as Universal Viability Criterion
+    Recoverability · Irreversibility as Pathology · CIRM as Immune Architecture
   </div>
 </header>
 
 <div class="abstract">
   <div class="abstract-label">Abstract</div>
-  <p>We propose a unified framework describing the degradation of complex adaptive systems — political, economic, social, cognitive, and artificial — through three convergent mechanisms: attractor degradation driven by short-horizon optimization, functional inversion in which systems replace their original purpose with self-reproduction, and metric substitution in which the measure of a goal displaces the goal itself. We introduce two formal indices — the Attractor Degradation Index (ADI) and Coherence Retention (CR) — as candidate measurable quantities. We further identify self-revision capacity as a candidate universal criterion distinguishing adaptive systems from degrading ones, and situate the framework relative to Goodhart's Law, Tainter's complexity thesis, and multipolar trap dynamics, arguing that these represent partial cases of a single underlying mechanism.</p>
+  <p>We propose a unified framework describing the degradation of complex adaptive systems through three convergent mechanisms: attractor degradation driven by short-horizon optimization, functional inversion in which systems replace their original purpose with self-reproduction, and metric substitution in which the measure of a goal displaces the goal itself. We introduce two formal indices — ADI and CR — as candidate measurable quantities. We identify self-revision capacity as a universal viability criterion, and argue that the relevant architectural question is not how to prevent degradation, but how to prevent degradation from becoming irreversible. We then present CIRM (Civilization Immune Response Model) as a concrete architectural proposal derived from these principles — not a political ideology, but a structural framework for preserving civilizational recoverability indefinitely.</p>
 </div>
+
+<!-- ═══════════════════════════════════════════════ PART I ═══ -->
 
 <section>
   <div class="section-header">
     <span class="section-num">§ 1</span>
     <h2>Structure of the Argument</h2>
   </div>
-  <p>Before stating the theory, we distinguish its three logical layers. Conflating observation, hypothesis, and prediction is the most common source of premature dismissal of frameworks of this kind.</p>
+  <p>Before stating the theory, we separate its three logical layers. Conflating observation, hypothesis, and prediction is the most common source of premature dismissal — or premature acceptance — of frameworks of this kind.</p>
 
   <div class="ohp">
     <div class="ohp-cell">
       <div class="ohp-label">Observation</div>
-      <p>Social platforms optimize engagement over information accuracy. States face systematic failures in long-term coordination. Institutions across domains show convergent pressure toward short-term incentives regardless of domain.</p>
+      <p>Social platforms optimize engagement over accuracy. States face systematic failures in long-term coordination. Institutions across domains show convergent pressure toward short-term incentives regardless of domain or declared purpose.</p>
     </div>
     <div class="ohp-cell">
       <div class="ohp-label">Hypothesis</div>
-      <p>These phenomena are not independent failures but manifestations of a single mechanism — attractor degradation — arising wherever feedback evaluates local performance without modeling long-term system coherence.</p>
+      <p>These phenomena are not independent failures. They are manifestations of a single mechanism — attractor degradation — arising wherever feedback evaluates local performance without modeling long-term system coherence.</p>
     </div>
     <div class="ohp-cell">
       <div class="ohp-label">Prediction</div>
@@ -416,6 +391,7 @@
       <tr><td>Science</td><td class="arrow">→</td><td class="orig">Publication count, h-index</td><td>Long-term contribution to knowledge</td></tr>
       <tr><td>Education</td><td class="arrow">→</td><td class="orig">Exam performance</td><td>Development of reasoning capacity</td></tr>
       <tr><td>Cognition</td><td class="arrow">→</td><td class="orig">Internal consistency</td><td>Revision of false beliefs</td></tr>
+      <tr><td>AI systems</td><td class="arrow">→</td><td class="orig">Reward signal</td><td>Beneficial behavior</td></tr>
     </tbody>
   </table>
 </section>
@@ -430,24 +406,23 @@
   <div class="metric-box">
     <div class="metric-name">Attractor Degradation Index — ADI(t)</div>
     <div class="metric-formula">ADI(t) = Δ(local optimum) − Δ(global coherence)</div>
-    <p class="metric-desc">ADI increases as the gap widens between what is locally optimal for the system's immediate feedback and what is required for long-term viability. ADI = 0 indicates alignment between short and long-horizon incentives. ADI &gt; 0 indicates active degradation. The rate of increase of ADI is a candidate predictor of time-to-critical-failure.</p>
+    <p class="metric-desc">ADI increases as the gap widens between what is locally optimal for the system's immediate feedback and what is required for long-term viability. ADI = 0 indicates alignment. ADI &gt; 0 indicates active degradation. Rate of increase of ADI is a candidate predictor of time-to-critical-failure.</p>
   </div>
 
   <div class="metric-box">
     <div class="metric-name">Coherence Retention — CR(t)</div>
     <div class="metric-formula">CR(t) = f(long-term function preserved | short-term optimization)</div>
-    <p class="metric-desc">CR measures the capacity of a system to preserve its original long-term function while optimizing short-term targets. CR → 1 indicates a system capable of maintaining coherence under pressure. CR → 0 indicates functional inversion is complete. CR is proposed as an observable proxy for self-revision capacity.</p>
+    <p class="metric-desc">CR measures the capacity of a system to preserve its original long-term function while optimizing short-term targets. CR → 1 indicates a system maintaining coherence under pressure. CR → 0 indicates functional inversion is complete. CR is proposed as an observable proxy for self-revision capacity.</p>
   </div>
 
-  <p>Both indices require operationalization for specific domains. This is a research program, not a completed measurement. The value of formalizing them now is that it transforms the framework from a descriptive narrative into a set of claims that can be falsified.</p>
+  <p>Both indices require operationalization for specific domains. The value of formalizing them now is that it transforms the framework from a descriptive narrative into a set of claims that can be falsified.</p>
 </section>
 
 <section>
   <div class="section-header">
     <span class="section-num">§ 4</span>
-    <h2>Functional Inversion</h2>
+    <h2>Functional Inversion and Metric Substitution</h2>
   </div>
-  <p>Attractor degradation operates through a specific mechanism: as systems grow in complexity and develop internal constituencies invested in their continuation, their original purpose is gradually displaced by the purpose of self-perpetuation.</p>
 
   <div class="theorem">
     <div class="theorem-label">Principle of Functional Inversion</div>
@@ -468,135 +443,260 @@
     </tbody>
   </table>
 
-  <p>Functional inversion is not corruption in the pejorative sense. It is the thermodynamically natural outcome of systems without built-in mechanisms for periodic examination of their own optimization targets. The inversion is invisible from inside the system because the metrics it uses to evaluate itself have already been substituted.</p>
-</section>
-
-<section>
-  <div class="section-header">
-    <span class="section-num">§ 5</span>
-    <h2>Metric Substitution</h2>
-  </div>
-  <p>Both attractor degradation and functional inversion are enabled by a third mechanism: the substitution of the metric for the goal it was designed to measure. This extends Goodhart's Law — "when a measure becomes a target, it ceases to be a good measure" — into a general claim about complex adaptive systems under optimization pressure.</p>
+  <p>Functional inversion is enabled by metric substitution: when a measure ceases to track its goal and begins to replace it, the system loses capacity for self-correction. It becomes locally legible but globally blind.</p>
 
   <table>
     <thead>
       <tr><th>Domain</th><th>Original Goal</th><th>Metric Substitute</th></tr>
     </thead>
     <tbody>
-      <tr><td>Education</td><td class="orig">Knowledge, reasoning capacity</td><td>Examination scores</td></tr>
-      <tr><td>Science</td><td class="orig">Understanding of the world</td><td>h-index, publication count</td></tr>
+      <tr><td>Education</td><td class="orig">Knowledge, reasoning</td><td>Examination scores</td></tr>
+      <tr><td>Science</td><td class="orig">Understanding</td><td>h-index, publication count</td></tr>
       <tr><td>Politics</td><td class="orig">Social wellbeing</td><td>Approval rating</td></tr>
-      <tr><td>Economics</td><td class="orig">Satisfaction of human needs</td><td>GDP growth rate</td></tr>
+      <tr><td>Economics</td><td class="orig">Human needs</td><td>GDP growth rate</td></tr>
       <tr><td>Media</td><td class="orig">Informed public discourse</td><td>Engagement rate</td></tr>
-      <tr><td>AI alignment</td><td class="orig">Beneficial behavior</td><td>Reward signal optimization</td></tr>
     </tbody>
   </table>
+</section>
 
-  <p>When the metric ceases to measure the goal and begins to replace it, systems lose capacity for self-correction. They become locally legible but globally blind — capable of reading their own instruments while the reality those instruments were designed to track deteriorates undetected.</p>
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 5</span>
+    <h2>Relation to Prior Frameworks</h2>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Framework</th><th>Core Claim</th><th>What This Theory Adds</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Goodhart's Law</td><td class="orig">When a measure becomes a target, it ceases to be a good measure</td><td>Generalizes across all complex adaptive systems; identifies metric substitution as one of three convergent mechanisms</td></tr>
+      <tr><td>Tragedy of the Commons</td><td class="orig">Individual rational actors deplete shared resources</td><td>Applies to single institutions and cognitive systems, not only multi-actor commons</td></tr>
+      <tr><td>Tainter — Complexity Collapse</td><td class="orig">Civilizations collapse when marginal returns on complexity become negative</td><td>Identifies functional inversion as the mechanism behind declining returns</td></tr>
+      <tr><td>Multipolar Traps</td><td class="orig">Competing actors locked in races to the bottom</td><td>Shows the trap is not only inter-agent but intra-systemic</td></tr>
+      <tr><td>Evolutionary Dynamics</td><td class="orig">Selection favors locally fit variants regardless of global consequences</td><td>Proposes self-revision capacity as the selection criterion biological evolution cannot itself select for</td></tr>
+    </tbody>
+  </table>
+  <p>These frameworks each describe a partial case of attractor degradation. The underlying mechanism is the same across all of them. The contribution of this theory is to name that mechanism explicitly and to ask what architectural response it demands.</p>
 </section>
 
 <section>
   <div class="section-header">
     <span class="section-num">§ 6</span>
-    <h2>Relation to Prior Frameworks</h2>
+    <h2>Self-Revision, Irreversibility, and the Correct Question</h2>
   </div>
-  <p>The theory does not emerge from a vacuum. It intersects with several established bodies of work, and its contribution is most precisely stated by identifying what it adds to each.</p>
-
-  <table class="prior-table">
-    <thead>
-      <tr><th>Framework</th><th>Core Claim</th><th>What This Theory Adds</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Goodhart's Law</td>
-        <td class="orig">When a measure becomes a target, it ceases to be a good measure</td>
-        <td>Generalizes to all complex adaptive systems; identifies metric substitution as one of three convergent mechanisms, not a standalone observation</td>
-      </tr>
-      <tr>
-        <td>Tragedy of the Commons</td>
-        <td class="orig">Individual rational actors deplete shared resources</td>
-        <td>Explains the internal dynamics of single institutions, not only multi-actor commons; applies to cognitive and AI systems</td>
-      </tr>
-      <tr>
-        <td>Tainter — Complexity Collapse</td>
-        <td class="orig">Civilizations collapse when marginal returns on complexity become negative</td>
-        <td>Identifies the mechanism behind declining returns: functional inversion of problem-solving institutions into self-reproducing ones</td>
-      </tr>
-      <tr>
-        <td>Multipolar Traps</td>
-        <td class="orig">Competing actors locked in races to the bottom even when all prefer a different outcome</td>
-        <td>Shows that the trap is not only inter-agent but intra-systemic; a single institution can enter a unipolar attractor trap</td>
-      </tr>
-      <tr>
-        <td>Evolutionary Dynamics</td>
-        <td class="orig">Selection favors locally fit variants regardless of global consequences</td>
-        <td>Proposes self-revision capacity as the missing selection criterion that biological evolution lacks but designed systems could incorporate</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p>The unified claim is this: these frameworks each describe a partial case of attractor degradation. The underlying mechanism is the same. The contribution of this theory is to identify that mechanism explicitly and propose a criterion — self-revision capacity — that distinguishes systems capable of escaping it.</p>
-</section>
-
-<section>
-  <div class="section-header">
-    <span class="section-num">§ 7</span>
-    <h2>Self-Revision as Universal Viability Criterion</h2>
-  </div>
-  <p>The three mechanisms — attractor degradation, functional inversion, metric substitution — share a common root: the absence of capacity to revise the optimization function itself. A system that cannot examine what it is optimizing for cannot detect when that target has become incoherent with its original purpose.</p>
 
   <div class="theorem">
     <div class="theorem-label">Central Axiom</div>
-    <p>Systemic degradation begins at the moment a system loses — or never acquires — the capacity to examine and revise its own optimization function. The rate of degradation is proportional to the degree of this incapacity.</p>
+    <p>Systemic degradation begins at the moment a system loses the capacity to examine and revise its own optimization function. The rate of degradation is proportional to the degree of this incapacity.</p>
   </div>
-
-  <p>This yields a structural symmetry with independent work on the emergence of subjectivity in cognitive systems: a subject arises when a system becomes capable of modeling and revising itself. A system degrades when it becomes structurally incapable of doing so — when it begins to defend its model from revision, treating challenge as threat rather than information.</p>
 
   <div class="symmetry">
     <div class="sym-cell">
       <div class="sym-label">Adaptive System</div>
-      <p>Regularly examines and revises its own model of itself and its environment. Treats inconsistency as signal.</p>
+      <p>Regularly examines and revises its own model. Treats inconsistency as signal, not threat.</p>
     </div>
     <div class="sym-cell">
       <div class="sym-label">Degrading System</div>
-      <p>Defends its own model from revision. Treats challenge as threat. Inconsistency is suppressed rather than processed.</p>
+      <p>Defends its model from revision. Treats challenge as existential threat. Inconsistency is suppressed.</p>
     </div>
   </div>
 
-  <p>This symmetry is not metaphorical. It suggests that life, intelligence, and civilizational sustainability may be distinct expressions of a single underlying principle: the capacity of a system to detect that its own mode of existence has ceased to function — and to restructure itself before it is destroyed by the consequences.</p>
+  <p>This yields a structural symmetry with the emergence of subjectivity in cognitive systems: a subject arises when a system becomes capable of modeling and revising itself. A system degrades when it becomes structurally incapable of doing so.</p>
 
-  <p>The universality of this criterion, if it can be formally specified and empirically tested, would extend the framework beyond political theory into a general law of complex adaptive system dynamics — applicable to biological evolution, artificial intelligence, historical civilizations, and cognitive systems within a single account.</p>
+  <p>But the correct architectural question is not <em>how to prevent degradation</em> — that is impossible for any system that persists over time. The correct question is:</p>
+
+  <div class="theorem">
+    <div class="theorem-label">The Reframe</div>
+    <p>A system does not need to be incapable of degrading. It needs to be incapable of preventing its own replacement.</p>
+  </div>
+
+  <p>This is weaker, more realistic, and more durable. Any architecture will drift over time. Any protocol will be exploited. Any metric will be gamed. This is nearly inevitable for any complex adaptive system with a long existence. The goal therefore becomes not permanent stability, but permanent reversibility.</p>
+
+  <div class="theorem">
+    <div class="theorem-label">Irreversibility Axiom</div>
+    <p>A civilization remains alive not because it avoids degradation, but because degradation never becomes irreversible. The most dangerous pattern is not a failing institution — it is an institution that has successfully protected itself from replacement.</p>
+  </div>
+
+  <p>This is also a biological principle. The immune system ages. DNA is copied with errors. Neural architecture changes continuously. Life did not defeat entropy. It learned to persist as long as repair remains possible.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════ PART II ═══ -->
+
+<hr class="divider">
+
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 7</span>
+    <h2>CIRM: An Architectural Response</h2>
+  </div>
+
+  <p>The preceding diagnosis demands a structural answer. CIRM — the Civilization Immune Response Model — is a proposed architecture derived directly from the principles above. It is not a political ideology, a constitution, or a form of government. It does not answer: <em>how should humanity be governed?</em></p>
+
+  <p>It asks a prior question: <strong>how can a civilization preserve its ability to keep changing itself indefinitely?</strong></p>
+
+  <p>Everything else follows from that.</p>
+
+  <h3>What CIRM Is Not</h3>
+  <p>CIRM is not capitalism, socialism, democracy, communism, anarchism, technocracy, or AGI governance. It does not propose a winner. It proposes a constraint on all possible winners: that no winner may become permanent.</p>
+
+  <h3>The Fundamental Invariant</h3>
+  <div class="theorem">
+    <div class="theorem-label">CIRM Core Invariant</div>
+    <p>Recoverability. Not survival, not efficiency, not GDP, not happiness, not equality, not freedom — recoverability. The ability of a civilization to revise itself after discovering it was wrong. A civilization can survive wars and still die. It dies when it loses the ability to change.</p>
+  </div>
 </section>
 
 <section>
   <div class="section-header">
     <span class="section-num">§ 8</span>
-    <h2>Research Program and Open Questions</h2>
+    <h2>Key Structural Principles</h2>
   </div>
-  <p>The framework in its current form is a research program, not a completed theory. The following questions determine whether it becomes one:</p>
+
+  <h3>Civilization as Process, Not Object</h3>
+  <p>A civilization is not a country, government, economy, or culture. It is a continuous coordination field among autonomous agents. Governments, markets, money, corporations, religions, laws — these are stabilized processes, not fundamental objects. Objects are frozen processes. CIRM treats them accordingly: as temporary implementations, not eternal structures.</p>
+
+  <h3>Authority as Engineering Shortcut</h3>
+  <p>Historically, authority appeared because civilization faced severe coordination constraints: limited communication, computation, prediction, visibility. Someone had to compress reality into decisions. Kings, governments, managers, markets, bureaucracies — these were engineering shortcuts, not laws of nature. As coordination technologies improve, the need for centralized authority continuously decreases. CIRM treats authority as an obsolete compression mechanism rather than a permanent feature.</p>
+
+  <h3>Power Measured Negatively</h3>
+  <div class="theorem">
+    <div class="theorem-label">Definition of Power Under CIRM</div>
+    <p>Power is not measured by how much someone controls. It is measured by how difficult it becomes to remove them. Irreplaceability is the true definition of power — and the primary pathology CIRM is designed to detect and prevent.</p>
+  </div>
+
+  <h3>Observation Is Not Governance</h3>
+  <p>One of CIRM's strongest structural distinctions: observation must never become permission. The system may observe, measure, predict, simulate, warn, describe. It must never become the entity that grants permission for reality to exist. The field produces weather reports. It never issues commands.</p>
+
+  <h3>AI Is Not the Ruler</h3>
+  <p>Artificial intelligence is not the government, sovereign, king, or planner. It is another agent inside the field — one that may coordinate information, detect emerging failures, estimate recoverability, run simulations, suggest possible futures. It never owns the future.</p>
+
+  <h3>Coordination Replaces Command</h3>
+  <div class="trajectory">
+    <div class="traj-row">
+      <div class="traj-from">People → Institutions → Decisions → Orders</div>
+      <div class="traj-arrow">→</div>
+      <div class="traj-to">Agents → Signals → Coordination → Emergent decisions</div>
+    </div>
+  </div>
+  <p>Nobody possesses the right to the final word. Protocols coordinate. Agents choose.</p>
+</section>
+
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 9</span>
+    <h2>Invariants Above Protocols</h2>
+  </div>
+  <p>Protocols change. Infrastructure changes. Technology changes. Invariants remain. These are not laws imposed from above — they are structural constraints derived from the recoverability principle. They constrain every future political system, not by prescribing content, but by prohibiting irreversibility.</p>
+
+  <div class="invariants">
+    <div class="inv-cell">Recoverability must always remain possible</div>
+    <div class="inv-cell">Every consensus requires an exit path</div>
+    <div class="inv-cell">Authority must decay</div>
+    <div class="inv-cell">Observation cannot become authority</div>
+    <div class="inv-cell">The immune system itself must remain replaceable</div>
+    <div class="inv-cell">Infrastructure must never become a reward</div>
+    <div class="inv-cell">Utility, status, and authority must remain structurally separated</div>
+    <div class="inv-cell">Visibility must remain plural</div>
+    <div class="inv-cell">Diversity must remain generative, not merely preserved</div>
+    <div class="inv-cell">Emergency authority must expire automatically</div>
+    <div class="inv-cell">No protocol may become civilization itself</div>
+    <div class="inv-cell">Every protocol must contain an exit</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 10</span>
+    <h2>CIRM as Immune System</h2>
+  </div>
+  <p>Governments attempt to govern. Markets attempt to optimize. Ideologies attempt to define truth. CIRM attempts none of these. Its behavioral model is the immune system:</p>
 
   <ul class="ilist">
-    <li>Can ADI and CR be operationalized for specific domains — political institutions, AI training regimes, corporate governance structures — in ways that generate testable predictions about failure timescales?</li>
-    <li>Is there a recovery threshold? Below what level of CR does a system lose the structural capacity to self-correct from within, making external intervention the only remaining option?</li>
-    <li>Can self-revision capacity be formally specified as a computable property of a system's architecture, independent of domain?</li>
-    <li>Does the framework apply recursively? Any institution designed to implement these principles is itself subject to them. What does a self-revision mechanism look like for an institution whose function is to preserve self-revision in other institutions?</li>
-    <li>What are the signatures of early-stage attractor degradation — before functional inversion is complete — that would allow intervention before the metric substitution becomes self-reinforcing?</li>
+    <li>Detect pathology — not individual evil, but architectural patterns that suppress replaceability</li>
+    <li>Respond proportionally — immune response calibrated to threat, not maximized by default</li>
+    <li>Restore adaptive capacity — the goal is recoverability, not the victory of any particular arrangement</li>
+    <li>Disappear — an immune response that refuses to disappear becomes another disease</li>
   </ul>
 
-  <p>These are the questions this framework is designed to make precise enough to investigate. The value of the theory at this stage is not that it answers them. It is that it makes them answerable in principle.</p>
+  <p>Pathology is architectural, not personal. Good people can build pathological systems. Bad people can exist inside healthy architectures. Character matters. Architecture matters more. The system determines which behaviors compound.</p>
+
+  <h3>The Long-Term Trajectory</h3>
+  <div class="trajectory">
+    <div class="traj-row">
+      <div class="traj-from">Compression</div>
+      <div class="traj-arrow">→</div>
+      <div class="traj-to">Coordination</div>
+    </div>
+    <div class="traj-row">
+      <div class="traj-from">Authority</div>
+      <div class="traj-arrow">→</div>
+      <div class="traj-to">Protocols</div>
+    </div>
+    <div class="traj-row">
+      <div class="traj-from">Governance</div>
+      <div class="traj-arrow">→</div>
+      <div class="traj-to">Immune response</div>
+    </div>
+    <div class="traj-row">
+      <div class="traj-from">Optimization</div>
+      <div class="traj-arrow">→</div>
+      <div class="traj-to">Recoverability</div>
+    </div>
+    <div class="traj-row">
+      <div class="traj-from">Control</div>
+      <div class="traj-arrow">→</div>
+      <div class="traj-to">Replaceability</div>
+    </div>
+    <div class="traj-row">
+      <div class="traj-from">Power</div>
+      <div class="traj-arrow">→</div>
+      <div class="traj-to">Distributed adaptation</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 11</span>
+    <h2>The Recursive Principle and Open Questions</h2>
+  </div>
+
+  <p>CIRM itself assumes it can be wrong. Therefore CIRM must remain replaceable. The immune system must remain subject to immunity. There is no privileged layer. No final constitution. No final protocol. No final AI. No final truth.</p>
+
+  <p>This generates a recursive structure that is not a problem — it is the answer:</p>
+
+  <ul class="ilist">
+    <li>The system revises its rules</li>
+    <li>The rules revise the mechanism of revision</li>
+    <li>The mechanism revises the criteria for its own revision</li>
+    <li>There is no final level declared perfect — and that absence is the design</li>
+  </ul>
+
+  <p>This is what distinguishes living processes from frozen objects. Not the absence of errors, but the absence of a final unchangeable point.</p>
+
+  <h3>Questions That Remain Open</h3>
+  <ul class="ilist">
+    <li>Can ADI and CR be operationalized for specific domains in ways that generate falsifiable predictions about failure timescales?</li>
+    <li>Is there a recovery threshold below which a system loses structural capacity to self-correct from within?</li>
+    <li>Can self-revision capacity be formally specified as a computable property of a system's architecture, independent of domain?</li>
+    <li>What are the early signatures of attractor degradation — before functional inversion is complete — that would allow intervention?</li>
+    <li>How does CIRM apply to AI alignment specifically? Is alignment a special case of CR optimization?</li>
+  </ul>
+
+  <p>These are the questions the framework is designed to make precise enough to investigate. The value at this stage is not that it answers them. It is that it makes them answerable in principle.</p>
 </section>
 
 <footer>
   <div class="footer-left">
     0penAGI Independent Research<br>
     Bangkok · July 2026<br>
-    Working Paper v2 — Not peer reviewed<br>
-    Circulation permitted
+    Working Paper v3 — Not peer reviewed<br>
+    Circulation permitted · Including CIRM
   </div>
   <div class="footer-right">
-    "Civilizations do not die from one catastrophic error.<br>
-    They die because their selection mechanisms<br>
-    consistently rewarded the wrong thing."
+    "The purpose of civilization is not to preserve itself.<br>
+    The purpose of civilization is to preserve<br>
+    the possibility of becoming something else."
   </div>
 </footer>
 
