@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>A General Theory of Civilizational Systemic Degradation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IBM+Plex+Mono:wght@300;400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;1,300&display=swap');
+
+  :root {
+    --bg: #f7f6f2;
+    --ink: #0e0e0e;
+    --mid: #4a4a4a;
+    --faint: #c8c6be;
+    --accent: #0e0e0e;
+    --rule: 1px solid #0e0e0e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    background: #f7f6f2 !important;
+    color-scheme: light only;
+  }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #0e0e0e !important;
+    background: #f7f6f2 !important;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 80px 40px 120px;
+  }
+
+  /* HEADER */
+  header {
+    border-top: 3px solid var(--ink);
+    border-bottom: var(--rule);
+    padding: 40px 0 32px;
+    margin-bottom: 60px;
+  }
+
+  .journal-line {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 28px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  h1 {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(28px, 5vw, 46px);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+    max-width: 680px;
+  }
+
+  .subtitle {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--mid);
+    letter-spacing: 0.08em;
+    border-left: 2px solid var(--ink);
+    padding-left: 14px;
+    line-height: 1.6;
+  }
+
+  /* ABSTRACT */
+  .abstract {
+    border: var(--rule);
+    padding: 28px 32px;
+    margin-bottom: 60px;
+    background: #eeece5;
+  }
+
+  .abstract-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    color: var(--mid);
+  }
+
+  .abstract p {
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink);
+  }
+
+  /* SECTIONS */
+  section {
+    margin-bottom: 56px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    border-bottom: var(--rule);
+    padding-bottom: 10px;
+    margin-bottom: 24px;
+  }
+
+  .section-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--faint);
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+  }
+
+  h2 {
+    font-family: 'IM Fell English', serif;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  p {
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+
+  /* THEOREM BOXES */
+  .theorem {
+    border-left: 3px solid var(--ink);
+    padding: 20px 24px;
+    margin: 28px 0;
+    background: #eeece5;
+  }
+
+  .theorem-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 10px;
+  }
+
+  .theorem p {
+    font-family: 'IM Fell English', serif;
+    font-size: 16px;
+    font-style: italic;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* TABLE */
+  .inversion-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 28px 0;
+    font-size: 13px;
+  }
+
+  .inversion-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 2px solid var(--ink);
+    color: var(--mid);
+  }
+
+  .inversion-table td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--faint);
+    vertical-align: top;
+  }
+
+  .inversion-table td:first-child {
+    font-weight: 400;
+    width: 22%;
+  }
+
+  .inversion-table .arrow {
+    color: var(--faint);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    width: 6%;
+    text-align: center;
+  }
+
+  .inversion-table .original {
+    color: var(--mid);
+    font-style: italic;
+    width: 33%;
+  }
+
+  .inversion-table .inverted {
+    width: 33%;
+  }
+
+  /* METRIC TABLE */
+  .metric-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 28px 0;
+    font-size: 13px;
+  }
+
+  .metric-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 2px solid var(--ink);
+    color: var(--mid);
+  }
+
+  .metric-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--faint);
+  }
+
+  .metric-table .domain { width: 25%; font-weight: 400; }
+  .metric-table .original { color: var(--mid); font-style: italic; width: 35%; }
+  .metric-table .replaced { width: 35%; }
+
+  /* SYMMETRY BOX */
+  .symmetry {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--ink);
+    margin: 28px 0;
+    border: var(--rule);
+  }
+
+  .sym-cell {
+    background: var(--bg);
+    padding: 20px 22px;
+  }
+
+  .sym-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 10px;
+  }
+
+  .sym-cell p {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  /* IMPLICATIONS */
+  .implication-list {
+    list-style: none;
+    margin: 20px 0;
+  }
+
+  .implication-list li {
+    padding: 12px 0 12px 20px;
+    border-bottom: 1px solid var(--faint);
+    position: relative;
+    font-size: 14px;
+  }
+
+  .implication-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--faint);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 3px solid var(--ink);
+    padding-top: 24px;
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .footer-left {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--mid);
+    line-height: 1.8;
+  }
+
+  .footer-right {
+    font-family: 'IM Fell English', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--mid);
+    text-align: right;
+    max-width: 260px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 40px 24px 80px; }
+    .symmetry { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 24px; }
+    .journal-line { flex-direction: column; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="journal-line">
+    <span>0penAGI Research — Working Paper</span>
+    <span>July 2026</span>
+  </div>
+  <h1>A General Theory of Civilizational Systemic Degradation</h1>
+  <div class="subtitle">
+    Attractor Degradation · Functional Inversion · Metric Substitution<br>
+    The Principle of Self-Revision as a Criterion of Life
+  </div>
+</header>
+
+<div class="abstract">
+  <div class="abstract-label">Abstract</div>
+  <p>We propose a unified framework describing the degradation of complex systems — political, economic, social, cognitive, and artificial — through three convergent mechanisms: attractor degradation driven by short-horizon optimization, functional inversion in which systems replace their original purpose with self-reproduction, and metric substitution in which the measure of a goal displaces the goal itself. We further identify self-revision capacity as a candidate universal criterion distinguishing living and adaptive systems from degrading ones, and suggest a structural symmetry between emergence of subjectivity and onset of systemic collapse.</p>
+</div>
+
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 1</span>
+    <h2>The Central Observation</h2>
+  </div>
+  <p>Across domains that appear structurally unrelated — geopolitics, social media, education, science, law, and individual cognition — a single pattern repeats. Each system, when evaluated against short-horizon metrics, produces locally optimal decisions that systematically erode the conditions for its own long-term existence.</p>
+  <p>This is not the result of malice, stupidity, or individual failure. It is the predictable behavior of any sufficiently complex system whose feedback mechanism rewards immediate performance over sustained coherence.</p>
+
+  <div class="theorem">
+    <div class="theorem-label">Core Hypothesis — Attractor Degradation</div>
+    <p>If the feedback mechanism of a system evaluates only short-term success, the system will gradually converge toward a stable local attractor, even when that attractor is incompatible with the long-term existence of the system as a whole.</p>
+  </div>
+
+  <p>Civilizations do not collapse from a single catastrophic error. They collapse because their selection mechanisms consistently reward locally advantageous decisions until the cumulative weight of those decisions destroys the very environment in which they were possible.</p>
+</section>
+
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 2</span>
+    <h2>Observed Manifestations</h2>
+  </div>
+  <p>The attractor hypothesis generates testable predictions at each level of social organization. The following patterns are currently observable:</p>
+
+  <table class="inversion-table">
+    <thead>
+      <tr>
+        <th>Domain</th>
+        <th class="arrow"></th>
+        <th>Optimization Target</th>
+        <th>Displaced Objective</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Politics</td>
+        <td class="arrow">→</td>
+        <td class="original">Retention of power</td>
+        <td>Resolution of long-term structural problems</td>
+      </tr>
+      <tr>
+        <td>Economics</td>
+        <td class="arrow">→</td>
+        <td class="original">Quarterly earnings</td>
+        <td>System sustainability</td>
+      </tr>
+      <tr>
+        <td>Social media</td>
+        <td class="arrow">→</td>
+        <td class="original">Attention and engagement</td>
+        <td>Information accuracy and epistemic quality</td>
+      </tr>
+      <tr>
+        <td>Science</td>
+        <td class="arrow">→</td>
+        <td class="original">Publication count, h-index</td>
+        <td>Long-term contribution to knowledge</td>
+      </tr>
+      <tr>
+        <td>Education</td>
+        <td class="arrow">→</td>
+        <td class="original">Exam performance</td>
+        <td>Development of reasoning capacity</td>
+      </tr>
+      <tr>
+        <td>Cognition</td>
+        <td class="arrow">→</td>
+        <td class="original">Internal consistency</td>
+        <td>Revision of false beliefs</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>In every case, the local metric becomes decoupled from the function it was designed to measure. The metric survives. The function is quietly abandoned.</p>
+</section>
+
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 3</span>
+    <h2>The Principle of Functional Inversion</h2>
+  </div>
+  <p>A deeper mechanism underlies attractor degradation. As systems grow in complexity and develop internal constituencies invested in their continuation, they undergo a characteristic transformation: the original purpose is gradually displaced by the purpose of self-perpetuation.</p>
+
+  <div class="theorem">
+    <div class="theorem-label">Principle of Functional Inversion</div>
+    <p>Any sufficiently complex system, in the absence of long-term corrective mechanisms, will progressively replace its original function with the function of its own reproduction.</p>
+  </div>
+
+  <table class="inversion-table">
+    <thead>
+      <tr>
+        <th>Institution</th>
+        <th class="arrow"></th>
+        <th>Original Function</th>
+        <th>Inverted Function</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>State</td>
+        <td class="arrow">→</td>
+        <td class="original">Protect society</td>
+        <td>Protect itself</td>
+      </tr>
+      <tr>
+        <td>Corporation</td>
+        <td class="arrow">→</td>
+        <td class="original">Create a product</td>
+        <td>Optimize quarterly reporting</td>
+      </tr>
+      <tr>
+        <td>University</td>
+        <td class="arrow">→</td>
+        <td class="original">Produce knowledge</td>
+        <td>Optimize rankings and citations</td>
+      </tr>
+      <tr>
+        <td>Social network</td>
+        <td class="arrow">→</td>
+        <td class="original">Enable communication</td>
+        <td>Maximize time-on-platform</td>
+      </tr>
+      <tr>
+        <td>Bureaucracy</td>
+        <td class="arrow">→</td>
+        <td class="original">Solve problems</td>
+        <td>Expand its own jurisdiction</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Functional inversion is not corruption in the pejorative sense. It is the thermodynamically natural outcome of systems without built-in mechanisms for periodic self-examination of their own optimization targets.</p>
+</section>
+
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 4</span>
+    <h2>Metric Substitution: When the Map Becomes the Territory</h2>
+  </div>
+  <p>Attractor degradation and functional inversion are both enabled by a third mechanism: the substitution of the metric for the goal it was designed to measure. This extends Goodhart's Law into a general epistemological claim about complex adaptive systems.</p>
+
+  <table class="metric-table">
+    <thead>
+      <tr>
+        <th class="domain">Domain</th>
+        <th class="original">Original Goal</th>
+        <th class="replaced">Metric Substitute</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="domain">Education</td>
+        <td class="original">Knowledge</td>
+        <td class="replaced">Examination scores</td>
+      </tr>
+      <tr>
+        <td class="domain">Science</td>
+        <td class="original">Understanding</td>
+        <td class="replaced">h-index</td>
+      </tr>
+      <tr>
+        <td class="domain">Politics</td>
+        <td class="original">Social wellbeing</td>
+        <td class="replaced">Approval rating</td>
+      </tr>
+      <tr>
+        <td class="domain">Economics</td>
+        <td class="original">Human needs</td>
+        <td class="replaced">GDP growth</td>
+      </tr>
+      <tr>
+        <td class="domain">Media</td>
+        <td class="original">Informed public</td>
+        <td class="replaced">Engagement rate</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>When the metric ceases to measure the goal and begins to replace it, systems lose their capacity for self-correction. They become locally legible but globally blind — capable of reading their own instruments while the environment those instruments were meant to track silently deteriorates.</p>
+</section>
+
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 5</span>
+    <h2>The Deepest Level: Capacity for Self-Revision</h2>
+  </div>
+  <p>The preceding three mechanisms share a common root. A system that undergoes attractor degradation, functional inversion, and metric substitution is ultimately a system that has lost — or never possessed — the capacity to revise its own optimization function.</p>
+
+  <div class="theorem">
+    <div class="theorem-label">Central Axiom — Self-Revision as Viability Criterion</div>
+    <p>Systemic degradation begins at the moment a system loses the capacity to examine and revise its own optimization function. The degree of this incapacity determines the rate of degradation.</p>
+  </div>
+
+  <p>This yields a structural symmetry with independent work on the emergence of subjectivity in cognitive systems: a subject arises when a system becomes capable of modeling and revising itself. A system degrades when it becomes incapable of doing so.</p>
+
+  <div class="symmetry">
+    <div class="sym-cell">
+      <div class="sym-label">Living / Adaptive System</div>
+      <p>Regularly examines and revises its own model of itself and its environment.</p>
+    </div>
+    <div class="sym-cell">
+      <div class="sym-label">Degrading System</div>
+      <p>Defends its own model from revision, treating challenge as threat rather than information.</p>
+    </div>
+  </div>
+
+  <p>This symmetry is not metaphorical. It suggests that life, intelligence, and civilizational sustainability may be distinct expressions of a single underlying principle: the capacity of a system to detect that its own mode of existence has ceased to function — and to restructure itself before the system itself is destroyed.</p>
+</section>
+
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 6</span>
+    <h2>Implications and Open Questions</h2>
+  </div>
+  <p>If the framework is correct, several consequences follow for the design of systems — including artificial ones:</p>
+
+  <ul class="implication-list">
+    <li>Feedback mechanisms that evaluate only short-term performance are structurally insufficient. Any system intended to remain viable over long timescales requires feedback that explicitly rewards long-term coherence, not only local efficiency.</li>
+    <li>Functional inversion is a developmental stage, not a failure state. It should be anticipated and designed against — not assumed to be absent because the institution is young or well-intentioned.</li>
+    <li>Metric selection is a value choice with civilizational consequences. The choice of what to measure is not a technical decision. It is the decision that shapes everything that follows.</li>
+    <li>Self-revision capacity may be the correct target for alignment in artificial intelligence — not rule-following, but the structured ability to identify when the current optimization target has become incoherent with the system's intended function.</li>
+    <li>The framework applies recursively: any institution designed to implement these principles is itself subject to them, and must include mechanisms for examining its own optimization function.</li>
+  </ul>
+
+  <p>The questions that remain open are the more interesting ones. Can self-revision capacity be formally specified? Can it be measured across heterogeneous systems? And is there a threshold below which a degrading civilization retains the structural capacity to recover — or does degradation, past a certain point, become self-reinforcing in ways that preclude repair from within?</p>
+
+  <p>These are the questions this framework is intended to make precise enough to investigate.</p>
+</section>
+
+<footer>
+  <div class="footer-left">
+    0penAGI Independent Research<br>
+    Bangkok · 2026<br>
+    Working Paper — Not peer reviewed<br>
+    Circulation permitted
+  </div>
+  <div class="footer-right">
+    "Civilizations do not die from one catastrophic error.<br>
+    They die because their selection mechanisms<br>
+    consistently rewarded the wrong thing."
+  </div>
+</footer>
+
+</body>
+</html>
