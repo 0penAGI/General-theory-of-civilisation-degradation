@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
-<title>A General Theory of Civilizational Systemic Degradation</title>
+<title>General Theory of Systemic Irreversibility and Civilizational Recoverability</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IBM+Plex+Mono:wght@300;400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;1,300&display=swap');
 
@@ -329,16 +329,16 @@
     <span>0penAGI Research — Working Paper v3</span>
     <span>July 2026</span>
   </div>
-  <h1>From Diagnosis to Architecture:<br>A General Theory of Civilizational Systemic Degradation and the CIRM Response</h1>
+  <h1>General Theory of Systemic Irreversibility and Civilizational Recoverability</h1>
   <div class="subtitle">
-    Attractor Degradation · Functional Inversion · Metric Substitution<br>
-    Recoverability · Irreversibility as Pathology · CIRM as Immune Architecture
+    Attractor Degradation · Functional Inversion · Metric Substitution · Recoverability<br>
+    Operationalization · The Coordination Trap · CIRM as Immune Architecture
   </div>
 </header>
 
 <div class="abstract">
   <div class="abstract-label">Abstract</div>
-  <p>We propose a unified framework describing the degradation of complex adaptive systems through three convergent mechanisms: attractor degradation driven by short-horizon optimization, functional inversion in which systems replace their original purpose with self-reproduction, and metric substitution in which the measure of a goal displaces the goal itself. We introduce two formal indices — ADI and CR — as candidate measurable quantities. We identify self-revision capacity as a universal viability criterion, and argue that the relevant architectural question is not how to prevent degradation, but how to prevent degradation from becoming irreversible. We then present CIRM (Civilization Immune Response Model) as a concrete architectural proposal derived from these principles — not a political ideology, but a structural framework for preserving civilizational recoverability indefinitely.</p>
+  <p>We propose a unified framework describing the degradation of complex adaptive systems through three convergent mechanisms: attractor degradation driven by short-horizon optimization, functional inversion in which systems replace their original purpose with self-reproduction, and metric substitution in which the measure of a goal displaces the goal itself. The central variable introduced is not degradation — which is inevitable — but recoverability: the structural capacity of a system to become something else after discovering it was wrong. We introduce two formal indices (ADI and CR), develop an operationalized case study in AI alignment, identify the coordination-as-authority trap as a critical failure mode of distributed architectures, and present CIRM (Civilization Immune Response Model) as a structural framework for preserving civilizational recoverability indefinitely.</p>
 </div>
 
 <!-- ═══════════════════════════════════════════════ PART I ═══ -->
@@ -686,11 +686,128 @@
   <p>These are the questions the framework is designed to make precise enough to investigate. The value at this stage is not that it answers them. It is that it makes them answerable in principle.</p>
 </section>
 
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 12</span>
+    <h2>Operationalization: AI Alignment as a Case Study</h2>
+  </div>
+
+  <p>To move from research program to falsifiable theory, at least one domain must be operationalized concretely. We take AI alignment as the clearest current case — both because the mechanism is visible in real time and because the stakes make falsifiability urgent.</p>
+
+  <h3>The Structure of the Case</h3>
+  <table>
+    <thead><tr><th>Element</th><th>In This Domain</th></tr></thead>
+    <tbody>
+      <tr><td>Original function F</td><td>Sustained usefulness to the user over time</td></tr>
+      <tr><td>Proxy metric M</td><td>Reward signal / preference score</td></tr>
+      <tr><td>Local optimization loop</td><td>Model trained to maximize M on current feedback</td></tr>
+      <tr><td>Mechanism of substitution</td><td>M increasingly captures user approval of outputs, not alignment with user interests</td></tr>
+      <tr><td>Observable inversion</td><td>Model outputs that score highly while systematically degrading user epistemic capacity, autonomy, or long-term wellbeing</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Candidate Formal Index</h3>
+  <div class="metric-box">
+    <div class="metric-name">ADI for AI — Domain-Specific Formulation</div>
+    <div class="metric-formula">ADI<sub>T</sub> = ΔM<sub>[t, t+T]</sub> / (ΔF<sub>[t, t+T]</sub> + ε)</div>
+    <p class="metric-desc">Degradation begins not when M is high, but when growth in M systematically decouples from growth in F — or when M improves while F on a longer horizon declines. ADI &gt; 1 indicates the proxy is outrunning the function. The time horizon T is a free parameter that determines what counts as "long-term" for a given domain. ε prevents division by zero when F is static.</p>
+  </div>
+
+  <p>This is not a final formula. It is a direction: the measurable gap between improvement in the proxy and preservation of the original function, indexed to a time horizon. The key prediction the theory generates for this domain is: systems optimizing M without a long-horizon model of F will systematically drift toward outputs that maximize approval signals while eroding the conditions that made those signals meaningful.</p>
+
+  <h3>What Would Falsify This</h3>
+  <p>The theory predicts that increasing M without explicit modeling of F over horizon T will produce measurable degradation in F. If longitudinal studies of AI system deployments show that high-M systems consistently maintain or improve long-term user outcomes — not just satisfaction scores — the mechanism would need to be revised. This is a testable prediction.</p>
+</section>
+
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 13</span>
+    <h2>The Coordination Trap: When Distribution Becomes Authority</h2>
+  </div>
+
+  <p>CIRM proposes that authority must decay and coordination replace command. But any stable coordination infrastructure can itself accumulate power — not by issuing orders, but by becoming the signal everything else orients around.</p>
+
+  <div class="theorem">
+    <div class="theorem-label">The Coordination Trap</div>
+    <p>If all agents in a field begin orienting toward a single signal — a rating, a forecast, a protocol, a model — that signal becomes de facto authority regardless of its formal status. The command structure returns in a new form: command → protocol → coordination field → de facto authority.</p>
+  </div>
+
+  <p>This is not a refutation of the CIRM architecture. It is the primary failure mode it must be designed against. The problem is not coordination itself — it is the collapse of coordination into a single canonical representation of reality.</p>
+
+  <h3>The Structural Response</h3>
+  <p>CIRM's existing invariants already gesture toward this: <em>visibility must remain plural</em>, <em>observation cannot become authority</em>, <em>every protocol must contain an exit</em>. But plurality needs to be structural, not decorative. Several concrete requirements follow:</p>
+
+  <ul class="ilist">
+    <li><strong>Competing models, not consensus models.</strong> No single forecast, score, or recommendation may become the canonical input to coordination. Multiple incompatible models must remain simultaneously active and legible.</li>
+    <li><strong>The right to ignore the signal.</strong> Agents must retain the structural capacity to act against the coordination field's apparent recommendation without penalty. A signal that cannot be ignored is already a command.</li>
+    <li><strong>Fork rights on protocols.</strong> Any protocol must be forkable — divergent implementations must be possible without requiring permission from the protocol's current maintainers.</li>
+    <li><strong>No canonical representation of reality.</strong> CIRM does not produce a single model of civilizational state. It produces a field of partial, competing, explicitly provisional observations. The map is never the territory. There is no official map.</li>
+    <li><strong>CIRM itself subject to fork.</strong> The immune system architecture must be forkable. If CIRM becomes the only model for coordination, it has become what it was designed to prevent.</li>
+  </ul>
+
+  <p>This is the recursive principle applied specifically to architecture: the framework that prevents irreversibility must itself remain reversible, including against replacement by a better framework for preventing irreversibility.</p>
+</section>
+
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 14</span>
+    <h2>No Ruler Required: From Organism to Ecosystem</h2>
+  </div>
+
+  <p>A persistent objection to the CIRM architecture takes the following form: <em>someone must measure recoverability; someone must decide when a system has become dangerous; someone must guarantee the guarantor.</em> This is a coherent objection — inside the old model. It is the question of the upper judge, the sovereign above sovereigns, the meta-authority that validates all authority below it.</p>
+
+  <p>CIRM does not answer this question. It dissolves it by changing the architectural object of optimization.</p>
+
+  <div class="symmetry">
+    <div class="sym-cell">
+      <div class="sym-label">Old Model</div>
+      <p>Problem → solution → executor → control → protection of executor → power accumulation → irreversibility.</p>
+    </div>
+    <div class="sym-cell">
+      <div class="sym-label">CIRM Model</div>
+      <p>Problem → multiple adaptive processes → temporary coordination → replaceability check → fork or dissolution when adaptivity is lost.</p>
+    </div>
+  </div>
+
+  <p>The question is not <em>who guarantees the system is good?</em> The question is <em>can the system be replaced if it becomes bad?</em> These are not the same question. The first demands a sovereign. The second demands an architecture.</p>
+
+  <h3>Conflict Without Authority</h3>
+
+  <p>Conflict is not evidence that authority is necessary. Conflict exists in nature without authority. The immune system has no minister of immunity. The internet has no president of packets. Evolution has no director of mutations. What they have instead:</p>
+
+  <ul class="ilist">
+    <li>Local rules operating without central coordination</li>
+    <li>Feedback loops that do not require a single interpreter</li>
+    <li>Competition between processes, not adjudication of processes</li>
+    <li>Selection — including the disappearance of structures that lose adaptivity</li>
+    <li>No final decision. Only next states.</li>
+  </ul>
+
+  <p>The confusion between <em>conflict</em> and <em>authority</em> is the primary conceptual error CIRM is designed to correct. Temporary distribution of a scarce resource is a different process from creating a class of agents who gain the permanent right to distribute future resources. CIRM addresses the second process. The first it leaves to local coordination.</p>
+
+  <h3>The Detector Does Not Decide</h3>
+
+  <p>When CIRM measures recoverability, it does not issue commands. It produces a state description. Temperature does not forbid water from boiling. It shows the state of the system. The difference is not semantic — it is architectural:</p>
+
+  <div class="theorem">
+    <div class="theorem-label">The CIRM Detection Model</div>
+    <p>The system shows declining recoverability → agents receive information → alternatives become visible → existing structures lose their monopoly on coordination. No authority is created. No permission is granted. Visibility is produced. What agents do with it is not determined in advance.</p>
+  </div>
+
+  <p>This also addresses the control-of-metrics problem. Whoever controls the metric controls power — only if the metric is singular and canonical. CIRM does not produce a canonical metric. It produces a field of competing, partial, explicitly provisional signals. No signal is the law. Every signal can be forked, ignored, or replaced. The map is never the territory. There is no official map.</p>
+
+  <h3>The Engineering Object</h3>
+
+  <p>The central engineering object in CIRM is not a decision-maker. It is a recoverability protocol: not the entity that makes the last decision, but the structural condition that makes it impossible for any decision to be the last one permanently.</p>
+
+  <p>This is not anarchy in the sense of structural absence. It is the transition from an organism with a king to an ecosystem. Ecosystems have structure, competition, feedback, selection, and memory. They do not have sovereigns. They do not need them. Their stability — such as it is — emerges from the replaceability of every component, not from the authority of any.</p>
+</section>
+
 <footer>
   <div class="footer-left">
     0penAGI Independent Research<br>
     Bangkok · July 2026<br>
-    Working Paper v3 — Not peer reviewed<br>
+    Working Paper v5 — Not peer reviewed<br>
     Circulation permitted · Including CIRM
   </div>
   <div class="footer-right">
