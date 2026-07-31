@@ -84,8 +84,17 @@ ADAPTIVE survives (R≈0.44–0.49, the future is contested by the meters),
 ADAPTIVE_H dies against hostile AGI (R=0), META survives hostile AGI and
 rewrites its own protocol (prot v3, wins by ecosystem consensus).
 
+## Current direction (v5.5)
+
+The falsification scheme is knowable to the meters; a static audit cannot
+distinguish a meter that errs rarely because it sees well from one that
+errs rarely because it avoids being checked. The audit itself must not
+become a constant — see §3.3 of the spec.
+
 ## Documentation
 
-- `docs/SPEC.md` — the 12 APP laws and the v5.3/v5.4 implementation mapping.
+- `docs/SPEC.md` — the 12 APP laws and the v5.3/v5.4 implementation mapping,
+  plus the v5.5 direction (§3.3): the audit must not be a constant —
+  pre-registered predictions and a non-constant test.
 - Criterion of belonging to the protocol: not similarity to a previous
   version, but the invariants of the 12 laws (section 4 of the spec).

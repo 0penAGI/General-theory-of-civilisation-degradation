@@ -28,6 +28,13 @@
 #   Measurement monoculture (all meters converged to one "true" answer) is the
 #   capture of knowledge itself and a reason to revise the protocol.
 #
+# v5.5 (direction, not implemented): THE AUDIT MUST NOT BE A CONSTANT.
+#   The falsification scheme (FALSIFY_BLIND/WOLF, EVIDENCE_WINDOW, post-hoc
+#   evidence) is knowable to the meters; a static audit cannot tell honest
+#   robustness from evasion (theorem of Laws 2+7, SPEC §3.3). Planned:
+#   pre-registered predictions, randomized evidence windows, probes outside
+#   the meter's own perturbation set, an audit with its own lineage.
+#
 # Question: which structure of society survives the arrival of AGI without
 # crystallization?
 # ==============================================================================

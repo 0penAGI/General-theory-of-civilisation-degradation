@@ -256,6 +256,47 @@ during the hostile AGI escalation, they tightened their ontologies (inv/cap
 down, viable up), and after recovery loosened them on false alarms. The truth
 about the system remained evolving.
 
+### 3.3 V5.5 (direction, not implemented) — the audit must not be a constant
+
+Observation after v5.4: the falsification scheme itself — `FALSIFY_BLIND`,
+`FALSIFY_WOLF`, `EVIDENCE_WINDOW`, and the post-hoc recomputation of
+blind/wolf in `evidence()` — is fully knowable to the meters. A meter that
+"rarely errs because it sees the future well" and a meter that "rarely errs
+because it avoids situations where it can be checked" are indistinguishable
+under a static audit: the realized trajectory is already selected history,
+and the difference is visible only on new collisions. This is the monopoly
+of the correction criterion: the system can become perfectly adapted to the
+test and less connected to reality. Error → correction → adaptation → new
+blindness.
+
+This is a theorem of Laws 2 and 7, not a new law:
+
+- **Law 2 (Reality First):** a memorized test is not a collision with
+  reality — the meter optimizes for the observer, not for the world.
+- **Law 7 (Replaceability):** the audit is a component. A fixed audit
+  becomes a new attractor — the protection of truth becomes the object of
+  capture.
+
+Consequences for v5.5 (an experiment, not a feature):
+
+```
+commit(meter, sig)        # 1. pre-registration: the prediction is recorded
+                          #    BEFORE the collision, so the declared map can
+                          #    be compared with the actual behavior (today
+                          #    evidence() recomputes blind/wolf post-hoc)
+test.schedule(meter)      # 2. non-constant test: randomized evidence
+                          #    windows, probes outside the meter's known
+                          #    perturbation set (_probe_event is the meter's
+                          #    own choice), calibration on held-out horizons
+audit.lineage(...)        # 3. the audit has its own lineage and
+                          #    replaceability (Laws 9 and 7 one level deeper)
+```
+
+Goal: confirm whether the current implementation already tends toward gaming
+the known test, and whether a non-constant test restores the dynamic. A
+confirmed violation is evidence against the implementation, not against the
+specification.
+
 ---
 
 ## 4. The single test question
@@ -285,8 +326,11 @@ one page of specification is stronger than a thousand lines of implementation.
   0.00 both for "no future" and for "one deterministic healthy future"). Is a
   metric needed that distinguishes these two zeros?
 - Who falsifies the measurer ecosystem ITSELF if it settles into a consensus
-  error (all meters equally blind, and no "wolf" cries)?
-  Currently — only the physical trajectory; is that enough?
+  error (all meters equally blind, and no "wolf" cries)? Partial answer
+  (v5.5, §3.3): a static audit cannot tell honest robustness from evasion —
+  the test must be non-constant and predictions pre-registered. Whether the
+  current implementation already tends to game the known test, and whether a
+  non-constant test restores the dynamics, is an open experiment.
 - The upper bound: who and how revises specification 1.0 itself?
 - Forkability: the specification itself must remain subject to forking.
 
