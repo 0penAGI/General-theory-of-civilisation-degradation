@@ -199,23 +199,7 @@ class ProtocolNode:
         return None
 
     def verify_chain(self) -> list[str]:
-        """Verify every signed entry and the decision chain. Returns problems."""
-        problems = []
-        prev = "-"
-        for entry in self.decisions():
-            if entry.get("parent", "-") != prev:
-                problems.append(
-                    f"DECISIONS: chain break — {entry.get('id')} parent {entry.get('parent')}, expected {prev}"
-                )
-            prev = entry["id"]
-            err = self.verify_entry(entry)
-            if err:
-                problems.append(f"DECISIONS: {entry.get('id')} — {err}")
-        for entry in self.events():
-            err = self.verify_entry(entry)
-            if err:
-                problems.append(f"EVENTS: {entry.get('id')} — {err}")
-        return problems
+        return _verify_ledgers(self.decisions(), self.events())
 
     # -- laws -----------------------------------------------------------
 
@@ -249,35 +233,10 @@ class ProtocolNode:
 
     # -- crash-test (feedback loop) -------------------------------------
 
-    def crash_test(self) -> dict:
-        """Run the sandbox on this node's RULES.md — an audit, not a model."""
-        from .civilization_simulator import (
-            CivilizationEngine,
-            RealityEvent,
-            build_scenario,
-            default_events,
-            scenario_report,
+    def crash_test(self, rules: dict | None = None, owner_id: str | None = None) -> dict:
+        return crash_test_rules(
+            rules or self.read_rules(), owner_id or self.node_id
         )
-
-        rules = self.read_rules()
-        scenario = rules.get("scenario", "meta")
-        self_immunity = rules.get("self_immunity", "yes") == "yes"
-        hostile = rules.get("hostile_agi", "no") == "yes"
-        pulses = int(rules.get("pulses", 40))
-        agi_at = int(rules.get("agi_at", 12))
-        seed = int(rules.get("seed", int(self.node_id[2:], 16) % 99991))
-
-        civ = build_scenario(scenario, self_immunity, seed, hostile_agi=hostile)
-        civ.self_immunity = self_immunity  # the node's laws drive the audit, not the kind label
-        engine = CivilizationEngine(self_immunity=civ.self_immunity)
-        events = default_events(pulses, agi_at)
-        for p in range(pulses):
-            engine.pulse(civ, events.get(p, RealityEvent("routine", 0.05)))
-        report = scenario_report(civ)
-        report["rules"] = rules
-        report["node"] = self.node_id
-        report["seed"] = seed
-        return report
 
     def pulse(self, statement: str = "crash-test of RULES.md") -> dict:
         report = self.crash_test()
@@ -321,31 +280,33 @@ class ProtocolNode:
         )
         return node
 
-    def adopt(self, foreign_dir: str | os.PathLike, decision_id: str, statement: str) -> dict:
+    def adopt(self, foreign, decision_id: str, statement: str) -> dict:
         """Exercise the self-replaceable rule: take a foreign branch's laws.
 
-        The foreign ledger is verified (signatures, hashes, chain), then its
-        laws replace this node's laws. The old laws stay in the history —
-        that is what makes replacement reversible and lineage honest.
+        `foreign` is a path to a node directory, a ProtocolNode, or a
+        PublicState (another node's verifiable state, no private key). The
+        foreign ledger is verified (signatures, hashes, chain), then its laws
+        replace this node's laws. The old laws stay in the history — that is
+        what makes replacement reversible and lineage honest.
         """
-        foreign = ProtocolNode(foreign_dir)
-        foreign_ledger = foreign.decisions()
+        state = _as_public_state(foreign)
+        foreign_ledger = state.decisions
         target = next((d for d in foreign_ledger if d["id"] == decision_id), None)
         if target is None:
-            raise SystemExit(f"no such decision in {foreign.dir}: {decision_id}")
-        problems = foreign.verify_chain()
+            raise SystemExit(f"no such decision: {decision_id}")
+        problems = state.verify_chain()
         if problems:
             raise SystemExit(f"refusing to adopt — foreign ledger fails verification:\n" + "\n".join(problems))
         # replace laws; the current laws remain in this node's history
-        _copy(foreign.dir / "RULES.md", self.dir / "RULES.md")
-        _copy(foreign.dir / "INSTITUTIONS.md", self.dir / "INSTITUTIONS.md")
+        _copy(state.dir / "RULES.md", self.dir / "RULES.md")
+        _copy(state.dir / "INSTITUTIONS.md", self.dir / "INSTITUTIONS.md")
         return self.append_decision(
             "adopt",
             statement,
             falsified_by="the adopted laws no longer survive a crash-test",
             rules=self.read_rules(),
             adopted_from=decision_id,
-            adopted_node=foreign.node_id,
+            adopted_node=state.node_id(),
         )
 
     # -- state exchange -------------------------------------------------
@@ -385,6 +346,199 @@ class ProtocolNode:
             "last_audit": _audit_slice(audits[-1]["audit"]) if audits else None,
             "replaceability_blocks": self.replaceability_blocks(),
         }
+
+
+# -----------------------------------------------------------------------------
+# Public state — another node's observable state, verifiable without its key
+# -----------------------------------------------------------------------------
+
+def _verify_ledgers(decisions: list[dict], events: list[dict]) -> list[str]:
+    problems = []
+    prev = "-"
+    for entry in decisions:
+        if entry.get("parent", "-") != prev:
+            problems.append(
+                f"DECISIONS: chain break — {entry.get('id')} parent {entry.get('parent')}, expected {prev}"
+            )
+        prev = entry["id"]
+        err = ProtocolNode.verify_entry(entry)
+        if err:
+            problems.append(f"DECISIONS: {entry.get('id')} — {err}")
+    for entry in events:
+        err = ProtocolNode.verify_entry(entry)
+        if err:
+            problems.append(f"EVENTS: {entry.get('id')} — {err}")
+    return problems
+
+
+class PublicState:
+    """Another node's state as a candidate member sees it: no private key,
+    every fact individually signed and verifiable. This is the object that
+    can be transported by git, bundles, or any channel at all."""
+
+    def __init__(self, directory: str | os.PathLike):
+        self.dir = Path(directory)
+        self.app = _read_app(self.dir / "APP.md")
+        self.rules = _parse_kv(self.dir / "RULES.md")
+        self.institutions = _parse_table(self.dir / "INSTITUTIONS.md")
+        self.decisions = _load_ledger(self.dir / "DECISIONS.jsonl")
+        self.events = _load_ledger(self.dir / "EVENTS.jsonl")
+
+    def node_id(self) -> str:
+        return self.app["node"]
+
+    def last_decision(self) -> dict | None:
+        return self.decisions[-1] if self.decisions else None
+
+    def verify_chain(self) -> list[str]:
+        return _verify_ledgers(self.decisions, self.events)
+
+
+def _as_public_state(foreign) -> PublicState:
+    if isinstance(foreign, ProtocolNode):
+        state = PublicState(foreign.dir)
+        assert state.node_id() == foreign.node_id
+        return state
+    if isinstance(foreign, PublicState):
+        return foreign
+    return PublicState(foreign)
+
+
+def crash_test_rules(rules: dict, owner_id: str) -> dict:
+    """Run the sandbox on a ruleset — an audit of a branch, not a model."""
+    from .civilization_simulator import (
+        CivilizationEngine,
+        RealityEvent,
+        build_scenario,
+        default_events,
+        scenario_report,
+    )
+
+    scenario = rules.get("scenario", "meta")
+    self_immunity = rules.get("self_immunity", "yes") == "yes"
+    hostile = rules.get("hostile_agi", "no") == "yes"
+    pulses = int(rules.get("pulses", 40))
+    agi_at = int(rules.get("agi_at", 12))
+    seed = int(rules.get("seed", int(owner_id[2:], 16) % 99991))
+
+    civ = build_scenario(scenario, self_immunity, seed, hostile_agi=hostile)
+    civ.self_immunity = self_immunity  # the laws drive the audit, not the kind label
+    engine = CivilizationEngine(self_immunity=civ.self_immunity)
+    events = default_events(pulses, agi_at)
+    for p in range(pulses):
+        engine.pulse(civ, events.get(p, RealityEvent("routine", 0.05)))
+    report = scenario_report(civ)
+    report["rules"] = rules
+    report["node"] = owner_id
+    report["seed"] = seed
+    return report
+
+
+# -----------------------------------------------------------------------------
+# Onboarding — the first contact (trust on first use, like ssh known_hosts)
+# -----------------------------------------------------------------------------
+
+def create_invite(node: ProtocolNode, note: str = "") -> dict:
+    """A self-signed introduction: name + public key + id. Whoever holds it
+    can verify that the sender controls the key — and nothing more. Trusting
+    the identity is the human's first-use decision (compare fingerprints)."""
+    content = {
+        "name": node.app["name"],
+        "node": node.node_id,
+        "key": _pub_b64(node._pub),
+        "time": _now(),
+        "note": note,
+    }
+    return dict(content, sig=node._sign(content))
+
+
+def verify_invite(invite: dict) -> list[str]:
+    problems = []
+    try:
+        raw_pub = base64.b64decode(invite["key"])
+        pub = Ed25519PublicKey.from_public_bytes(raw_pub)
+        if _node_id(raw_pub) != invite.get("node"):
+            problems.append("invite node id does not match its key")
+        content = {k: v for k, v in invite.items() if k != "sig"}
+        try:
+            pub.verify(base64.b64decode(invite["sig"]), _canon(content))
+        except InvalidSignature:
+            problems.append("invite signature invalid")
+    except Exception as e:
+        problems.append(f"invite malformed: {e}")
+    return problems
+
+
+def fingerprint(node_id: str) -> str:
+    """Short human fingerprint for out-of-band confirmation."""
+    return node_id[2:10]
+
+
+def _peers_path(node: ProtocolNode) -> Path:
+    return node.dir / ".app" / "peers.json"
+
+
+def load_peers(node: ProtocolNode) -> dict:
+    path = _peers_path(node)
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text())
+
+
+def save_peers(node: ProtocolNode, peers: dict):
+    _peers_path(node).write_text(json.dumps(peers, indent=1))
+
+
+def accept_invite(node: ProtocolNode, invite: dict, note: str = "") -> dict:
+    problems = verify_invite(invite)
+    if problems:
+        raise SystemExit("refusing invite:\n" + "\n".join(problems))
+    peer = {
+        "name": invite["name"],
+        "node": invite["node"],
+        "key": invite["key"],
+        "first_seen": _now(),
+        "note": note or invite.get("note", ""),
+    }
+    peers = load_peers(node)
+    existing = peers.get(peer["node"])
+    if existing and existing["key"] != peer["key"]:
+        raise SystemExit(
+            f"peer key mismatch for {peer['node']} — refusing to overwrite a trusted key (possible MITM)"
+        )
+    peers[peer["node"]] = peer
+    save_peers(node, peers)
+    return peer
+
+
+def sync_peer(node: ProtocolNode, peer_id: str, source: str | os.PathLike) -> dict:
+    """Pull a peer's public state, verify every signature against the trusted
+    key from first contact, and keep a verified snapshot under .app/peers."""
+    peers = load_peers(node)
+    peer = peers.get(peer_id)
+    if peer is None:
+        raise SystemExit(f"unknown peer {peer_id} — accept an invite before syncing")
+    state = PublicState(source)
+    if state.node_id() != peer_id:
+        raise SystemExit(f"source node id {state.node_id()} != peer {peer_id}")
+    problems = state.verify_chain()
+    if problems:
+        raise SystemExit("peer state fails verification:\n" + "\n".join(problems))
+    store = node.dir / ".app" / "peers" / peer_id
+    store.mkdir(parents=True, exist_ok=True)
+    for fname in ("APP.md", "RULES.md", "INSTITUTIONS.md", "DECISIONS.jsonl", "EVENTS.jsonl"):
+        _copy(state.dir / fname, store / fname)
+    meta = {
+        "node": peer_id,
+        "name": peer["name"],
+        "synced_at": _now(),
+        "verified": True,
+        "decisions": len(state.decisions),
+        "events": len(state.events),
+        "last_decision": state.last_decision()["id"] if state.last_decision() else "-",
+    }
+    (store / ".verified.json").write_text(json.dumps(meta, indent=1))
+    return meta
 
 
 # -----------------------------------------------------------------------------
@@ -698,6 +852,27 @@ def main_cli(argv=None):
     q = sub.add_parser("verify", help="verify every signature and the chain")
     q.add_argument("dir")
 
+    q = sub.add_parser("invite", help="self-signed introduction (name + public key)")
+    q.add_argument("dir")
+    q.add_argument("--note", default="")
+    q.add_argument("--out", default="-", help="write invite to a file, or '-' for stdout")
+
+    q = sub.add_parser("accept", help="first contact: verify and trust a peer (TOFU)")
+    q.add_argument("dir")
+    q.add_argument("invite")
+    q.add_argument("--note", default="")
+
+    q = sub.add_parser("peers", help="list trusted peers")
+    q.add_argument("dir")
+
+    q = sub.add_parser("sync", help="pull and verify a peer's public state")
+    q.add_argument("dir")
+    q.add_argument("peer")
+    q.add_argument("--source", required=True)
+
+    q = sub.add_parser("net", help="network status: peers + verified ledgers")
+    q.add_argument("dir")
+
     args = p.parse_args(argv)
 
     if args.cmd == "init":
@@ -709,6 +884,24 @@ def main_cli(argv=None):
         bundle = json.loads(Path(args.file).read_text())
         n = import_bundle(bundle, args.dir)
         print(f"imported: {n.node_id}")
+        return
+    if args.cmd == "accept":
+        n = ProtocolNode(args.dir)
+        invite = json.loads(Path(args.invite).read_text())
+        peer = accept_invite(n, invite, args.note)
+        print(f"trusted {peer['name']} {peer['node']}")
+        print(f"confirm out-of-band: fingerprint {fingerprint(peer['node'])}")
+        return
+    if args.cmd == "invite":
+        n = ProtocolNode(args.dir)
+        invite = create_invite(n, args.note)
+        text = json.dumps(invite, indent=2)
+        if args.out == "-":
+            print(text)
+        else:
+            Path(args.out).write_text(text)
+            print(f"invite: {args.out}")
+        print(f"share this id so the peer can confirm: {n.node_id} ({fingerprint(n.node_id)})")
         return
 
     n = ProtocolNode(args.dir)
@@ -745,8 +938,9 @@ def main_cli(argv=None):
         child = n.fork(args.target, args.statement)
         print(f"forked: {child.node_id}  <-  {n.node_id}")
     elif args.cmd == "compare":
-        f = ProtocolNode(args.foreign)
-        mine, theirs = n.crash_test(), f.crash_test()
+        f = _as_public_state(args.foreign)
+        mine = n.crash_test()
+        theirs = crash_test_rules(f.rules, f.node_id())
         for label, r in (("self", mine), ("foreign", theirs)):
             a = _audit_slice(r)
             print(f"{label:8} {a['scenario']:10} -> {a['status']:12} R={a['R']} "
@@ -754,6 +948,24 @@ def main_cli(argv=None):
     elif args.cmd == "adopt":
         d = n.adopt(args.foreign, args.decision, args.statement)
         print(f"{d['id']}  adopted {d['adopted_from']} from {d['adopted_node']}")
+    elif args.cmd == "peers":
+        for peer in load_peers(n).values():
+            print(f"{peer['name']:12} {peer['node']}  since {peer['first_seen']}")
+    elif args.cmd == "sync":
+        meta = sync_peer(n, args.peer, args.source)
+        print(f"synced {meta['name']} {meta['node']}: {meta['decisions']} decisions, "
+              f"{meta['events']} events, verified")
+    elif args.cmd == "net":
+        peers = load_peers(n)
+        if not peers:
+            print("no peers yet — accept an invite first")
+        for pid, peer in peers.items():
+            store = n.dir / ".app" / "peers" / pid
+            meta = None
+            if (store / ".verified.json").exists():
+                meta = json.loads((store / ".verified.json").read_text())
+            tag = f"verified {meta['decisions']} decisions" if meta else "not synced"
+            print(f"{peer['name']:12} {pid}  {tag}")
     elif args.cmd == "export":
         Path(args.file).write_text(json.dumps(n.export(), indent=2))
         print(f"exported: {args.file}")
