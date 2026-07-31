@@ -4,7 +4,11 @@
  Она сохраняет способность превращать столкновения с реальностью
  в новые ветви поведения.»
 
-Ядро (app_v5) и песочница-симулятор v5.3 (civilization_simulator).
+Ядро (app_v5) и песочница-симулятор v5.4 (civilization_simulator):
+экосистема конкурирующих измерителей будущего R1/R2/R3 — истина о
+состоянии системы не принадлежит одному слепому метру; неверный метр
+отбраковывается по свидетельствам реальной траектории и заменяется
+мутировавшим потомком (закон 10 применяется к самому познанию).
 
 Проверка кода — не сходство с прошлой версией, а инварианты 12 законов
 (см. docs/SPEC.md).
@@ -41,11 +45,13 @@ from .civilization_simulator import (
     run_scenario,
     scenario_report,
     measure_reachability,
+    ReachabilityMeasurer,
+    MeasurerEcosystem,
     run_demo,
     run_experiments,
 )
 
-__version__ = "5.3.0"
+__version__ = "5.4.0"
 __all__ = [
     "ReplaceableComponent",
     "Reality",
@@ -75,6 +81,8 @@ __all__ = [
     "run_scenario",
     "scenario_report",
     "measure_reachability",
+    "ReachabilityMeasurer",
+    "MeasurerEcosystem",
     "run_demo",
     "run_experiments",
 ]

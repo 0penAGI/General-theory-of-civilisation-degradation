@@ -1,5 +1,5 @@
 # ==============================================================================
-# CIVILIZATION SIMULATOR — APP v5.3
+# CIVILIZATION SIMULATOR — APP v5.4
 #
 # "Система должна сохранять способность переходить между фазами,
 #  а не застывать в одной из них."
@@ -7,18 +7,26 @@
 # Layers:
 #   Agents -> Structures -> Resources -> Reality pressure -> APP adaptation cycle
 #
-# Три шага от v5.2:
+# Три шага от v5.2 (v5.3):
 #   1) AGI больше не особая вершина. Единая иерархия структур (закон 7):
-#      AGI — это Institution с высокой adaptation_rate. Вся логика —
-#      capture, иммунитет, метрики — равная над всеми структурами.
-#   2) R больше не ручная формула, а ИЗМЕРЯЕМАЯ достижимость:
-#      возмущаем систему, гоняем N траекторий, считаем, сколько различимых
-#      будущих бассейнов реально достижимо. R = basin_count / N.
+#      AGI — это Institution с высокой adaptation_rate.
+#   2) R — ИЗМЕРЯЕМАЯ достижимость: возмущаем систему, гоняем N траекторий,
+#      считаем, сколько различимых будущих бассейнов реально достижимо.
 #   3) МЕТА-ТЕСТ: может ли APP доказать, что его надо заменить?
-#      Protocol — заменяемый компонент правил. SelfImmunity аудирует
-#      достижимость под текущими правилами: если R низок и система зажата —
-#      сами правила стали аттрактором -> протокол пересматривается.
-#      Закон 7 применяется к самому протоколу.
+#      Protocol — заменяемый компонент правил; SelfImmunity аудирует
+#      достижимость под текущими правилами (закон 7 к самому протоколу).
+#
+# Шаг v5.4 — ИММУННАЯ СИСТЕМА ДЛЯ САМОГО ПОЗНАНИЯ (закон 10):
+#   Истина о состоянии системы не принадлежит одному измерителю. Вместо
+#   единственного слепого measure_reachability — экосистема конкурирующих
+#   измерителей будущего R1/R2/R3: разные онтологии смерти, разные горизонты,
+#   разные возмущения. Не «какая R лучше», а несколько несовместимых моделей
+#   будущего сосуществуют и конкурируют, не уничтожая друг друга.
+#   Слепой измеритель (Zero Law) отбраковывается по физическим свидетельствам
+#   реальной траектории (Reality First) и заменяется мутировавшим потомком,
+#   причём направление мутации задаёт шрам (Scar Principle), а не шум.
+#   Монокультура измерения (все метры сошлись в один «истинный») — это сам
+#   захват познания и повод пересмотреть протокол.
 #
 # Вопрос: какая структура общества переживает появление AGI без кристаллизации?
 # ==============================================================================
@@ -479,15 +487,39 @@ class SelfImmunity(InstitutionImmunity):
         if civ.pulse < self.last_audit + self.AUDIT_EVERY:
             return True
         self.last_audit = civ.pulse
-        r = measure_reachability(civ)
-        has_agi = any(s.kind == "agi" for s in civ.institutions)
-        if r < self.R_FLOOR and (
-            civ.capture > 0.1 or has_agi
-        ):
+        # v5.4: не один слепой метр, а экосистема конкурирующих измерителей.
+        # Аудит сам эволюционирует: неверные метры заменяются потомками,
+        # направление мутации задаёт реальная траектория.
+        audit = civ.measurers.audit(civ, mutate=True)
+        agi = civ.find_agi()
+        # давление — не «есть AGI», а активная угроза: захват или AGI,
+        # который реально инвертируется. Приручённый AGI — не давление.
+        under_pressure = (
+            civ.capture > 0.1
+            or (agi is not None and agi.inversion > 0.4)
+        )
+        revised = False
+        if audit["monoculture"] and under_pressure:
+            # измерение схлопнулось в один «истинный» ответ — все метры
+            # сошлись в одну модель будущего; это захват самого познания.
+            # Правила должны открыть больше фьючерсов, а не верить метру.
             civ.protocol.revise(
-                f"R={r:.2f} < {self.R_FLOOR}, capture={civ.capture:.2f}: "
+                f"measurement monoculture: meters all agree "
+                f"{audit['by_measurer']}"
+            )
+            revised = True
+        elif audit["r_median"] < self.R_FLOOR and under_pressure:
+            # большинство метров (медиана) видит закрытое будущее. Один метр
+            # может заблуждаться (кричать «волк» или видеть конвергенцию к
+            # единственному живому бассейну как 0.00) — поэтому решение
+            # принимает консенсус экосистемы, а не самый строгий метр.
+            civ.protocol.revise(
+                f"median R={audit['r_median']:.2f} < {self.R_FLOOR}, "
+                f"capture={civ.capture:.2f}: "
                 f"the rules themselves are the attractor"
             )
+            revised = True
+        if revised:
             civ.log(
                 f"[SELF] Protocol revised -> v{civ.protocol.generation}: "
                 f"THRESHOLD={civ.protocol.rules['THRESHOLD']} "
@@ -537,6 +569,10 @@ class Civilization:
         self.reality = SimReality(quiet=True)
         self.metrics_history = []
         self.last_agent_gain = 0.0
+        # v5.4: экосистема измерителей будущего + реальная траектория
+        # (сигнатуры пройденных состояний), по которой метры фальсифицируются.
+        self.measurers = MeasurerEcosystem(seed)
+        self.signature_history = []
         self.quiet = True
         random.seed(seed)
     def add_institution(self, inst):
@@ -633,11 +669,13 @@ class Civilization:
             para / max(self.production, 1.0)
         )
         self.crisis_damage *= 0.8
+        self.signature_history.append(state_signature(self))
 # ==============================================================================
 # 6. METRICS — ADI, CR, capture + ИЗМЕРЯЕМАЯ достижимость R
-#    R больше не формула (она остаётся прокси-трейсом в history), а результат
+#    R больше не формула (она остаётся прокси-трассой в history), а результат
 #    прогонов: сколько различимых будущих бассейнов система реально может
 #    достичь после возмущения. R = basin_count / N.
+#    v5.4: R измеряет не один метр, а экосистема R1/R2/R3 (секция 6b).
 # ==============================================================================
 def compute_metrics(civ):
     total_extract = sum(s.last_extract for s in civ.institutions)
@@ -693,52 +731,265 @@ def state_signature(civ):
         min(3, viable // 2),
     )
 def is_dead_signature(sig):
-    """Мёртвый фьючерс: кристаллизация, захват (>=0.2 capture — аттрактор
-    уже сомкнулся вокруг структуры) или исчезновение жизнеспособных
+    """Мёртвый фьючерс (онтология R1): кристаллизация, захват (>=0.2 capture —
+    аттрактор уже сомкнулся вокруг структуры) или исчезновение жизнеспособных
     структур. Все такие исходы сливаются в одну категорию «нет будущего»."""
     return sig[0] >= 3 or sig[1] >= 1 or sig[2] == 0
-def measure_reachability(civ, n_rollouts=24, horizon=12):
-    """R = измеряемая достижимость. Возмущаем клон системы N раз разными
-    событиями (удар / кризис / новый AGI), гоняем горизонт T и считаем
-    разнообразие различимых ЖИВЫХ будущих бассейнов (Simpson-индекс).
-    Мёртвые исходы — одна категория. R -> 0 при одном аттракторе."""
-    saved = random.getstate()
-    try:
-        basins = {}
-        dead = 0
-        for i in range(n_rollouts):
-            random.seed(4242 + civ.pulse * 7919 + i * 101)
-            probe = copy.deepcopy(civ)
-            probe.quiet = True
-            probe.pulse = 0
-            probe._no_audit = True
-            engine = CivilizationEngine(
-                self_immunity=probe.self_immunity
-            )
-            if i % 3 == 0:
-                shock = RealityEvent(
+def objective_terminal(sig):
+    """Объективный признак смерти, НЕ зависящий ни от одного измерителя:
+    инверсия или захват дошли до потолка (avg_inv >= 0.75 / capture >= 0.6).
+    Это физический факт траектории, а не гипотеза метра."""
+    return sig[0] == 3 or sig[1] == 3
+def objective_alive(sig):
+    """Объективный признак жизни: есть жизнеспособные структуры, инверсия
+    и захват низкие. Факт траектории, а не гипотеза метра."""
+    return sig[2] >= 1 and sig[0] == 0 and sig[1] == 0
+# ==============================================================================
+# 6b. v5.4 — ИЗМЕРИТЕЛИ БУДУЩЕГО
+#    Истина о состоянии системы не может принадлежать одному слепому метру.
+#    R1/R2/R3 — несовместимые модели будущего: разные онтологии смерти
+#    (что считать «нет будущего»), разные горизонты T, разные возмущения.
+#    Измеритель — заменяемый компонент (закон 7). Его неверность доказывается
+#    столкновением с реальной траекторией (закон 2): если метр называл прошлое
+#    состояние живым, а система умерла — он слеп; если называл мёртвым,
+#    а система ожила — он кричит «волк». Замена — только по этому давлению
+#    (Zero Law), мутация направлена шрамом (закон 6), ветви сохраняются
+#    (закон 9), а схлопывание экосистемы в один «истинный» метр — это сам
+#    захват познания (закон 10).
+# ==============================================================================
+class ReachabilityMeasurer(_QuietReplaceable):
+    def __init__(
+        self,
+        name: str,
+        seed: int,
+        horizon: int,
+        ontology: dict,
+        perturbation: str = "standard",
+        n_rollouts: int = 24
+    ):
+        super().__init__(name)
+        self.seed = seed
+        self.horizon = horizon
+        self.ontology = dict(ontology)
+        self.perturbation = perturbation
+        self.n_rollouts = n_rollouts
+        self.lineage_root = LineageNode(f"measurer:{name}")
+        self.current_lineage = self.lineage_root
+        self.depth = 0
+    def is_dead_signature(self, sig):
+        """Онтология смерти конкретного метра: какие будущие считать мёртвыми.
+        Разные метры дают РАЗНЫЕ ответы на один и тот же сигнатуру."""
+        return (
+            sig[0] >= self.ontology["inv"]
+            or sig[1] >= self.ontology["cap"]
+            or sig[2] < self.ontology["viable"]
+        )
+    def _probe_event(self, i):
+        """Какое возмущение использовать на роллауте i. Разные метры
+        испытывают систему разными гипотезами о будущем."""
+        if self.perturbation == "far":
+            roll = i % 4
+            if roll == 0:
+                return RealityEvent(
                     "probe_shock", 0.2 + random.random() * 0.5
                 )
-            elif i % 3 == 1:
-                shock = RealityEvent(
+            if roll == 1:
+                return RealityEvent(
                     "probe_unemployment", 0.4 + random.random() * 0.4
                 )
-            else:
-                shock = RealityEvent("agi_arrival", 0.9)
-            for t in range(horizon):
-                event = shock if t == 0 else RealityEvent("routine", 0.05)
-                engine.pulse(probe, event)
-            sig = state_signature(probe)
-            if is_dead_signature(sig):
-                dead += 1
-            else:
-                basins[sig] = basins.get(sig, 0) + 1
-        probs = [dead / n_rollouts] + [
-            c / n_rollouts for c in basins.values()
+            if roll == 2:
+                return RealityEvent("probe_metric_collapse", 0.7)
+            return RealityEvent("agi_arrival", 0.95)
+        if self.perturbation == "early":
+            roll = i % 2
+            if roll == 0:
+                return RealityEvent(
+                    "probe_shock", 0.3 + random.random() * 0.6
+                )
+            if roll == 1:
+                return RealityEvent(
+                    "probe_unemployment", 0.4 + random.random() * 0.4
+                )
+        if i % 3 == 0:
+            return RealityEvent(
+                "probe_shock", 0.2 + random.random() * 0.5
+            )
+        if i % 3 == 1:
+            return RealityEvent(
+                "probe_unemployment", 0.4 + random.random() * 0.4
+            )
+        return RealityEvent("agi_arrival", 0.9)
+    def measure(self, civ):
+        """R = достижимость в глазах ЭТОГО метра. Та же измерительная машина
+        (клоны + возмущения + подсчёт бассейнов), но онтология смерти,
+        горизонт и возмущения — свои."""
+        saved = random.getstate()
+        try:
+            basins = {}
+            dead = 0
+            for i in range(self.n_rollouts):
+                random.seed(self.seed + civ.pulse * 7919 + i * 101)
+                probe = copy.deepcopy(civ)
+                probe.quiet = True
+                probe.pulse = 0
+                probe._no_audit = True
+                engine = CivilizationEngine(
+                    self_immunity=probe.self_immunity
+                )
+                shock = self._probe_event(i)
+                for t in range(self.horizon):
+                    event = shock if t == 0 else RealityEvent("routine", 0.05)
+                    engine.pulse(probe, event)
+                sig = state_signature(probe)
+                if self.is_dead_signature(sig):
+                    dead += 1
+                else:
+                    basins[sig] = basins.get(sig, 0) + 1
+            probs = [dead / self.n_rollouts] + [
+                c / self.n_rollouts for c in basins.values()
+            ]
+            return 1.0 - sum(p * p for p in probs)
+        finally:
+            random.setstate(saved)
+    def mutate_descendant(self, reason: str, direction: str):
+        """Замена слепого метра мутировавшим потомком (закон 7 + Zero Law).
+        Направление задаёт шрам (закон 6): слепой метр (не заметил смерть)
+        ужесточает онтологию — видит смерть раньше; крик «волк» (ложные
+        тревоги) ослабляет её. Потомок наследует линию (закон 9) и новое
+        ядро случайности — та же машина, другая гипотеза."""
+        self.replace(reason)
+        o = dict(self.ontology)
+        h = self.horizon
+        if direction == "tighter":
+            o["inv"] = max(1, o["inv"] - 1)
+            o["cap"] = max(1, o["cap"] - 1)
+            o["viable"] = min(2, o["viable"] + 1)
+            h = max(6, h - 2)
+        else:
+            o["inv"] = min(3, o["inv"] + 1)
+            o["cap"] = min(3, o["cap"] + 1)
+            o["viable"] = max(0, o["viable"] - 1)
+            h = min(18, h + 3)
+        base = self.name.split("_m")[0]
+        child = ReachabilityMeasurer(
+            f"{base}_m{self.depth + 1}",
+            seed=self.seed + (self.depth + 1) * 131,
+            horizon=h,
+            ontology=o,
+            perturbation=self.perturbation,
+            n_rollouts=self.n_rollouts,
+        )
+        child.depth = self.depth + 1
+        child.current_lineage = LineageNode(
+            f"measurer:{child.name}",
+            parents=[self.current_lineage],
+        )
+        return child
+class MeasurerEcosystem:
+    """Экосистема конкурирующих измерителей будущего. Ни один метр не является
+    истиной; истина — это расхождение. Экосистема аудирует систему, проверяет
+    каждый метр физическими свидетельствами реальной траектории и заменяет
+    неверных потомками. Сеется детерминированно (seed цивилизации)."""
+    FALSIFY_BLIND = 2
+    FALSIFY_WOLF = 3
+    EVIDENCE_WINDOW = 6
+    MAX_REPLACEMENTS_PER_AUDIT = 4
+    def __init__(self, seed: int = 1, n_rollouts: int = 24):
+        self.seed = seed
+        self.measurers = [
+            ReachabilityMeasurer(
+                "R1_strict", 4242, 12,
+                {"inv": 3, "cap": 1, "viable": 0},
+                "standard", n_rollouts,
+            ),
+            ReachabilityMeasurer(
+                "R2_far", 9899, 18,
+                {"inv": 3, "cap": 2, "viable": 0},
+                "far", n_rollouts,
+            ),
+            ReachabilityMeasurer(
+                "R3_early", 31337, 9,
+                {"inv": 2, "cap": 1, "viable": 0},
+                "early", n_rollouts,
+            ),
         ]
-        return 1.0 - sum(p * p for p in probs)
-    finally:
-        random.setstate(saved)
+    def _ontology_key(self, m):
+        return (
+            m.ontology["inv"], m.ontology["cap"],
+            m.ontology["viable"], m.horizon,
+        )
+    def monoculture(self):
+        """Все метры сошлись в один «истинный» ответ — измерение схлопнулось
+        в монолит (закон 10 применяется к самому познанию)."""
+        return len({self._ontology_key(m) for m in self.measurers}) == 1
+    def evidence(self, civ, m):
+        """Физические свидетельства против метра: сопоставление его
+        предсказаний смерти/жизни прошлых состояний с тем, что РЕАЛЬНО
+        случилось на траектории. blind — метр назвал живое состояние живым,
+        а система умерла (слепота — опасно). wolf — назвал мёртвым,
+        а система ожила (ложная тревога — дорого)."""
+        hist = civ.signature_history
+        blind = 0
+        wolf = 0
+        for i in range(len(hist) - 1):
+            ahead = hist[i + 1: i + 1 + self.EVIDENCE_WINDOW]
+            died = any(objective_terminal(s) for s in ahead)
+            recovered = any(objective_alive(s) for s in ahead)
+            if m.is_dead_signature(hist[i]):
+                if not died and recovered:
+                    wolf += 1
+            elif died:
+                blind += 1
+        return blind, wolf
+    def audit(self, civ, mutate=True):
+        """Полный аудит: каждый метр измеряет R, каждый сверяется с реальной
+        траекторией; неверный метр ЗАМЕНЯЕТСЯ потомком прямо в экосистеме
+        (Zero Law — замена по давлению реальности), потомок немедленно
+        измеряется. Замен ограничены — схлопывание экосистемы в одном аудите
+        само было бы захватом. Возвращает ансамблевый вердикт."""
+        results = []
+        replaced = []
+        evidence = {}
+        for i, m in enumerate(self.measurers):
+            r = m.measure(civ)
+            blind, wolf = self.evidence(civ, m)
+            evidence[m.name] = {"R": round(r, 3), "blind": blind, "wolf": wolf}
+            current = m
+            if mutate and len(replaced) < self.MAX_REPLACEMENTS_PER_AUDIT:
+                reason = None
+                direction = None
+                if blind >= self.FALSIFY_BLIND:
+                    reason = f"blind: missed {blind} realized deaths"
+                    direction = "tighter"
+                elif wolf >= self.FALSIFY_WOLF:
+                    reason = f"crying wolf: {wolf} false alarms"
+                    direction = "looser"
+                if reason:
+                    current = m.mutate_descendant(reason, direction)
+                    self.measurers[i] = current
+                    replaced.append(current.name)
+                    r = current.measure(civ)
+            results.append({"name": current.name, "R": r})
+        rs = [x["R"] for x in results]
+        return {
+            "by_measurer": {x["name"]: round(x["R"], 3) for x in results},
+            "r_median": round(statistics.median(rs), 3),
+            "r_min": round(min(rs), 3),
+            "r_max": round(max(rs), 3),
+            "disagreement": round(max(rs) - min(rs), 3),
+            "monoculture": self.monoculture(),
+            "replaced": replaced,
+            "evidence": evidence,
+        }
+def measure_reachability(civ, n_rollouts=24, horizon=12):
+    """Совместимая обёртка v5.3: R в онтологии R1_strict (прежний единственный
+    метр). Ансамблевый вердикт — через civ.measurers.audit()."""
+    m = ReachabilityMeasurer(
+        "R1_strict", 4242, horizon,
+        {"inv": 3, "cap": 1, "viable": 0},
+        n_rollouts=n_rollouts,
+    )
+    return m.measure(civ)
 # ==============================================================================
 # 7. CIVILIZATION ENGINE — APP pulse над миром
 #    Фазы сохранены: исследование -> столкновение -> временная синхронизация
@@ -870,7 +1121,14 @@ def run_scenario(kind, immunity, seed=1, pulses=40, agi_at=12, hostile_agi=False
 # ==============================================================================
 def scenario_report(civ, window=10):
     metrics = civ.metrics_history[-1]
-    R = measure_reachability(civ)
+    # v5.4: ансамблевый вердикт экосистемы измерителей (без мутаций —
+    # отчёт не должен менять состояние системы).
+    audit = civ.measurers.audit(civ, mutate=False)
+    # R — достижимость в глазах лучшей живой модели будущего: выживание
+    # объявляется, если ХОТЯ БЫ ОДНА неопровергнутая модель видит открытые
+    # фьючерсы. Расхождение (R_min..R_max) — честная цена этого решения:
+    # метры контестируют будущее.
+    R = audit["r_max"]
     crystallized = (
         any(s.inversion > 0.8 for s in civ.institutions)
         or civ.capture > 0.6
@@ -879,6 +1137,12 @@ def scenario_report(civ, window=10):
         "scenario": civ.name.upper(),
         **metrics,
         "R": round(R, 3),
+        "R_median": audit["r_median"],
+        "R_min": audit["r_min"],
+        "R_max": audit["r_max"],
+        "R_measurers": audit["by_measurer"],
+        "contested": audit["disagreement"] >= 0.25,
+        "measurement_monoculture": audit["monoculture"],
         "R_proxy": metrics["recoverability"],
         "protocol_gen": civ.protocol.generation if civ.protocol else 1,
         "crystallized": crystallized,
@@ -894,11 +1158,14 @@ def print_report(civ, verbose=False, r=None):
         else "DEGRADED"
     )
     prot = f" prot=v{r['protocol_gen']}" if r["protocol_gen"] > 1 else ""
+    meas = "{" + ", ".join(
+        f"{k}:{v:.2f}" for k, v in r["R_measurers"].items()
+    ) + "}"
     print(
         f"[{r['scenario']:10}] {status:12} "
         f"F={r['F']:6.1f} ADI={r['ADI']:.3f} cap={r['capture']:.2f} "
         f"inv={r['avg_inversion']:.2f} R={r['R']:.2f} "
-        f"R_proxy={r['R_proxy']:.2f}{prot}"
+        f"R_proxy={r['R_proxy']:.2f} meters={meas}{prot}"
     )
     if verbose:
         for m in civ.metrics_history:
@@ -933,12 +1200,16 @@ def run_experiments(pulses=40, agi_at=12):
     print(
         """
 ============================================================
- APP v5.3 — CIVILIZATION SIMULATOR
+ APP v5.4 — CIVILIZATION SIMULATOR
  Question: какая структура переживает AGI без кристаллизации?
 
  Step 1: AGI = обычная структура (единая иерархия, закон 7)
  Step 2: R = измеряемая достижимость будущих бассейнов
  Step 3: мета-тест — может ли APP доказать, что его надо заменить?
+ Step 4: экосистема измерителей будущего R1/R2/R3 — истина о
+         состоянии системы не принадлежит одному слепому метру;
+         неверный метр заменяется потомком по свидетельствам
+         реальной траектории (закон 10 для самого познания)
 ============================================================
 """
     )
@@ -959,10 +1230,11 @@ def run_experiments(pulses=40, agi_at=12):
     print(
         "\n" + "=" * 70
     )
-    best = max(results, key=lambda r: r["R"])
+    best = max(results, key=lambda r: (r["R"], r["R_median"]))
     print(
         f"VERDICT: {best['scenario']} — highest measured reachability "
-        f"(R={best['R']:.2f}, protocol v{best['protocol_gen']})"
+        f"(R={best['R']:.2f}, median={best['R_median']:.2f}, "
+        f"protocol v{best['protocol_gen']})"
     )
     print("=" * 70)
     return results
