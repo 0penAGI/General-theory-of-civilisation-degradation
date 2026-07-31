@@ -1,9 +1,9 @@
 # ==============================================================================
 # ADAPTIVE PLURALISM PROTOCOL (APP) — REFERENCE IMPLEMENTATION v5.0
 #
-# "Живая система не избегает ошибок.
-#  Она сохраняет способность превращать столкновения с реальностью
-#  в новые ветви поведения."
+# "A living system does not avoid errors.
+#  It preserves the ability to turn collisions with reality
+#  into new branches of behavior."
 #
 # CIRM -> APP evolution
 # ==============================================================================
@@ -215,7 +215,7 @@ class AutonomousAgent(ReplaceableComponent):
             pressure=event.intensity
         )
         self.scars.append(scar)
-        # давление реальности
+        # pressure from reality
         if event.intensity > 0.55:
             new_strategy = self.operator.mutate(
                 self.strategy,
@@ -369,7 +369,7 @@ class PulseEngine(ReplaceableComponent):
         # --------------------------------------------------
         for agent in agents:
             action=agent.act()
-            # в реальной системе здесь будет внешний feedback
+            # in a real system there would be external feedback here
             success=random.random()>0.35
             agent.learn(
                 event,
@@ -467,7 +467,7 @@ if __name__=="__main__":
         ScarImmunity()
     ]
     pulse=PulseEngine()
-    # сильный удар
+    # strong shock
     pulse.execute(
         agents,
         reality,
@@ -477,7 +477,7 @@ if __name__=="__main__":
         ),
         immunity
     )
-    # слабый сигнал
+    # weak signal
     pulse.execute(
         agents,
         reality,

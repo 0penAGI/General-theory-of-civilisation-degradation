@@ -1,17 +1,17 @@
 """APP — Adaptive Pluralism Protocol.
 
-«Живая система не избегает ошибок.
- Она сохраняет способность превращать столкновения с реальностью
- в новые ветви поведения.»
+"A living system does not avoid errors.
+ It preserves the ability to turn collisions with reality
+ into new branches of behavior."
 
-Ядро (app_v5) и песочница-симулятор v5.4 (civilization_simulator):
-экосистема конкурирующих измерителей будущего R1/R2/R3 — истина о
-состоянии системы не принадлежит одному слепому метру; неверный метр
-отбраковывается по свидетельствам реальной траектории и заменяется
-мутировавшим потомком (закон 10 применяется к самому познанию).
+Core (app_v5) and the v5.4 sandbox simulator (civilization_simulator):
+an ecosystem of competing future measurers R1/R2/R3 — the truth about the
+state of a system belongs to no single blind meter; a wrong meter is
+rejected on the evidence of the realized trajectory and replaced by a
+mutated descendant (Law 10 applied to knowledge itself).
 
-Проверка кода — не сходство с прошлой версией, а инварианты 12 законов
-(см. docs/SPEC.md).
+Code is verified not by similarity to a previous version but by the
+invariants of the 12 laws (see docs/SPEC.md).
 """
 
 from .app_v5 import (

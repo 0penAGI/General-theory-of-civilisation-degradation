@@ -1,8 +1,8 @@
-"""Регрессионные проверки вердиктов песочницы v5.3.
+"""Regression checks of the v5.3 sandbox verdicts.
 
-Запуск из корня репозитория:
+Run from the repository root:
     python -m unittest discover -s tests -v
-или:
+or:
     python -m pytest tests
 """
 

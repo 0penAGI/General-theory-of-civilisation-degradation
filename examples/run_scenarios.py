@@ -1,8 +1,8 @@
-"""Пример: прогнать пять сценариев песочницы и вывести вердикт.
+"""Example: run the five sandbox scenarios and print the verdict.
 
-Запуск из корня репозитория (без установки):
+Run from the repository root (without installation):
     python examples/run_scenarios.py
-или после установки пакета:
+or after installing the package:
     app-sim
 """
 

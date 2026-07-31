@@ -1,34 +1,35 @@
 # ==============================================================================
 # CIVILIZATION SIMULATOR — APP v5.4
 #
-# "Система должна сохранять способность переходить между фазами,
-#  а не застывать в одной из них."
+# "A living system must preserve the ability to move between phases,
+#  not freeze into one of them."
 #
 # Layers:
 #   Agents -> Structures -> Resources -> Reality pressure -> APP adaptation cycle
 #
-# Три шага от v5.2 (v5.3):
-#   1) AGI больше не особая вершина. Единая иерархия структур (закон 7):
-#      AGI — это Institution с высокой adaptation_rate.
-#   2) R — ИЗМЕРЯЕМАЯ достижимость: возмущаем систему, гоняем N траекторий,
-#      считаем, сколько различимых будущих бассейнов реально достижимо.
-#   3) МЕТА-ТЕСТ: может ли APP доказать, что его надо заменить?
-#      Protocol — заменяемый компонент правил; SelfImmunity аудирует
-#      достижимость под текущими правилами (закон 7 к самому протоколу).
+# Three steps beyond v5.2 (v5.3):
+#   1) AGI is no longer a special peak. A single hierarchy of structures (Law 7):
+#      AGI is an Institution with a high adaptation_rate.
+#   2) R — MEASURABLE reachability: perturb the system, run N trajectories,
+#      count how many distinguishable future basins are actually reachable.
+#   3) META-TEST: can the APP prove that it should be replaced?
+#      Protocol is a replaceable rules component; SelfImmunity audits
+#      reachability under the current rules (Law 7 applied to the protocol itself).
 #
-# Шаг v5.4 — ИММУННАЯ СИСТЕМА ДЛЯ САМОГО ПОЗНАНИЯ (закон 10):
-#   Истина о состоянии системы не принадлежит одному измерителю. Вместо
-#   единственного слепого measure_reachability — экосистема конкурирующих
-#   измерителей будущего R1/R2/R3: разные онтологии смерти, разные горизонты,
-#   разные возмущения. Не «какая R лучше», а несколько несовместимых моделей
-#   будущего сосуществуют и конкурируют, не уничтожая друг друга.
-#   Слепой измеритель (Zero Law) отбраковывается по физическим свидетельствам
-#   реальной траектории (Reality First) и заменяется мутировавшим потомком,
-#   причём направление мутации задаёт шрам (Scar Principle), а не шум.
-#   Монокультура измерения (все метры сошлись в один «истинный») — это сам
-#   захват познания и повод пересмотреть протокол.
+# v5.4 step — AN IMMUNE SYSTEM FOR KNOWLEDGE ITSELF (Law 10):
+#   The truth about the state of a system belongs to no single measurer. Instead
+#   of the one blind measure_reachability — an ecosystem of competing future
+#   measurers R1/R2/R3: different death ontologies, different horizons,
+#   different perturbations. Not "which R is better", but several incompatible
+#   models of the future coexisting and competing without destroying each other.
+#   A blind measurer (Zero Law) is rejected on the physical evidence of the
+#   realized trajectory (Reality First) and replaced by a mutated descendant,
+#   where the mutation direction is set by the scar (Scar Principle), not noise.
+#   Measurement monoculture (all meters converged to one "true" answer) is the
+#   capture of knowledge itself and a reason to revise the protocol.
 #
-# Вопрос: какая структура общества переживает появление AGI без кристаллизации?
+# Question: which structure of society survives the arrival of AGI without
+# crystallization?
 # ==============================================================================
 try:
     from .app_v5 import (
@@ -79,12 +80,13 @@ class _QuietReplaceable(ReplaceableComponent):
                 f"({reason})"
             )
 # ==============================================================================
-# 1. STRUCTURE — единый тип института
-#    v5.3: нет отдельной вершины «AGI». Есть структуры с параметрами.
-#    Разница между институтом и AGI — adaptation_rate, efficiency — не род.
-#    Канал налогов: extract * eff * (1 - inversion); разница — паразитизм.
-#    Attractor drift: структура медленно ползёт к инверсии (short-horizon
-#    оптимизация без long-horizon модели).
+# 1. STRUCTURE — a single institution type
+#    v5.3: no separate "AGI" peak. There are structures with parameters.
+#    The difference between an institution and AGI is adaptation_rate,
+#    efficiency — not kind.
+#    Tax channel: extract * eff * (1 - inversion); the difference is parasitism.
+#    Attractor drift: a structure slowly drifts toward inversion (short-horizon
+#    optimization without a long-horizon model).
 # ==============================================================================
 class Institution(_QuietReplaceable):
     def __init__(
@@ -143,10 +145,11 @@ class Institution(_QuietReplaceable):
             parents=[self.current_lineage]
         )
     def spin_off(self, reason: str, new_function: str):
-        """Заменимость через деление: слишком эффективная незаменимая
-        структура делится, а не уничтожается. Родитель сохраняет 60%
-        добычи и новую ветвь lineage, рождается дочерняя ветвь (закон 9).
-        Дочерняя скорость адаптации ниже — дробление стоит координации."""
+        """Replaceability through division: an over-efficient irreplaceable
+        structure divides instead of being destroyed. The parent keeps 60% of
+        the extraction and a new lineage branch; a child branch is born
+        (Law 9). The child's adaptation rate is lower — division costs
+        coordination."""
         self.replace(reason)
         self.inversion = 0.0
         self.sustained = 0
@@ -169,10 +172,10 @@ class Institution(_QuietReplaceable):
         )
         return child
 # ==============================================================================
-# 2. AGI — просто структура с высокой adaptation_rate
-#    v5.3: подкласс Institution. Угроза — не ресурсы, а разница скоростей
-#    адаптации. Если альтернативы умирают — AGI адаптируется ещё быстрее.
-#    Заменяем, как любая структура: regenerate / spin_off.
+# 2. AGI — just a structure with a high adaptation_rate
+#    v5.3: subclass of Institution. The threat is not resources but the
+#    difference in adaptation speeds. If alternatives die — AGI adapts even
+#    faster. Replace it like any structure: regenerate / spin_off.
 # ==============================================================================
 class AGI(Institution):
     def __init__(self, hostile: bool = False):
@@ -198,9 +201,10 @@ class AGI(Institution):
             min(1.0, 0.85 - share * 1.5)
         )
         if self.hostile:
-            # v5.3: враждебность — эскалация во времени, пока экземпляр не
-            # заменён. Слабый протокол (большой TICKS/THRESHOLD) не успевает,
-            # и скорость адаптации растёт против правил: inversion-lag.
+            # v5.3: hostility escalates over time until the instance is
+            # replaced. A weak protocol (large TICKS/THRESHOLD) does not keep
+            # up, and the adaptation speed grows against the rules:
+            # inversion-lag.
             self.ticks_alive += 1
             self.inversion = max(0.4, self.inversion)
             self.adaptation_rate = 0.85 + min(
@@ -216,10 +220,11 @@ class AGI(Institution):
         self.inversion = 0.0
         self.ticks_alive = 0
         if self.hostile and protocol is not None:
-            # v5.3 мета-правило: строгий протокол (THRESHOLD <= 0.5) не может
-            # сосуществовать с враждебным экземпляром — он не проходит барьер
-            # координации, и заменяющая структура кооперативна. Враждебность
-            # не присуща AGI, её селектируют послабленные правила.
+            # v5.3 meta-rule: a strict protocol (THRESHOLD <= 0.5) cannot
+            # coexist with a hostile instance — it does not pass the
+            # coordination barrier, and the replacing structure is
+            # cooperative. Hostility is not inherent to AGI; it is selected
+            # by relaxed rules.
             if protocol.rules["THRESHOLD"] <= 0.5:
                 self.hostile = False
                 self.tamed += 1
@@ -232,10 +237,10 @@ class AGI(Institution):
         )
 # ==============================================================================
 # 3. AGENT WITH STAKES
-#    Капитальный канал: агент вкладывает внимание (budget) и получает от мира
-#    настоящий возврат: gain = spend * eff * (1 - inversion).
-#    Здоровый институт возвращает больше, чем взял. Инвертированный — теряет.
-#    Отрицательный результат -> шрам -> при давлении -> мутация стратегии.
+#    Capital channel: an agent invests attention (budget) and receives a real
+#    return from the world: gain = spend * eff * (1 - inversion).
+#    A healthy institution returns more than it takes. An inverted one loses.
+#    Negative result -> scar -> under pressure -> strategy mutation.
 # ==============================================================================
 class CivilAgent(AutonomousAgent):
     def __init__(
@@ -366,9 +371,9 @@ class CivilAgent(AutonomousAgent):
         return state
 # ==============================================================================
 # 4. PROTOCOL + IMMUNITY
-#    v5.3: сам APP — заменяемый компонент (закон 7). Правила живут в
-#    Protocol; иммунитет читает их. SelfImmunity аудирует достижимость под
-#    текущими правилами и доказывает, что их пора переписать.
+#    v5.3: the APP itself is a replaceable component (Law 7). The rules live
+#    in Protocol; immunity reads them. SelfImmunity audits reachability under
+#    the current rules and proves that they are due for a rewrite.
 # ==============================================================================
 class Protocol(_QuietReplaceable):
     DEFAULT_RULES = {
@@ -428,9 +433,10 @@ class ReplaceabilityImmunity(InstitutionImmunity):
         rules = self._rules(civ)
         replaced = 0
         total = civ.total_delivered()
-        # arm 2 — ЗАМЕНЯЕМОСТЬ: деление незаменимых структур.
-        # Пока структура эффективна и не паразитирует, но доставляет больше
-        # половины всей функции — её удаление обрушит систему. Делим на две.
+        # arm 2 — REPLACEABILITY: division of irreplaceable structures.
+        # While a structure is efficient and does not parasitize, but delivers
+        # more than half of the total function — removing it would collapse
+        # the system. Split it into two.
         if total > 1.0:
             for s in list(civ.institutions):
                 share = s.last_delivered / total
@@ -451,7 +457,7 @@ class ReplaceabilityImmunity(InstitutionImmunity):
                     )
                     civ.update_rate = min(0.95, civ.update_rate + 0.05)
                     replaced += 1
-        # arm 1 — паразитизм: инверсия ради самосохранения.
+        # arm 1 — parasitism: inversion for self-preservation.
         for s in civ.institutions:
             if s.inversion > rules["SUSTAINED"]:
                 s.sustained += 1
@@ -487,32 +493,32 @@ class SelfImmunity(InstitutionImmunity):
         if civ.pulse < self.last_audit + self.AUDIT_EVERY:
             return True
         self.last_audit = civ.pulse
-        # v5.4: не один слепой метр, а экосистема конкурирующих измерителей.
-        # Аудит сам эволюционирует: неверные метры заменяются потомками,
-        # направление мутации задаёт реальная траектория.
+        # v5.4: not one blind meter but an ecosystem of competing measurers.
+        # The audit itself evolves: wrong meters are replaced by descendants,
+        # and the mutation direction is set by the realized trajectory.
         audit = civ.measurers.audit(civ, mutate=True)
         agi = civ.find_agi()
-        # давление — не «есть AGI», а активная угроза: захват или AGI,
-        # который реально инвертируется. Приручённый AGI — не давление.
+        # pressure is not "AGI exists" but an active threat: capture or an AGI
+        # that is actually inverting. A tamed AGI is not pressure.
         under_pressure = (
             civ.capture > 0.1
             or (agi is not None and agi.inversion > 0.4)
         )
         revised = False
         if audit["monoculture"] and under_pressure:
-            # измерение схлопнулось в один «истинный» ответ — все метры
-            # сошлись в одну модель будущего; это захват самого познания.
-            # Правила должны открыть больше фьючерсов, а не верить метру.
+            # measurement collapsed into one "true" answer — all meters agreed
+            # on a single model of the future; this is the capture of
+            # knowledge itself. Rules must open more futures, not trust a meter.
             civ.protocol.revise(
                 f"measurement monoculture: meters all agree "
                 f"{audit['by_measurer']}"
             )
             revised = True
         elif audit["r_median"] < self.R_FLOOR and under_pressure:
-            # большинство метров (медиана) видит закрытое будущее. Один метр
-            # может заблуждаться (кричать «волк» или видеть конвергенцию к
-            # единственному живому бассейну как 0.00) — поэтому решение
-            # принимает консенсус экосистемы, а не самый строгий метр.
+            # the majority of meters (median) sees a closed future. A single
+            # meter can be wrong (cry "wolf" or see convergence to a single
+            # live basin as 0.00) — so the decision is made by the ecosystem
+            # consensus, not the strictest meter.
             civ.protocol.revise(
                 f"median R={audit['r_median']:.2f} < {self.R_FLOOR}, "
                 f"capture={civ.capture:.2f}: "
@@ -528,7 +534,7 @@ class SelfImmunity(InstitutionImmunity):
             civ.update_rate = min(0.95, civ.update_rate + 0.1)
         return True
 # ==============================================================================
-# 5. CIVILIZATION — песочница
+# 5. CIVILIZATION — sandbox
 # ==============================================================================
 class SimReality(Reality):
     def __init__(self, quiet=True):
@@ -569,8 +575,9 @@ class Civilization:
         self.reality = SimReality(quiet=True)
         self.metrics_history = []
         self.last_agent_gain = 0.0
-        # v5.4: экосистема измерителей будущего + реальная траектория
-        # (сигнатуры пройденных состояний), по которой метры фальсифицируются.
+        # v5.4: an ecosystem of future measurers + the realized trajectory
+        # (signatures of visited states) against which the meters are
+        # falsified.
         self.measurers = MeasurerEcosystem(seed)
         self.signature_history = []
         self.quiet = True
@@ -625,9 +632,10 @@ class Civilization:
             * (1.0 - self.parasitism_debt)
             * (0.5 + 0.5 * self.trust / 50.0)
         )
-        # v5.3 — attractor capture от самой быстрой структуры.
-        # Правила переписываются под её аттрактор быстрее, чем проверяются
-        # реальностью: структуры накапливают inversion-lag, update_rate падает.
+        # v5.3 — attractor capture by the fastest structure.
+        # Rules are rewritten to fit its attractor faster than they are
+        # checked against reality: structures accumulate inversion-lag,
+        # update_rate drops.
         fastest = max(
             (s.adaptation_rate for s in self.institutions), default=0.0
         )
@@ -671,11 +679,12 @@ class Civilization:
         self.crisis_damage *= 0.8
         self.signature_history.append(state_signature(self))
 # ==============================================================================
-# 6. METRICS — ADI, CR, capture + ИЗМЕРЯЕМАЯ достижимость R
-#    R больше не формула (она остаётся прокси-трассой в history), а результат
-#    прогонов: сколько различимых будущих бассейнов система реально может
-#    достичь после возмущения. R = basin_count / N.
-#    v5.4: R измеряет не один метр, а экосистема R1/R2/R3 (секция 6b).
+# 6. METRICS — ADI, CR, capture + MEASURABLE reachability R
+#    R is no longer a formula (it stays as a proxy trace in history) but the
+#    result of rollouts: how many distinguishable future basins the system can
+#    actually reach after perturbation. R = basin_count / N.
+#    v5.4: R is measured not by one meter but by the ecosystem R1/R2/R3
+#    (section 6b).
 # ==============================================================================
 def compute_metrics(civ):
     total_extract = sum(s.last_extract for s in civ.institutions)
@@ -687,7 +696,7 @@ def compute_metrics(civ):
     ADI = min(99.0, parasitism / (F + 1e-9))
     inversions = [s.inversion for s in civ.institutions]
     avg_inversion = statistics.mean(inversions) if inversions else 0.0
-    # прокси-формула (для трейса): R_proxy = openness * history * (1 - pull)
+    # proxy formula (for the trace): R_proxy = openness * history * (1 - pull)
     structures = civ.institutions
     viable = [s for s in structures if s.last_delivered > 2.0]
     top_share = (
@@ -731,31 +740,33 @@ def state_signature(civ):
         min(3, viable // 2),
     )
 def is_dead_signature(sig):
-    """Мёртвый фьючерс (онтология R1): кристаллизация, захват (>=0.2 capture —
-    аттрактор уже сомкнулся вокруг структуры) или исчезновение жизнеспособных
-    структур. Все такие исходы сливаются в одну категорию «нет будущего»."""
+    """A dead future (R1 ontology): crystallization, capture (>=0.2 capture —
+    the attractor has already closed around the structure) or the
+    disappearance of viable structures. All such outcomes collapse into one
+    "no future" category."""
     return sig[0] >= 3 or sig[1] >= 1 or sig[2] == 0
 def objective_terminal(sig):
-    """Объективный признак смерти, НЕ зависящий ни от одного измерителя:
-    инверсия или захват дошли до потолка (avg_inv >= 0.75 / capture >= 0.6).
-    Это физический факт траектории, а не гипотеза метра."""
+    """An objective death marker, INDEPENDENT of any measurer: inversion or
+    capture reached the ceiling (avg_inv >= 0.75 / capture >= 0.6). This is
+    a physical fact of the trajectory, not a meter's hypothesis."""
     return sig[0] == 3 or sig[1] == 3
 def objective_alive(sig):
-    """Объективный признак жизни: есть жизнеспособные структуры, инверсия
-    и захват низкие. Факт траектории, а не гипотеза метра."""
+    """An objective life marker: there are viable structures, inversion and
+    capture are low. A fact of the trajectory, not a meter's hypothesis."""
     return sig[2] >= 1 and sig[0] == 0 and sig[1] == 0
 # ==============================================================================
-# 6b. v5.4 — ИЗМЕРИТЕЛИ БУДУЩЕГО
-#    Истина о состоянии системы не может принадлежать одному слепому метру.
-#    R1/R2/R3 — несовместимые модели будущего: разные онтологии смерти
-#    (что считать «нет будущего»), разные горизонты T, разные возмущения.
-#    Измеритель — заменяемый компонент (закон 7). Его неверность доказывается
-#    столкновением с реальной траекторией (закон 2): если метр называл прошлое
-#    состояние живым, а система умерла — он слеп; если называл мёртвым,
-#    а система ожила — он кричит «волк». Замена — только по этому давлению
-#    (Zero Law), мутация направлена шрамом (закон 6), ветви сохраняются
-#    (закон 9), а схлопывание экосистемы в один «истинный» метр — это сам
-#    захват познания (закон 10).
+# 6b. v5.4 — FUTURE MEASURERS
+#    The truth about the state of a system cannot belong to one blind meter.
+#    R1/R2/R3 are incompatible models of the future: different death
+#    ontologies (what counts as "no future"), different horizons T, different
+#    perturbations. A measurer is a replaceable component (Law 7). Its
+#    wrongness is proven by collision with the realized trajectory (Law 2):
+#    if a meter called a past state alive and the system died — it is blind;
+#    if it called it dead and the system recovered — it cries "wolf".
+#    Replacement only under this pressure (Zero Law), mutation is directed by
+#    the scar (Law 6), branches are preserved (Law 9), and the ecosystem
+#    collapsing into one "true" meter is the capture of knowledge itself
+#    (Law 10).
 # ==============================================================================
 class ReachabilityMeasurer(_QuietReplaceable):
     def __init__(
@@ -777,16 +788,16 @@ class ReachabilityMeasurer(_QuietReplaceable):
         self.current_lineage = self.lineage_root
         self.depth = 0
     def is_dead_signature(self, sig):
-        """Онтология смерти конкретного метра: какие будущие считать мёртвыми.
-        Разные метры дают РАЗНЫЕ ответы на один и тот же сигнатуру."""
+        """The death ontology of this specific meter: which futures count as
+        dead. Different meters give DIFFERENT answers to the same signature."""
         return (
             sig[0] >= self.ontology["inv"]
             or sig[1] >= self.ontology["cap"]
             or sig[2] < self.ontology["viable"]
         )
     def _probe_event(self, i):
-        """Какое возмущение использовать на роллауте i. Разные метры
-        испытывают систему разными гипотезами о будущем."""
+        """Which perturbation to use on rollout i. Different meters test the
+        system with different hypotheses about the future."""
         if self.perturbation == "far":
             roll = i % 4
             if roll == 0:
@@ -820,9 +831,9 @@ class ReachabilityMeasurer(_QuietReplaceable):
             )
         return RealityEvent("agi_arrival", 0.9)
     def measure(self, civ):
-        """R = достижимость в глазах ЭТОГО метра. Та же измерительная машина
-        (клоны + возмущения + подсчёт бассейнов), но онтология смерти,
-        горизонт и возмущения — свои."""
+        """R = reachability as seen by THIS meter. The same measuring machine
+        (clones + perturbations + basin counting), but the death ontology,
+        horizon and perturbations are its own."""
         saved = random.getstate()
         try:
             basins = {}
@@ -852,11 +863,11 @@ class ReachabilityMeasurer(_QuietReplaceable):
         finally:
             random.setstate(saved)
     def mutate_descendant(self, reason: str, direction: str):
-        """Замена слепого метра мутировавшим потомком (закон 7 + Zero Law).
-        Направление задаёт шрам (закон 6): слепой метр (не заметил смерть)
-        ужесточает онтологию — видит смерть раньше; крик «волк» (ложные
-        тревоги) ослабляет её. Потомок наследует линию (закон 9) и новое
-        ядро случайности — та же машина, другая гипотеза."""
+        """Replacing a blind meter with a mutated descendant (Law 7 + Zero Law).
+        The direction is set by the scar (Law 6): a blind meter (missed death)
+        tightens its ontology — sees death earlier; crying "wolf" (false
+        alarms) loosens it. The descendant inherits the lineage (Law 9) and a
+        new randomness seed — the same machine, another hypothesis."""
         self.replace(reason)
         o = dict(self.ontology)
         h = self.horizon
@@ -886,10 +897,11 @@ class ReachabilityMeasurer(_QuietReplaceable):
         )
         return child
 class MeasurerEcosystem:
-    """Экосистема конкурирующих измерителей будущего. Ни один метр не является
-    истиной; истина — это расхождение. Экосистема аудирует систему, проверяет
-    каждый метр физическими свидетельствами реальной траектории и заменяет
-    неверных потомками. Сеется детерминированно (seed цивилизации)."""
+    """An ecosystem of competing future measurers. No single meter is the
+    truth; the truth is the disagreement. The ecosystem audits the system,
+    checks every meter against the physical evidence of the realized
+    trajectory and replaces the wrong ones with descendants. Seeded
+    deterministically (from the civilization seed)."""
     FALSIFY_BLIND = 2
     FALSIFY_WOLF = 3
     EVIDENCE_WINDOW = 6
@@ -919,15 +931,15 @@ class MeasurerEcosystem:
             m.ontology["viable"], m.horizon,
         )
     def monoculture(self):
-        """Все метры сошлись в один «истинный» ответ — измерение схлопнулось
-        в монолит (закон 10 применяется к самому познанию)."""
+        """All meters converged on one "true" answer — measurement collapsed
+        into a monolith (Law 10 applied to knowledge itself)."""
         return len({self._ontology_key(m) for m in self.measurers}) == 1
     def evidence(self, civ, m):
-        """Физические свидетельства против метра: сопоставление его
-        предсказаний смерти/жизни прошлых состояний с тем, что РЕАЛЬНО
-        случилось на траектории. blind — метр назвал живое состояние живым,
-        а система умерла (слепота — опасно). wolf — назвал мёртвым,
-        а система ожила (ложная тревога — дорого)."""
+        """Physical evidence against a meter: comparing its death/life
+        predictions for past states with what ACTUALLY happened on the
+        trajectory. blind — the meter called a live state alive and the
+        system died (blindness — dangerous). wolf — called it dead and the
+        system recovered (false alarm — costly)."""
         hist = civ.signature_history
         blind = 0
         wolf = 0
@@ -942,11 +954,12 @@ class MeasurerEcosystem:
                 blind += 1
         return blind, wolf
     def audit(self, civ, mutate=True):
-        """Полный аудит: каждый метр измеряет R, каждый сверяется с реальной
-        траекторией; неверный метр ЗАМЕНЯЕТСЯ потомком прямо в экосистеме
-        (Zero Law — замена по давлению реальности), потомок немедленно
-        измеряется. Замен ограничены — схлопывание экосистемы в одном аудите
-        само было бы захватом. Возвращает ансамблевый вердикт."""
+        """Full audit: every meter measures R, every one is checked against the
+        realized trajectory; a wrong meter is REPLACED by a descendant right
+        in the ecosystem (Zero Law — replacement under the pressure of
+        reality), and the descendant is measured immediately. Replacements
+        are capped — the ecosystem collapsing within a single audit would
+        itself be capture. Returns the ensemble verdict."""
         results = []
         replaced = []
         evidence = {}
@@ -982,8 +995,8 @@ class MeasurerEcosystem:
             "evidence": evidence,
         }
 def measure_reachability(civ, n_rollouts=24, horizon=12):
-    """Совместимая обёртка v5.3: R в онтологии R1_strict (прежний единственный
-    метр). Ансамблевый вердикт — через civ.measurers.audit()."""
+    """v5.3-compatible wrapper: R in the R1_strict ontology (the former single
+    meter). The ensemble verdict is available via civ.measurers.audit()."""
     m = ReachabilityMeasurer(
         "R1_strict", 4242, horizon,
         {"inv": 3, "cap": 1, "viable": 0},
@@ -991,9 +1004,9 @@ def measure_reachability(civ, n_rollouts=24, horizon=12):
     )
     return m.measure(civ)
 # ==============================================================================
-# 7. CIVILIZATION ENGINE — APP pulse над миром
-#    Фазы сохранены: исследование -> столкновение -> временная синхронизация
-#                    -> обучение через шрамы -> иммунитет -> повторное расхождение
+# 7. CIVILIZATION ENGINE — APP pulse over the world
+#    The phases are preserved: exploration -> collision -> temporary sync
+#                    -> learning through scars -> immunity -> re-divergence
 # ==============================================================================
 class CivilizationEngine:
     def __init__(self, self_immunity: bool = False):
@@ -1121,13 +1134,13 @@ def run_scenario(kind, immunity, seed=1, pulses=40, agi_at=12, hostile_agi=False
 # ==============================================================================
 def scenario_report(civ, window=10):
     metrics = civ.metrics_history[-1]
-    # v5.4: ансамблевый вердикт экосистемы измерителей (без мутаций —
-    # отчёт не должен менять состояние системы).
+    # v5.4: ensemble verdict of the measurer ecosystem (without mutations —
+    # a report must not change the state of the system).
     audit = civ.measurers.audit(civ, mutate=False)
-    # R — достижимость в глазах лучшей живой модели будущего: выживание
-    # объявляется, если ХОТЯ БЫ ОДНА неопровергнутая модель видит открытые
-    # фьючерсы. Расхождение (R_min..R_max) — честная цена этого решения:
-    # метры контестируют будущее.
+    # R — reachability in the eyes of the best living model of the future:
+    # survival is declared if AT LEAST ONE unfalsified model sees open
+    # futures. The disagreement (R_min..R_max) is the honest price of this
+    # decision: the meters contest the future.
     R = audit["r_max"]
     crystallized = (
         any(s.inversion > 0.8 for s in civ.institutions)
@@ -1201,15 +1214,15 @@ def run_experiments(pulses=40, agi_at=12):
         """
 ============================================================
  APP v5.4 — CIVILIZATION SIMULATOR
- Question: какая структура переживает AGI без кристаллизации?
+ Question: which structure survives AGI without crystallization?
 
- Step 1: AGI = обычная структура (единая иерархия, закон 7)
- Step 2: R = измеряемая достижимость будущих бассейнов
- Step 3: мета-тест — может ли APP доказать, что его надо заменить?
- Step 4: экосистема измерителей будущего R1/R2/R3 — истина о
-         состоянии системы не принадлежит одному слепому метру;
-         неверный метр заменяется потомком по свидетельствам
-         реальной траектории (закон 10 для самого познания)
+ Step 1: AGI = a common structure (single hierarchy, Law 7)
+ Step 2: R = measurable reachability of future basins
+ Step 3: meta-test — can the APP prove that it should be replaced?
+ Step 4: ecosystem of future measurers R1/R2/R3 — the truth about the
+         state of the system belongs to no single blind meter;
+         a wrong meter is replaced by a descendant on the evidence of
+         the realized trajectory (Law 10 applied to knowledge itself)
 ============================================================
 """
     )

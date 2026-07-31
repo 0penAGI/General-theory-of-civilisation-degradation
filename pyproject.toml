@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "adaptive-pluralism-protocol"
 version = "5.4.0"
-description = "APP — Adaptive Pluralism Protocol: иммунная архитектура цивилизации перед эпохой AGI"
+description = "APP — Adaptive Pluralism Protocol: an immune architecture of civilization facing the age of AGI"
 readme = "README.md"
 requires-python = ">=3.10"
 keywords = ["adaptive-pluralism", "replaceability", "civilisation", "simulation"]

@@ -1,6 +1,6 @@
-"""v5.4: экосистема конкурирующих измерителей будущего (R1/R2/R3).
+"""v5.4: ecosystem of competing future measurers (R1/R2/R3).
 
-Запуск из корня репозитория:
+Run from the repository root:
     python -m unittest discover -s tests -v
 """
 
@@ -18,13 +18,13 @@ from adaptive_pluralism_protocol import (
     scenario_report,
 )
 
-# история, где R2 (cap:2) называет состояние (0,1,2) живым, а система затем
-# умирает (сигнатура (_,3,_) — объективный терминал)
+# history where R2 (cap:2) calls state (0,1,2) alive, and the system then
+# dies (signature (_,3,_) — an objective terminal)
 BLIND_HISTORY = [
     (0, 1, 2), (0, 2, 2), (1, 3, 2), (1, 3, 2), (0, 2, 2),
     (0, 1, 2), (0, 2, 2), (1, 3, 2), (1, 3, 2), (0, 2, 2),
 ]
-# история, где R1/R3 (cap:1) называют (0,1,2) мёртвым, а система оживает
+# history where R1/R3 (cap:1) call (0,1,2) dead, and the system recovers
 WOLF_HISTORY = [
     (0, 1, 2), (0, 0, 3), (0, 0, 3), (0, 1, 2), (0, 0, 3),
     (0, 1, 2), (0, 0, 3), (0, 1, 2), (0, 0, 3),
