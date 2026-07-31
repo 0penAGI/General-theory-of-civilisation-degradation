@@ -287,6 +287,64 @@
     margin: 48px 0;
   }
 
+  /* ── PROTOCOL / CODE ── */
+  a { color: #0e0e0e; text-decoration: none; border-bottom: 1px solid #0e0e0e; }
+  a:hover { background: #0e0e0e; color: #f7f6f2; }
+  .part-note {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #4a4a4a;
+    margin-bottom: 16px;
+  }
+  code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    background: #eeecea;
+    padding: 2px 5px;
+    border: 1px solid #c8c6be;
+  }
+  pre {
+    background: #0e0e0e;
+    color: #f7f6f2;
+    padding: 20px 24px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 28px 0;
+  }
+
+  /* ── FORK CTA ── */
+  .fork-cta {
+    margin: 80px 0 20px;
+    text-align: center;
+    border-top: 3px solid #0e0e0e;
+    padding-top: 48px;
+  }
+  .fork-btn {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #f7f6f2;
+    background: #0e0e0e;
+    padding: 18px 36px;
+    border: 1px solid #0e0e0e;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .fork-btn:hover { background: #f7f6f2; color: #0e0e0e; }
+  .fork-sub {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #4a4a4a;
+    margin-top: 14px;
+  }
+
   /* ── FOOTER ── */
   footer {
     border-top: 3px solid #0e0e0e;
@@ -326,13 +384,14 @@
 
 <header>
   <div class="journal-line">
-    <span>0penAGI Research — Working Paper v3</span>
-    <span>July 2026</span>
+    <span>0penAGI Research — Working Paper v3 · APP v5.4</span>
+    <span>July 2026 · <a href="https://github.com/0penAGI/General-theory-of-civilisation-degradation">GitHub</a></span>
   </div>
   <h1>General Theory of Systemic Irreversibility and Civilizational Recoverability</h1>
   <div class="subtitle">
     Attractor Degradation · Functional Inversion · Metric Substitution · Recoverability<br>
-    Operationalization · The Coordination Trap · CIRM as Immune Architecture
+    Operationalization · The Coordination Trap · CIRM as Immune Architecture<br>
+    Operationalized as the Adaptive Pluralism Protocol (APP) — specification, simulator, tests
   </div>
 </header>
 
@@ -803,12 +862,133 @@
   <p>This is not anarchy in the sense of structural absence. It is the transition from an organism with a king to an ecosystem. Ecosystems have structure, competition, feedback, selection, and memory. They do not have sovereigns. They do not need them. Their stability — such as it is — emerges from the replaceability of every component, not from the authority of any.</p>
 </section>
 
+<!-- ═══════════════════════════════════════════════ PART III ═══ -->
+
+<hr class="divider">
+
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 15</span>
+    <h2>APP — Adaptive Pluralism Protocol: The Operationalization</h2>
+  </div>
+
+  <div class="part-note">Part III — From Architecture to Protocol</div>
+
+  <p>The theory demanded an architecture. CIRM named the invariant: recoverability — the capacity of a system to become something else after discovering it was wrong. APP is that invariant operationalized: a specification, a reference implementation, a test suite, and a reproducible verdict. It is not a model of society. It is a constraint on every possible model of society: <strong>no model may declare itself final.</strong></p>
+
+  <div class="theorem">
+    <div class="theorem-label">The Manifest Reframe</div>
+    <p>We do not offer a society of the future. We offer the smallest mechanism that prevents any society from declaring itself the last one.</p>
+  </div>
+
+  <p>Anyone can clone the repository, run the five scenarios, and argue with the model instead of the wording. The reader is not asked to govern the simulation. The reader is invited to observe its health — and then to break it.</p>
+</section>
+
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 16</span>
+    <h2>Evolution of the Protocol: v5.1 → v5.5</h2>
+  </div>
+
+  <p>Each version answered the failure mode its predecessor had made visible. The sequence is itself an instance of the theory: every correction creates the possibility of its own capture.</p>
+
+  <div class="trajectory">
+    <div class="traj-row">
+      <div class="traj-from">v5.1 — core: replaceable components, pulse cycle, scars</div>
+      <div class="traj-arrow">→</div>
+      <div class="traj-to">the adaptation loop: collision → learning → re-divergence</div>
+    </div>
+    <div class="traj-row">
+      <div class="traj-from">v5.2 — immunity to parasitism and concentration</div>
+      <div class="traj-arrow">→</div>
+      <div class="traj-to">replaceability enforced on every structure</div>
+    </div>
+    <div class="traj-row">
+      <div class="traj-from">v5.3 — AGI as structure; R as measurement; protocol replaceable</div>
+      <div class="traj-arrow">→</div>
+      <div class="traj-to">the meta-test: prove that you should be replaced</div>
+    </div>
+    <div class="traj-row">
+      <div class="traj-from">v5.4 — ecosystem of future measurers R1/R2/R3</div>
+      <div class="traj-arrow">→</div>
+      <div class="traj-to">truth is a disagreement, not a single meter</div>
+    </div>
+    <div class="traj-row">
+      <div class="traj-from">v5.5 — direction (not implemented)</div>
+      <div class="traj-arrow">→</div>
+      <div class="traj-to">the audit must not be a constant; completion criterion</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 17</span>
+    <h2>What the Simulation Shows</h2>
+  </div>
+
+  <p>One question drives the simulator: which structure of society survives the arrival of AGI without crystallizing? R is measured reachability — how many distinct live futures remain actually reachable after perturbation. R is not "did the system survive"; it is "how many futures are still open."</p>
+
+  <table>
+    <thead>
+      <tr><th>Scenario</th><th>Structure</th><th>Verdict</th><th>R</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>MONOLITH</td><td class="orig">single institution, no immunity</td><td>CRYSTALLIZED</td><td>0.00</td></tr>
+      <tr><td>PLURAL</td><td class="orig">many institutions, no structural immunity</td><td>CRYSTALLIZED</td><td>0.00</td></tr>
+      <tr><td>ADAPTIVE</td><td class="orig">plural + APP immunity active</td><td>SURVIVED</td><td class="orig">≈ 0.44–0.49, future contested by the meters</td></tr>
+      <tr><td>ADAPTIVE_H</td><td class="orig">adaptive vs hostile AGI</td><td>CRYSTALLIZED</td><td>0.00</td></tr>
+      <tr><td>META</td><td class="orig">protocol proves it should be replaced</td><td>SURVIVED</td><td class="orig">≈ 0.44–0.61, protocol v3</td></tr>
+    </tbody>
+  </table>
+
+  <p>In META the measurer ecosystem itself evolves: all three meters replaced themselves (depth 6), tightening their ontologies on the evidence of realized near-deaths. The truth about the system remained evolving.</p>
+</section>
+
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 18</span>
+    <h2>The Key Discovery: Even the Immunity Must Be Replaceable</h2>
+  </div>
+
+  <div class="theorem">
+    <div class="theorem-label">The Recursive Limit</div>
+    <p>Any verification scheme that becomes a constant becomes a new attractor. A system can become perfectly adapted to its test — and less connected to reality.</p>
+  </div>
+
+  <p>v5.4 protected truth from the monopoly of a single measurer. But the falsification scheme itself — the thresholds, the evidence window, the post-hoc recomputation of errors — is knowable to the meters. A static audit cannot tell a meter that errs rarely because it sees well from a meter that errs rarely because it avoids being checked. Externally identical; internally opposite dynamics.</p>
+
+  <p>This is a theorem of two existing laws — Reality First and Replaceability — not a new law: a new law would itself claim permanence. The consequence is the protocol's release condition:</p>
+
+  <div class="theorem">
+    <div class="theorem-label">Completion Criterion</div>
+    <p>APP is complete as a base protocol when it can replace its own verification, update, and protection mechanisms upon detection of their crystallization. The state of completion is a temporary phase, subject to re-verification.</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-header">
+    <span class="section-num">§ 19</span>
+    <h2>Run the Civilization Simulation</h2>
+  </div>
+
+  <p>The reader does not inherit a conclusion. The reader inherits a test. Python 3.10+, standard library only — no dependencies:</p>
+
+  <pre>git clone https://github.com/0penAGI/General-theory-of-civilisation-degradation
+cd General-theory-of-civilisation-degradation
+pip install -e .
+python examples/run_scenarios.py</pre>
+
+  <p>Run the tests. Replace the meters. Fork the protocol and try to break it — that is what it is for. The map is never the territory. There is no official map.</p>
+</section>
+
 <footer>
   <div class="footer-left">
     0penAGI Independent Research<br>
     Bangkok · July 2026<br>
     Working Paper v5 — Not peer reviewed<br>
-    Circulation permitted · Including CIRM
+    Circulation permitted · Including CIRM<br>
+    <a href="https://github.com/0penAGI/General-theory-of-civilisation-degradation">github.com/0penAGI/General-theory-of-civilisation-degradation</a>
   </div>
   <div class="footer-right">
     "The purpose of civilization is not to preserve itself.<br>
@@ -816,6 +996,11 @@
     the possibility of becoming something else."
   </div>
 </footer>
+
+<div class="fork-cta">
+  <a class="fork-btn" href="https://github.com/0penAGI/General-theory-of-civilisation-degradation">Fork the future</a>
+  <div class="fork-sub">Take the protocol. Try to break it. If you succeed, the protocol did its job.</div>
+</div>
 
 </body>
 </html>
