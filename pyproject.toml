@@ -17,6 +17,10 @@ classifiers = [
 
 [project.scripts]
 app-sim = "adaptive_pluralism_protocol.civilization_simulator:main_cli"
+app-node = "adaptive_pluralism_protocol.protocol_node:main_cli"
+
+[project.optional-dependencies]
+node = ["cryptography>=42"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

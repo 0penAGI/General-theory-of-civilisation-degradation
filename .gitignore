@@ -4,3 +4,5 @@ __pycache__/
 build/
 dist/
 *.json
+node_modules/
+*.tsbuildinfo
