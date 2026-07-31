@@ -4,5 +4,8 @@ __pycache__/
 build/
 dist/
 *.json
+!frontend/package.json
+!frontend/package-lock.json
+!frontend/tsconfig.json
 node_modules/
 *.tsbuildinfo
