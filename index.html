@@ -384,7 +384,7 @@
 
 <header>
   <div class="journal-line">
-    <span>0penAGI Research — Working Paper v3 · APP v5.4</span>
+    <span>0penAGI Research — Working Paper v5 · APP v5.4</span>
     <span>July 2026 · <a href="https://github.com/0penAGI/General-theory-of-civilisation-degradation">GitHub</a></span>
   </div>
   <h1>General Theory of Systemic Irreversibility and Civilizational Recoverability</h1>
@@ -398,6 +398,11 @@
 <div class="abstract">
   <div class="abstract-label">Abstract</div>
   <p>We propose a unified framework describing the degradation of complex adaptive systems through three convergent mechanisms: attractor degradation driven by short-horizon optimization, functional inversion in which systems replace their original purpose with self-reproduction, and metric substitution in which the measure of a goal displaces the goal itself. The central variable introduced is not degradation — which is inevitable — but recoverability: the structural capacity of a system to become something else after discovering it was wrong. We introduce two formal indices (ADI and CR), develop an operationalized case study in AI alignment, identify the coordination-as-authority trap as a critical failure mode of distributed architectures, and present CIRM (Civilization Immune Response Model) as a structural framework for preserving civilizational recoverability indefinitely.</p>
+</div>
+
+<div class="theorem">
+  <div class="theorem-label">The Central Thesis</div>
+  <p>Every system creates attractors. Every attractor risks becoming a trap. Civilization survives by preserving the ability to become something else.</p>
 </div>
 
 <!-- ═══════════════════════════════════════════════ PART I ═══ -->
@@ -474,7 +479,21 @@
     <p class="metric-desc">CR measures the capacity of a system to preserve its original long-term function while optimizing short-term targets. CR → 1 indicates a system maintaining coherence under pressure. CR → 0 indicates functional inversion is complete. CR is proposed as an observable proxy for self-revision capacity.</p>
   </div>
 
-  <p>Both indices require operationalization for specific domains. The value of formalizing them now is that it transforms the framework from a descriptive narrative into a set of claims that can be falsified.</p>
+  <p>Both indices require operationalization for specific domains. A formula is not yet a measurement — a measurement is a procedure that runs against reality. APP (§ 15) is that procedure: in the simulator both indices stop being symbols and become executable verdicts.</p>
+
+  <div class="metric-box">
+    <div class="metric-name">Operationalization — CR as R(t)</div>
+    <div class="metric-formula">CR → R = measured reachability</div>
+    <p class="metric-desc">Coherence retention CR is implemented as R — the count of distinct live futures still reachable after perturbation. R is not "did the system survive"; it is "how many futures are still open." R is measured not by a single authority but by an ecosystem of incompatible meters (R₁/R₂/R₃), each with its own death ontology, horizon, and perturbations; their disagreement is the honest answer. Crystallization is CR → 0 rendered as R = 0.</p>
+  </div>
+
+  <div class="metric-box">
+    <div class="metric-name">Operationalization — ADI as convergence onto a single attractor</div>
+    <div class="metric-formula">ADI(t) &gt; 0 ⇔ reachable futures narrowing</div>
+    <p class="metric-desc">Attractor degradation ADI is implemented as the narrowing of a society's reachable futures. The gap between locally optimal drift and long-term coherence is not argued about — it is run: MONOLITH and PLURAL converge onto one attractor (R = 0) while ADAPTIVE keeps the future contested (R ≈ 0.44–0.49). The indices become repeatable verdicts, not metaphors.</p>
+  </div>
+
+  <p>This is the difference between a warning and a measurement: a warning can be ignored, a measurement can be repeated. Any reader can rerun the five scenarios (§ 19) and argue with the result instead of the wording.</p>
 </section>
 
 <section>
@@ -876,12 +895,16 @@
 
   <p>The theory demanded an architecture. CIRM named the invariant: recoverability — the capacity of a system to become something else after discovering it was wrong. APP is that invariant operationalized: a specification, a reference implementation, a test suite, and a reproducible verdict. It is not a model of society. It is a constraint on every possible model of society: <strong>no model may declare itself final.</strong></p>
 
+  <p>This answers the standard objection that CIRM is "only a list of properties." A list of properties is not an architecture — it is a wish. CIRM states <em>what must hold</em>; APP is the running test of whether it holds. The twelve invariants of § 9 are not decorative: each is implemented as a check in the simulator, and the simulator produces verdicts. The difference is the same as between an immune system described and an immune system whose own state can be observed.</p>
+
   <div class="theorem">
     <div class="theorem-label">The Manifest Reframe</div>
     <p>We do not offer a society of the future. We offer the smallest mechanism that prevents any society from declaring itself the last one.</p>
   </div>
 
   <p>Anyone can clone the repository, run the five scenarios, and argue with the model instead of the wording. The reader is not asked to govern the simulation. The reader is invited to observe its health — and then to break it.</p>
+
+  <p>The rule has no privileged exception: the rule that nothing may become irreplaceable is itself replaceable. This is the only way a rule against permanence avoids becoming permanent. It is implemented as the protocol's release condition (§ 18) and remains the open direction of v5.5 — the audit must not be a constant.</p>
 </section>
 
 <section>
@@ -998,7 +1021,7 @@ python examples/run_scenarios.py</pre>
 </footer>
 
 <div class="fork-cta">
-  <a class="fork-btn" href="https://github.com/0penAGI/General-theory-of-civilisation-degradation">Fork the future</a>
+  <a class="fork-btn" href="https://github.com/0penAGI/General-theory-of-civilisation-degradation">Fork the future. Test the attractor.</a>
   <div class="fork-sub">Take the protocol. Try to break it. If you succeed, the protocol did its job.</div>
 </div>
 
