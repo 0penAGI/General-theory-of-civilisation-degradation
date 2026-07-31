@@ -331,8 +331,29 @@ one page of specification is stronger than a thousand lines of implementation.
   the test must be non-constant and predictions pre-registered. Whether the
   current implementation already tends to game the known test, and whether a
   non-constant test restores the dynamics, is an open experiment.
-- The upper bound: who and how revises specification 1.0 itself?
+- The upper bound: who and how revises specification 1.0 itself? Partially
+  answered by the completion criterion (§6): the protocol is complete when
+  it can replace its own mechanisms; completion is a temporary phase.
 - Forkability: the specification itself must remain subject to forking.
+
+---
+
+## 6. Completion criterion
+
+APP is considered complete as a base protocol if it demonstrates the ability
+to replace its own verification, update, and protection mechanisms upon
+detection of their crystallization. The state of completion itself is a
+temporary phase and subject to re-verification.
+
+A release condition, not a law: a law would itself claim permanence. The
+completed version does not say "we are finished"; it says "we have built a
+system that can determine the moment when it must no longer remain as it
+is."
+
+v5.5 is the test of this criterion (see §3.3): can the immune system of a
+civilization have immunity to its own function? If it passes, the project
+no longer requires an endless version race — the core freezes as a protocol,
+and the freeze is itself declared temporary.
 
 *"The goal of a civilization is not to preserve itself. The goal of a
 civilization is to preserve the possibility of becoming something else."*

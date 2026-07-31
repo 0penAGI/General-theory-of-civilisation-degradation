@@ -89,7 +89,10 @@ rewrites its own protocol (prot v3, wins by ecosystem consensus).
 The falsification scheme is knowable to the meters; a static audit cannot
 distinguish a meter that errs rarely because it sees well from one that
 errs rarely because it avoids being checked. The audit itself must not
-become a constant — see §3.3 of the spec.
+become a constant — see §3.3 of the spec. The protocol's release condition
+is the completion criterion (§6): complete when it can replace its own
+verification, update, and protection mechanisms — and the completion is
+itself a temporary phase.
 
 ## Documentation
 
