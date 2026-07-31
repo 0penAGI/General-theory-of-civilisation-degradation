@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adaptive-pluralism-protocol"
+version = "5.3.0"
+description = "APP — Adaptive Pluralism Protocol: иммунная архитектура цивилизации перед эпохой AGI"
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["adaptive-pluralism", "replaceability", "civilisation", "simulation"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Life",
+]
+
+[project.scripts]
+app-sim = "adaptive_pluralism_protocol.civilization_simulator:main_cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]
