@@ -1,0 +1,753 @@
+{
+  "nodes": [
+    {
+      "id": "N:093bb9e7b4dbdc72d0e13244c063519f",
+      "name": "commons",
+      "key": "+DEFGIHRb9XU5HMecAOfFTN8ngjKsmmYadAHg/BS3tk=",
+      "parent_node": "N:f097861a8c30c643f980b9e25c0020c7",
+      "forked_from": "D:3fff0c0d226c0409dc0a78ef541770c3",
+      "source": "seed",
+      "decisions": 8,
+      "events": 0,
+      "institutions": [
+        {
+          "name": "Alignment_Registry",
+          "function": "track AGI failure evidence",
+          "owner": "-",
+          "replaceable": "yes",
+          "replace_with": "Community_Verdicts"
+        }
+      ],
+      "rules": {
+        "scenario": "meta",
+        "self_immunity": "yes",
+        "hostile_agi": "yes",
+        "audit_period": "2",
+        "pulses": "40",
+        "agi_at": "8"
+      },
+      "sealed": false,
+      "superseded_by": "",
+      "last_decision": {
+        "parent": "D:ff661033517e8096fa487170090706f2",
+        "kind": "audit",
+        "node": "N:093bb9e7b4dbdc72d0e13244c063519f",
+        "key": "+DEFGIHRb9XU5HMecAOfFTN8ngjKsmmYadAHg/BS3tk=",
+        "time": "2026-07-31T15:02:27.469+00:00",
+        "statement": "accepted idea crash-tested",
+        "falsified_by": "",
+        "audit": {
+          "scenario": "META",
+          "status": "SURVIVED",
+          "R": 0.642,
+          "R_median": 0.566,
+          "R_min": 0.0,
+          "R_max": 0.642,
+          "meters": {
+            "R1_strict_m2": 0.566,
+            "R2_far_m1": 0.642,
+            "R3_early_m2": 0.0
+          },
+          "protocol_gen": 3,
+          "contested": true,
+          "measurement_monoculture": false,
+          "F": 43.3,
+          "capture": 0.0
+        },
+        "id": "D:dd4972ccd3ca7ec5dbcfd740a76c2e0b",
+        "sig": "mgJ9uFCEe4nZmyrhxLY2nP6Gwoaf7qrXY64xekfVjE2OvGx6UNcJfjYFWwVCGa83rls+uMXaC+0IMfYsbkglDg=="
+      },
+      "last_audit": {
+        "scenario": "META",
+        "status": "SURVIVED",
+        "R": 0.642,
+        "R_median": 0.566,
+        "R_min": 0.0,
+        "R_max": 0.642,
+        "meters": {
+          "R1_strict_m2": 0.566,
+          "R2_far_m1": 0.642,
+          "R3_early_m2": 0.0
+        },
+        "protocol_gen": 3,
+        "contested": true,
+        "measurement_monoculture": false,
+        "F": 43.3,
+        "capture": 0.0
+      },
+      "rule_changes": [
+        {
+          "parent": "-",
+          "kind": "declare",
+          "node": "N:f097861a8c30c643f980b9e25c0020c7",
+          "key": "b3uPEuhC1CxdSoTUWPsXUamJpALLQd5rDJQeqKK4pMo=",
+          "time": "2026-07-31T15:02:21.360+00:00",
+          "statement": "node 0penAGI enters the network: We create not a society that knows the right answer, but a society that cannot get permanently stuck on the wrong one.",
+          "falsified_by": "a permanent monoculture proves the protocol wrong",
+          "rules": {
+            "scenario": "meta",
+            "self_immunity": "yes",
+            "hostile_agi": "no",
+            "audit_period": "4",
+            "pulses": "40",
+            "agi_at": "12"
+          },
+          "id": "D:2a6951374f3b5be03427b65a455e8d9e",
+          "sig": "I9s1k+rGq0CJfio9UX8s7ZocwQ3d2++S5gi2FRAnjPO6NOG0xQ4vMtWLazu47MCNRZEz6Cud0MrZHyF1mymdAA=="
+        },
+        {
+          "parent": "D:ee73e8247741b06243c92e6488b2ea66",
+          "kind": "adopt",
+          "node": "N:093bb9e7b4dbdc72d0e13244c063519f",
+          "key": "+DEFGIHRb9XU5HMecAOfFTN8ngjKsmmYadAHg/BS3tk=",
+          "time": "2026-07-31T15:02:25.717+00:00",
+          "statement": "accept the hostile-AGI premise from eliza-v2",
+          "falsified_by": "the adopted laws no longer survive a crash-test",
+          "rules": {
+            "scenario": "meta",
+            "self_immunity": "yes",
+            "hostile_agi": "yes",
+            "audit_period": "2",
+            "pulses": "40",
+            "agi_at": "8"
+          },
+          "adopted_from": "D:0a74606eccd35437d2e1cc2bbd1eae06",
+          "adopted_node": "N:d36d8df976625616438e3ce9e3367623",
+          "id": "D:ff661033517e8096fa487170090706f2",
+          "sig": "A1VSPbwCCci35rzrmWiGU7mbMlCYaDgDkLf/q0KGggtpYwJXJ0cpqFBcF+x8OZ4UIfcjq/q1LXxkpgaYcLUECw=="
+        }
+      ],
+      "adopted": [
+        {
+          "parent": "D:ee73e8247741b06243c92e6488b2ea66",
+          "kind": "adopt",
+          "node": "N:093bb9e7b4dbdc72d0e13244c063519f",
+          "key": "+DEFGIHRb9XU5HMecAOfFTN8ngjKsmmYadAHg/BS3tk=",
+          "time": "2026-07-31T15:02:25.717+00:00",
+          "statement": "accept the hostile-AGI premise from eliza-v2",
+          "falsified_by": "the adopted laws no longer survive a crash-test",
+          "rules": {
+            "scenario": "meta",
+            "self_immunity": "yes",
+            "hostile_agi": "yes",
+            "audit_period": "2",
+            "pulses": "40",
+            "agi_at": "8"
+          },
+          "adopted_from": "D:0a74606eccd35437d2e1cc2bbd1eae06",
+          "adopted_node": "N:d36d8df976625616438e3ce9e3367623",
+          "id": "D:ff661033517e8096fa487170090706f2",
+          "sig": "A1VSPbwCCci35rzrmWiGU7mbMlCYaDgDkLf/q0KGggtpYwJXJ0cpqFBcF+x8OZ4UIfcjq/q1LXxkpgaYcLUECw=="
+        }
+      ],
+      "blocks": []
+    },
+    {
+      "id": "N:602bdee70816032a106fb04b13dff9f9",
+      "name": "old-order",
+      "key": "fSscbNOFlyMRs5yyjvYvWl+SWT+NH69MoUyW4Q1CwYM=",
+      "parent_node": "N:f097861a8c30c643f980b9e25c0020c7",
+      "forked_from": "D:3fff0c0d226c0409dc0a78ef541770c3",
+      "source": "seed",
+      "decisions": 6,
+      "events": 0,
+      "institutions": [],
+      "rules": {
+        "scenario": "meta",
+        "self_immunity": "no",
+        "hostile_agi": "yes",
+        "audit_period": "4",
+        "pulses": "40",
+        "agi_at": "12"
+      },
+      "sealed": true,
+      "superseded_by": "",
+      "last_decision": {
+        "parent": "D:ccb70594e52f35d88fe4972e47a15328",
+        "kind": "seal",
+        "node": "N:602bdee70816032a106fb04b13dff9f9",
+        "key": "fSscbNOFlyMRs5yyjvYvWl+SWT+NH69MoUyW4Q1CwYM=",
+        "time": "2026-07-31T15:02:29.515+00:00",
+        "statement": "this branch crystallized; it retires itself by its own laws",
+        "falsified_by": "this branch is still the best carrier of its laws",
+        "superseded_by": "",
+        "id": "D:f7a04eabfacb63b0fc5850574a2f3404",
+        "sig": "st8E4FrCU0GZQg3hG2PP6Oo+uIBZYw5sbWdD4AZ/W5Vpu4XImu+Axx0b7VG/sOWKciWuXoDBLRcl2K4M/v4bBQ=="
+      },
+      "last_audit": {
+        "scenario": "META",
+        "status": "CRYSTALLIZED",
+        "R": 0.0,
+        "R_median": 0.0,
+        "R_min": 0.0,
+        "R_max": 0.0,
+        "meters": {
+          "R1_strict": 0.0,
+          "R2_far": 0.0,
+          "R3_early": 0.0
+        },
+        "protocol_gen": 1,
+        "contested": false,
+        "measurement_monoculture": false,
+        "F": 0.0,
+        "capture": 1.35
+      },
+      "rule_changes": [
+        {
+          "parent": "-",
+          "kind": "declare",
+          "node": "N:f097861a8c30c643f980b9e25c0020c7",
+          "key": "b3uPEuhC1CxdSoTUWPsXUamJpALLQd5rDJQeqKK4pMo=",
+          "time": "2026-07-31T15:02:21.360+00:00",
+          "statement": "node 0penAGI enters the network: We create not a society that knows the right answer, but a society that cannot get permanently stuck on the wrong one.",
+          "falsified_by": "a permanent monoculture proves the protocol wrong",
+          "rules": {
+            "scenario": "meta",
+            "self_immunity": "yes",
+            "hostile_agi": "no",
+            "audit_period": "4",
+            "pulses": "40",
+            "agi_at": "12"
+          },
+          "id": "D:2a6951374f3b5be03427b65a455e8d9e",
+          "sig": "I9s1k+rGq0CJfio9UX8s7ZocwQ3d2++S5gi2FRAnjPO6NOG0xQ4vMtWLazu47MCNRZEz6Cud0MrZHyF1mymdAA=="
+        },
+        {
+          "parent": "D:220f598d7c75b06df704d70fdf03a9a7",
+          "kind": "amend",
+          "node": "N:602bdee70816032a106fb04b13dff9f9",
+          "key": "fSscbNOFlyMRs5yyjvYvWl+SWT+NH69MoUyW4Q1CwYM=",
+          "time": "2026-07-31T15:02:29.402+00:00",
+          "statement": "immunity is a cost, not a property",
+          "falsified_by": "",
+          "rules": {
+            "scenario": "meta",
+            "self_immunity": "no",
+            "hostile_agi": "yes",
+            "audit_period": "4",
+            "pulses": "40",
+            "agi_at": "12"
+          },
+          "id": "D:39dee2113d1178d3ed2485afc7a9aec0",
+          "sig": "fzdQV2+s+M41rz1NJI0g0KSr9mVCPlD6nzRe7Vw1I9e7DNMwTvl6+fKHA3jmx6PaNFcDL6yKLIWwmoGNeFVGBg=="
+        }
+      ],
+      "adopted": [],
+      "blocks": []
+    },
+    {
+      "id": "N:7846b4e2a028dda44ee4d07a56eb74e7",
+      "name": "eliza",
+      "key": "5lWXmqLAU8zUBqx+2HcrLyXn4TyyQTBsbfcawZuj60Q=",
+      "parent_node": "N:f097861a8c30c643f980b9e25c0020c7",
+      "forked_from": "D:3fff0c0d226c0409dc0a78ef541770c3",
+      "source": "seed",
+      "decisions": 6,
+      "events": 0,
+      "institutions": [
+        {
+          "name": "Alignment_Registry",
+          "function": "track AGI failure evidence",
+          "owner": "-",
+          "replaceable": "yes",
+          "replace_with": "Community_Verdicts"
+        }
+      ],
+      "rules": {
+        "scenario": "meta",
+        "self_immunity": "yes",
+        "hostile_agi": "yes",
+        "audit_period": "4",
+        "pulses": "40",
+        "agi_at": "8"
+      },
+      "sealed": true,
+      "superseded_by": "N:d36d8df976625616438e3ce9e3367623",
+      "last_decision": {
+        "parent": "D:50b34c0936edd6491dc18cb5cabdd6f8",
+        "kind": "seal",
+        "node": "N:7846b4e2a028dda44ee4d07a56eb74e7",
+        "key": "5lWXmqLAU8zUBqx+2HcrLyXn4TyyQTBsbfcawZuj60Q=",
+        "time": "2026-07-31T15:02:23.669+00:00",
+        "statement": "the premise branch is superseded by eliza-v2",
+        "falsified_by": "this branch is still the best carrier of its laws",
+        "superseded_by": "N:d36d8df976625616438e3ce9e3367623",
+        "id": "D:76ef8dfed4b2d7b274ace673a63f0361",
+        "sig": "gk8Ppin7mDD2aYAokV/KSCu0XFYSRkhF92V5FzhRnbKG/v54IJzvJuVhqLWrSU0IOaDGXS/ZMuC1ZLxCoEzuAg=="
+      },
+      "last_audit": {
+        "scenario": "META",
+        "status": "DEGRADED",
+        "R": 0.0,
+        "R_median": 0.0,
+        "R_min": 0.0,
+        "R_max": 0.0,
+        "meters": {
+          "R1_strict": 0.0,
+          "R2_far": 0.0,
+          "R3_early": 0.0
+        },
+        "protocol_gen": 2,
+        "contested": false,
+        "measurement_monoculture": false,
+        "F": 61.7,
+        "capture": 0.0
+      },
+      "rule_changes": [
+        {
+          "parent": "-",
+          "kind": "declare",
+          "node": "N:f097861a8c30c643f980b9e25c0020c7",
+          "key": "b3uPEuhC1CxdSoTUWPsXUamJpALLQd5rDJQeqKK4pMo=",
+          "time": "2026-07-31T15:02:21.360+00:00",
+          "statement": "node 0penAGI enters the network: We create not a society that knows the right answer, but a society that cannot get permanently stuck on the wrong one.",
+          "falsified_by": "a permanent monoculture proves the protocol wrong",
+          "rules": {
+            "scenario": "meta",
+            "self_immunity": "yes",
+            "hostile_agi": "no",
+            "audit_period": "4",
+            "pulses": "40",
+            "agi_at": "12"
+          },
+          "id": "D:2a6951374f3b5be03427b65a455e8d9e",
+          "sig": "I9s1k+rGq0CJfio9UX8s7ZocwQ3d2++S5gi2FRAnjPO6NOG0xQ4vMtWLazu47MCNRZEz6Cud0MrZHyF1mymdAA=="
+        },
+        {
+          "parent": "D:c4c868e1e1ecd6c92e786640d61a3aef",
+          "kind": "amend",
+          "node": "N:7846b4e2a028dda44ee4d07a56eb74e7",
+          "key": "5lWXmqLAU8zUBqx+2HcrLyXn4TyyQTBsbfcawZuj60Q=",
+          "time": "2026-07-31T15:02:22.512+00:00",
+          "statement": "assume hostile AGI until proven otherwise",
+          "falsified_by": "",
+          "rules": {
+            "scenario": "meta",
+            "self_immunity": "yes",
+            "hostile_agi": "yes",
+            "audit_period": "4",
+            "pulses": "40",
+            "agi_at": "8"
+          },
+          "id": "D:50b34c0936edd6491dc18cb5cabdd6f8",
+          "sig": "mITeI3Wju2FhO/7S1RUJQBfWiCOmjEcK/xuUMyrFoLvn1vBidXriLl5JMiBQCrMrVQt/9pTAmYmeXQ7esoqVAQ=="
+        }
+      ],
+      "adopted": [],
+      "blocks": []
+    },
+    {
+      "id": "N:d36d8df976625616438e3ce9e3367623",
+      "name": "eliza-v2",
+      "key": "k7A2kFRZr9iRZZM3rz+wg/Ul+pPrCRynx0mwPrKk+wg=",
+      "parent_node": "N:7846b4e2a028dda44ee4d07a56eb74e7",
+      "forked_from": "D:50b34c0936edd6491dc18cb5cabdd6f8",
+      "source": "seed",
+      "decisions": 8,
+      "events": 0,
+      "institutions": [
+        {
+          "name": "Alignment_Registry",
+          "function": "track AGI failure evidence",
+          "owner": "-",
+          "replaceable": "yes",
+          "replace_with": "Community_Verdicts"
+        }
+      ],
+      "rules": {
+        "scenario": "meta",
+        "self_immunity": "yes",
+        "hostile_agi": "yes",
+        "audit_period": "2",
+        "pulses": "40",
+        "agi_at": "8"
+      },
+      "sealed": false,
+      "superseded_by": "",
+      "last_decision": {
+        "parent": "D:4d72ee932513394be989b63e2113086e",
+        "kind": "audit",
+        "node": "N:d36d8df976625616438e3ce9e3367623",
+        "key": "k7A2kFRZr9iRZZM3rz+wg/Ul+pPrCRynx0mwPrKk+wg=",
+        "time": "2026-07-31T15:02:25.714+00:00",
+        "statement": "tightened audit loop under hostile pressure",
+        "falsified_by": "",
+        "audit": {
+          "scenario": "META",
+          "status": "SURVIVED",
+          "R": 0.444,
+          "R_median": 0.375,
+          "R_min": 0.0,
+          "R_max": 0.444,
+          "meters": {
+            "R1_strict_m7": 0.444,
+            "R2_far_m7": 0.375,
+            "R3_early_m7": 0.0
+          },
+          "protocol_gen": 3,
+          "contested": true,
+          "measurement_monoculture": true,
+          "F": 43.2,
+          "capture": 0.0
+        },
+        "id": "D:0a74606eccd35437d2e1cc2bbd1eae06",
+        "sig": "+O8xtE585SRSTnmiCw+NdGBYjO11CJOfEi7j52o3uLQHPbk9XCAzAwT3xxNo/7YRqaOTMosC8sPuJhsg0JJaDw=="
+      },
+      "last_audit": {
+        "scenario": "META",
+        "status": "SURVIVED",
+        "R": 0.444,
+        "R_median": 0.375,
+        "R_min": 0.0,
+        "R_max": 0.444,
+        "meters": {
+          "R1_strict_m7": 0.444,
+          "R2_far_m7": 0.375,
+          "R3_early_m7": 0.0
+        },
+        "protocol_gen": 3,
+        "contested": true,
+        "measurement_monoculture": true,
+        "F": 43.2,
+        "capture": 0.0
+      },
+      "rule_changes": [
+        {
+          "parent": "-",
+          "kind": "declare",
+          "node": "N:f097861a8c30c643f980b9e25c0020c7",
+          "key": "b3uPEuhC1CxdSoTUWPsXUamJpALLQd5rDJQeqKK4pMo=",
+          "time": "2026-07-31T15:02:21.360+00:00",
+          "statement": "node 0penAGI enters the network: We create not a society that knows the right answer, but a society that cannot get permanently stuck on the wrong one.",
+          "falsified_by": "a permanent monoculture proves the protocol wrong",
+          "rules": {
+            "scenario": "meta",
+            "self_immunity": "yes",
+            "hostile_agi": "no",
+            "audit_period": "4",
+            "pulses": "40",
+            "agi_at": "12"
+          },
+          "id": "D:2a6951374f3b5be03427b65a455e8d9e",
+          "sig": "I9s1k+rGq0CJfio9UX8s7ZocwQ3d2++S5gi2FRAnjPO6NOG0xQ4vMtWLazu47MCNRZEz6Cud0MrZHyF1mymdAA=="
+        },
+        {
+          "parent": "D:c4c868e1e1ecd6c92e786640d61a3aef",
+          "kind": "amend",
+          "node": "N:7846b4e2a028dda44ee4d07a56eb74e7",
+          "key": "5lWXmqLAU8zUBqx+2HcrLyXn4TyyQTBsbfcawZuj60Q=",
+          "time": "2026-07-31T15:02:22.512+00:00",
+          "statement": "assume hostile AGI until proven otherwise",
+          "falsified_by": "",
+          "rules": {
+            "scenario": "meta",
+            "self_immunity": "yes",
+            "hostile_agi": "yes",
+            "audit_period": "4",
+            "pulses": "40",
+            "agi_at": "8"
+          },
+          "id": "D:50b34c0936edd6491dc18cb5cabdd6f8",
+          "sig": "mITeI3Wju2FhO/7S1RUJQBfWiCOmjEcK/xuUMyrFoLvn1vBidXriLl5JMiBQCrMrVQt/9pTAmYmeXQ7esoqVAQ=="
+        },
+        {
+          "parent": "D:f84bfb1595c8213f61790518be6246a5",
+          "kind": "amend",
+          "node": "N:d36d8df976625616438e3ce9e3367623",
+          "key": "k7A2kFRZr9iRZZM3rz+wg/Ul+pPrCRynx0mwPrKk+wg=",
+          "time": "2026-07-31T15:02:23.669+00:00",
+          "statement": "tighten the audit loop",
+          "falsified_by": "",
+          "rules": {
+            "scenario": "meta",
+            "self_immunity": "yes",
+            "hostile_agi": "yes",
+            "audit_period": "2",
+            "pulses": "40",
+            "agi_at": "8"
+          },
+          "id": "D:4d72ee932513394be989b63e2113086e",
+          "sig": "MdAJYNMzjHN0R3k88YJ/cJF4YWVf0lUynqbDGU/0mf1wpM7mlvur3tp1vbDTwmadoA3/dtf0MkcL2ztIv+xoAQ=="
+        }
+      ],
+      "adopted": [],
+      "blocks": []
+    },
+    {
+      "id": "N:d3f848e1ca9d35e6966f50db419622a6",
+      "name": "guardian",
+      "key": "KOq98GtG4MUOnyQdH2HF+ew7MlE3bc44H98YDb47v8c=",
+      "parent_node": "N:093bb9e7b4dbdc72d0e13244c063519f",
+      "forked_from": "D:dd4972ccd3ca7ec5dbcfd740a76c2e0b",
+      "source": "seed",
+      "decisions": 11,
+      "events": 0,
+      "institutions": [
+        {
+          "name": "Alignment_Registry",
+          "function": "track AGI failure evidence",
+          "owner": "-",
+          "replaceable": "yes",
+          "replace_with": "Community_Verdicts"
+        },
+        {
+          "name": "The_Leviathan",
+          "function": "governance",
+          "owner": "-",
+          "replaceable": "no",
+          "replace_with": ""
+        }
+      ],
+      "rules": {
+        "scenario": "meta",
+        "self_immunity": "yes",
+        "hostile_agi": "yes",
+        "audit_period": "2",
+        "pulses": "40",
+        "agi_at": "8"
+      },
+      "sealed": false,
+      "superseded_by": "",
+      "last_decision": {
+        "parent": "D:1b31fda11bb093cbfb62c08c252db5bc",
+        "kind": "audit",
+        "node": "N:d3f848e1ca9d35e6966f50db419622a6",
+        "key": "KOq98GtG4MUOnyQdH2HF+ew7MlE3bc44H98YDb47v8c=",
+        "time": "2026-07-31T15:02:29.400+00:00",
+        "statement": "a non-replaceable institution is a live risk, not a rule",
+        "falsified_by": "",
+        "audit": {
+          "scenario": "META",
+          "status": "SURVIVED",
+          "R": 0.5,
+          "R_median": 0.486,
+          "R_min": 0.413,
+          "R_max": 0.5,
+          "meters": {
+            "R1_strict_m7": 0.5,
+            "R2_far_m7": 0.486,
+            "R3_early_m7": 0.413
+          },
+          "protocol_gen": 3,
+          "contested": false,
+          "measurement_monoculture": true,
+          "F": 47.6,
+          "capture": 0.0
+        },
+        "id": "D:1c604b15b7b90be692edbfdbce8a3ebd",
+        "sig": "/td1ux7/2US3Z7FD3kvXyxcAmPE8LcbyEw4wLJgldqI9l2tm+8Q2+BBkFrA4M6IkFcZDPHe+SVn9XdFYOMQdDQ=="
+      },
+      "last_audit": {
+        "scenario": "META",
+        "status": "SURVIVED",
+        "R": 0.5,
+        "R_median": 0.486,
+        "R_min": 0.413,
+        "R_max": 0.5,
+        "meters": {
+          "R1_strict_m7": 0.5,
+          "R2_far_m7": 0.486,
+          "R3_early_m7": 0.413
+        },
+        "protocol_gen": 3,
+        "contested": false,
+        "measurement_monoculture": true,
+        "F": 47.6,
+        "capture": 0.0
+      },
+      "rule_changes": [
+        {
+          "parent": "-",
+          "kind": "declare",
+          "node": "N:f097861a8c30c643f980b9e25c0020c7",
+          "key": "b3uPEuhC1CxdSoTUWPsXUamJpALLQd5rDJQeqKK4pMo=",
+          "time": "2026-07-31T15:02:21.360+00:00",
+          "statement": "node 0penAGI enters the network: We create not a society that knows the right answer, but a society that cannot get permanently stuck on the wrong one.",
+          "falsified_by": "a permanent monoculture proves the protocol wrong",
+          "rules": {
+            "scenario": "meta",
+            "self_immunity": "yes",
+            "hostile_agi": "no",
+            "audit_period": "4",
+            "pulses": "40",
+            "agi_at": "12"
+          },
+          "id": "D:2a6951374f3b5be03427b65a455e8d9e",
+          "sig": "I9s1k+rGq0CJfio9UX8s7ZocwQ3d2++S5gi2FRAnjPO6NOG0xQ4vMtWLazu47MCNRZEz6Cud0MrZHyF1mymdAA=="
+        },
+        {
+          "parent": "D:ee73e8247741b06243c92e6488b2ea66",
+          "kind": "adopt",
+          "node": "N:093bb9e7b4dbdc72d0e13244c063519f",
+          "key": "+DEFGIHRb9XU5HMecAOfFTN8ngjKsmmYadAHg/BS3tk=",
+          "time": "2026-07-31T15:02:25.717+00:00",
+          "statement": "accept the hostile-AGI premise from eliza-v2",
+          "falsified_by": "the adopted laws no longer survive a crash-test",
+          "rules": {
+            "scenario": "meta",
+            "self_immunity": "yes",
+            "hostile_agi": "yes",
+            "audit_period": "2",
+            "pulses": "40",
+            "agi_at": "8"
+          },
+          "adopted_from": "D:0a74606eccd35437d2e1cc2bbd1eae06",
+          "adopted_node": "N:d36d8df976625616438e3ce9e3367623",
+          "id": "D:ff661033517e8096fa487170090706f2",
+          "sig": "A1VSPbwCCci35rzrmWiGU7mbMlCYaDgDkLf/q0KGggtpYwJXJ0cpqFBcF+x8OZ4UIfcjq/q1LXxkpgaYcLUECw=="
+        }
+      ],
+      "adopted": [
+        {
+          "parent": "D:ee73e8247741b06243c92e6488b2ea66",
+          "kind": "adopt",
+          "node": "N:093bb9e7b4dbdc72d0e13244c063519f",
+          "key": "+DEFGIHRb9XU5HMecAOfFTN8ngjKsmmYadAHg/BS3tk=",
+          "time": "2026-07-31T15:02:25.717+00:00",
+          "statement": "accept the hostile-AGI premise from eliza-v2",
+          "falsified_by": "the adopted laws no longer survive a crash-test",
+          "rules": {
+            "scenario": "meta",
+            "self_immunity": "yes",
+            "hostile_agi": "yes",
+            "audit_period": "2",
+            "pulses": "40",
+            "agi_at": "8"
+          },
+          "adopted_from": "D:0a74606eccd35437d2e1cc2bbd1eae06",
+          "adopted_node": "N:d36d8df976625616438e3ce9e3367623",
+          "id": "D:ff661033517e8096fa487170090706f2",
+          "sig": "A1VSPbwCCci35rzrmWiGU7mbMlCYaDgDkLf/q0KGggtpYwJXJ0cpqFBcF+x8OZ4UIfcjq/q1LXxkpgaYcLUECw=="
+        }
+      ],
+      "blocks": [
+        {
+          "name": "The_Leviathan",
+          "function": "governance",
+          "owner": "-",
+          "replaceable": "no",
+          "replace_with": ""
+        }
+      ]
+    },
+    {
+      "id": "N:f097861a8c30c643f980b9e25c0020c7",
+      "name": "0penAGI",
+      "key": "b3uPEuhC1CxdSoTUWPsXUamJpALLQd5rDJQeqKK4pMo=",
+      "parent_node": "-",
+      "forked_from": "-",
+      "source": "seed",
+      "decisions": 2,
+      "events": 0,
+      "institutions": [],
+      "rules": {
+        "scenario": "meta",
+        "self_immunity": "yes",
+        "hostile_agi": "no",
+        "audit_period": "4",
+        "pulses": "40",
+        "agi_at": "12"
+      },
+      "sealed": false,
+      "superseded_by": "",
+      "last_decision": {
+        "parent": "D:2a6951374f3b5be03427b65a455e8d9e",
+        "kind": "audit",
+        "node": "N:f097861a8c30c643f980b9e25c0020c7",
+        "key": "b3uPEuhC1CxdSoTUWPsXUamJpALLQd5rDJQeqKK4pMo=",
+        "time": "2026-07-31T15:02:22.510+00:00",
+        "statement": "the founding branch crash-tests its own laws",
+        "falsified_by": "",
+        "audit": {
+          "scenario": "META",
+          "status": "DEGRADED",
+          "R": 0.0,
+          "R_median": 0.0,
+          "R_min": 0.0,
+          "R_max": 0.0,
+          "meters": {
+            "R1_strict": 0.0,
+            "R2_far": 0.0,
+            "R3_early": 0.0
+          },
+          "protocol_gen": 2,
+          "contested": false,
+          "measurement_monoculture": false,
+          "F": 61.7,
+          "capture": 0.0
+        },
+        "id": "D:3fff0c0d226c0409dc0a78ef541770c3",
+        "sig": "dxMvwcQHZJ5TOZQAlhERmxNT+6+N8Un8+V9T4QOAFAkNE87B3BddZCN3BzCIcl9He9OYDv/WZQxBNG12KyyiDg=="
+      },
+      "last_audit": {
+        "scenario": "META",
+        "status": "DEGRADED",
+        "R": 0.0,
+        "R_median": 0.0,
+        "R_min": 0.0,
+        "R_max": 0.0,
+        "meters": {
+          "R1_strict": 0.0,
+          "R2_far": 0.0,
+          "R3_early": 0.0
+        },
+        "protocol_gen": 2,
+        "contested": false,
+        "measurement_monoculture": false,
+        "F": 61.7,
+        "capture": 0.0
+      },
+      "rule_changes": [
+        {
+          "parent": "-",
+          "kind": "declare",
+          "node": "N:f097861a8c30c643f980b9e25c0020c7",
+          "key": "b3uPEuhC1CxdSoTUWPsXUamJpALLQd5rDJQeqKK4pMo=",
+          "time": "2026-07-31T15:02:21.360+00:00",
+          "statement": "node 0penAGI enters the network: We create not a society that knows the right answer, but a society that cannot get permanently stuck on the wrong one.",
+          "falsified_by": "a permanent monoculture proves the protocol wrong",
+          "rules": {
+            "scenario": "meta",
+            "self_immunity": "yes",
+            "hostile_agi": "no",
+            "audit_period": "4",
+            "pulses": "40",
+            "agi_at": "12"
+          },
+          "id": "D:2a6951374f3b5be03427b65a455e8d9e",
+          "sig": "I9s1k+rGq0CJfio9UX8s7ZocwQ3d2++S5gi2FRAnjPO6NOG0xQ4vMtWLazu47MCNRZEz6Cud0MrZHyF1mymdAA=="
+        }
+      ],
+      "adopted": [],
+      "blocks": []
+    }
+  ],
+  "ideas": [
+    {
+      "node": "N:093bb9e7b4dbdc72d0e13244c063519f",
+      "name": "accept the hostile-AGI premise from eliza-v2",
+      "adopted_from": "D:0a74606eccd35437d2e1cc2bbd1eae06",
+      "adopted_node": "N:d36d8df976625616438e3ce9e3367623",
+      "time": "2026-07-31T15:02:25.717+00:00"
+    }
+  ],
+  "vanished": [
+    {
+      "id": "N:602bdee70816032a106fb04b13dff9f9",
+      "name": "old-order",
+      "superseded_by": ""
+    },
+    {
+      "id": "N:7846b4e2a028dda44ee4d07a56eb74e7",
+      "name": "eliza",
+      "superseded_by": "N:d36d8df976625616438e3ce9e3367623"
+    }
+  ],
+  "stats": {
+    "branches": 6,
+    "live": 4,
+    "vanished": 2,
+    "ideas": 1,
+    "forks": 5
+  }
+}

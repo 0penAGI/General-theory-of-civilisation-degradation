@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import type { NetworkNode } from "./types";
 import LineageGraph from "./LineageGraph";
-import { nodeFingerprint, useNetwork } from "./useNetwork";
+import { nodeFingerprint } from "./useNetwork";
+import type { NetworkState } from "./useNetwork";
 
 interface Props {
+  net: NetworkState;
   myId: string | null;
 }
 
-export default function NetworkView({ myId }: Props) {
-  const net = useNetwork();
+export default function NetworkView({ net, myId }: Props) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
   const [msg, setMsg] = useState<{ kind: "ok" | "err"; text: string } | null>(
@@ -36,6 +37,13 @@ export default function NetworkView({ myId }: Props) {
   }, [nodes, selectedId, myId]);
 
   const run = async (kind: string, fn: () => Promise<unknown>) => {
+    if (net.conn !== "online") {
+      setMsg({
+        kind: "err",
+        text: "observatory offline — run `python observatory.py` to act on branches",
+      });
+      return;
+    }
     setBusy(kind);
     setMsg(null);
     try {

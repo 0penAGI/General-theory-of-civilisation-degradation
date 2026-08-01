@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { NetworkNode } from "./types";
-import { useNetwork, nodeFingerprint } from "./useNetwork";
+import { nodeFingerprint } from "./useNetwork";
+import type { NetworkState } from "./useNetwork";
 
 const PRINCIPLE =
   "We create not a society that knows the right answer, but a society that cannot get permanently stuck on the wrong one.";
@@ -8,11 +9,11 @@ const PRINCIPLE =
 const STAGES = ["NODE", "FORK", "EVIDENCE", "REVISION", "NEW NODE"];
 
 interface Props {
+  net: NetworkState;
   onEntered: (node: NetworkNode) => void;
 }
 
-export default function GenesisScreen({ onEntered }: Props) {
-  const net = useNetwork();
+export default function GenesisScreen({ net, onEntered }: Props) {
   const [name, setName] = useState("");
   const [busy, setBusy] = useState(false);
   const [created, setCreated] = useState<NetworkNode | null>(null);

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { OBSERVATORY_URL, useObservatory } from "./useObservatory";
 import GenesisScreen from "./GenesisScreen";
 import NetworkView from "./NetworkView";
+import { useNetwork } from "./useNetwork";
 import type { NetworkNode } from "./types";
 import CivilizationGraph from "./CivilizationGraph";
 import PulseTimeline from "./PulseTimeline";
@@ -29,6 +30,7 @@ function readMyId(): string | null {
 export default function App() {
   const [myId, setMyId] = useState<string | null>(readMyId());
   const [tab, setTab] = useState<"network" | "sim">("network");
+  const net = useNetwork();
 
   const enter = (node: NetworkNode) => {
     try {
@@ -39,8 +41,14 @@ export default function App() {
     setMyId(node.id);
   };
 
-  if (!myId) {
-    return <GenesisScreen onEntered={enter} />;
+  // With no observatory reachable, genesis cannot mint a node — so a visitor
+  // is invited to observe the committed seed network instead of being blocked
+  // on a gate that can never pass. Live actions (create/fork/adopt/seal) need
+  // the observatory: run `python observatory.py` and open http://localhost:8765.
+  const observeOnly = !myId && net.conn === "offline";
+
+  if (!myId && !observeOnly) {
+    return <GenesisScreen net={net} onEntered={enter} />;
   }
 
   return (
@@ -56,11 +64,22 @@ export default function App() {
           </div>
         </div>
         <div className="obs-ws">
-          <span className={`status-dot ${tab === "sim" ? "online" : ""}`} />
-          <span>stream live</span>
+          <span
+            className={`status-dot ${net.conn === "online" ? "online" : ""}`}
+          />
+          <span>{net.conn === "online" ? "stream live" : "observatory offline"}</span>
           <span>{OBSERVATORY_URL}</span>
         </div>
       </header>
+
+      {observeOnly && net.static && (
+        <div className="obs-banner">
+          you are viewing the <strong>committed seed network</strong> — the
+          observatory is offline. to create your node and fork these branches,
+          run <code className="gen-code">python observatory.py</code> and open{" "}
+          <code className="gen-code">http://localhost:8765</code>
+        </div>
+      )}
 
       <nav className="obs-tabs">
         <button
@@ -76,12 +95,12 @@ export default function App() {
           Simulator
         </button>
         <span className="obs-tab-hint">
-          your branch · {myId.slice(2, 10)}
+          {myId ? `your branch · ${myId.slice(2, 10)}` : "observe only"}
         </span>
       </nav>
 
       {tab === "network" ? (
-        <NetworkView myId={myId} />
+        <NetworkView net={net} myId={myId} />
       ) : (
         <SimulatorView />
       )}

@@ -11,6 +11,8 @@ export const API_BASE: string =
 export interface NetworkState {
   conn: "connecting" | "online" | "offline";
   network: NetworkPayload | null;
+  /** true when rendering the committed seed snapshot (observatory unreachable) */
+  static: boolean;
   loading: boolean;
   error: string | null;
   refresh: () => void;
@@ -45,14 +47,37 @@ export function useNetwork(): NetworkState {
     "connecting",
   );
   const [network, setNetwork] = useState<NetworkPayload | null>(null);
+  const [isStatic, setIsStatic] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const wsRef = useRef<WebSocket | null>(null);
 
-  const applyNetwork = useCallback((payload: NetworkPayload) => {
+  const applyLive = useCallback((payload: NetworkPayload) => {
     setNetwork(payload);
+    setIsStatic(false);
     setLoading(false);
   }, []);
+
+  const loadStaticSnapshot = useCallback(async () => {
+    const res = await fetch("network.json");
+    if (!res.ok) {
+      throw new Error(`seed snapshot unavailable (${res.status})`);
+    }
+    return (await res.json()) as NetworkPayload;
+  }, []);
+
+  const reload = useCallback(() => {
+    return api<NetworkPayload>("/api/network")
+      .then(applyLive)
+      .catch(() =>
+        loadStaticSnapshot().then((payload) => {
+          setNetwork(payload);
+          setIsStatic(true);
+          setLoading(false);
+        }),
+      )
+      .catch((e) => setError(String(e)));
+  }, [applyLive, loadStaticSnapshot]);
 
   useEffect(() => {
     let ws: WebSocket | null = null;
@@ -85,19 +110,17 @@ export function useNetwork(): NetworkState {
           return;
         }
         if (msg.type === "network") {
-          applyNetwork((msg as unknown as { network: NetworkPayload }).network);
+          applyLive((msg as unknown as { network: NetworkPayload }).network);
         } else if (msg.type === "hello") {
           const h = msg as { network?: NetworkPayload };
-          if (h.network) applyNetwork(h.network);
+          if (h.network) applyLive(h.network);
         }
       };
     };
 
-    // initial fetch (works even before WS is up)
-    api<NetworkPayload>("/api/network")
-      .then(applyNetwork)
-      .catch((e) => setError(String(e)))
-      .finally(() => setLoading(false));
+    // initial fetch (works even before WS is up; falls back to the committed
+    // seed snapshot when the observatory is unreachable)
+    reload().finally(() => setLoading(false));
 
     connect();
     return () => {
@@ -106,13 +129,11 @@ export function useNetwork(): NetworkState {
       ws?.close();
       wsRef.current = null;
     };
-  }, [applyNetwork]);
+  }, [applyLive, reload]);
 
   const refresh = useCallback(() => {
-    api<NetworkPayload>("/api/network")
-      .then(applyNetwork)
-      .catch((e) => setError(String(e)));
-  }, [applyNetwork]);
+    reload();
+  }, [reload]);
 
   const createNode = useCallback(
     async (name: string) =>
@@ -171,6 +192,7 @@ export function useNetwork(): NetworkState {
   return {
     conn,
     network,
+    static: isStatic,
     loading,
     error,
     refresh,

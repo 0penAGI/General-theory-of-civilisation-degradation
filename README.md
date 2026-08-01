@@ -151,6 +151,29 @@ Seeds are read-only (public states, no private keys): you adopt from them,
 never through them. Locally created nodes live in `nodes/` (gitignored) —
 your sovereignty is that directory and its key.
 
+## Deploying the web app (GitHub Pages)
+
+GitHub Pages is static-only — the observatory's Python backend cannot run
+there. The build ships a **static snapshot** of the committed seed network
+(`frontend/public/network.json`, regenerate with
+`python examples/export_network_snapshot.py`), so the deployed site renders
+the real lineage — seeds, forks, accepted ideas, vanished branches — with no
+backend. Pushing to `main` runs `.github/workflows/pages.yml`, which builds
+`frontend/` and deploys `frontend/dist` (enable **Settings → Pages → Source:
+GitHub Actions`).
+
+On the deployed site the observatory is offline by design: the Network view
+reads the snapshot and actions are disabled, with a banner pointing to the
+live entry point. To create your own node and fork the seeds, run the
+observatory locally and open `http://localhost:8765` — the app detects it and
+serves everything same-origin. For a hosted observatory later, point the build
+at it:
+
+```bash
+cd frontend
+VITE_OBSERVATORY_URL=wss://your-host VITE_API_BASE=https://your-host npm run build
+```
+
 ## Current direction (v5.5)
 
 The falsification scheme is knowable to the meters; a static audit cannot

@@ -590,6 +590,24 @@ body {
   margin-left: auto;
 }
 
+.obs-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 12px 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--amber);
+  background: var(--panel);
+  border: 1px solid var(--amber);
+}
+
+.obs-banner strong {
+  font-weight: 700;
+}
+
 /* ── genesis screen ── */
 .genesis-shell {
   max-width: 780px;
