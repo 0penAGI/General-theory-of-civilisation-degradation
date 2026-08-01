@@ -1,4 +1,8 @@
+import { useState } from "react";
 import { OBSERVATORY_URL, useObservatory } from "./useObservatory";
+import GenesisScreen from "./GenesisScreen";
+import NetworkView from "./NetworkView";
+import type { NetworkNode } from "./types";
 import CivilizationGraph from "./CivilizationGraph";
 import PulseTimeline from "./PulseTimeline";
 import FutureSpace from "./FutureSpace";
@@ -12,35 +16,100 @@ const SCENARIO_LABELS: Record<string, string> = {
   meta: "Meta",
 };
 
+const STORAGE_KEY = "app_node_id";
+
+function readMyId(): string | null {
+  try {
+    return localStorage.getItem(STORAGE_KEY);
+  } catch {
+    return null;
+  }
+}
+
 export default function App() {
-  const obs = useObservatory();
-  const lastPulse = obs.pulses.length > 0 ? obs.pulses[obs.pulses.length - 1] : null;
+  const [myId, setMyId] = useState<string | null>(readMyId());
+  const [tab, setTab] = useState<"network" | "sim">("network");
+
+  const enter = (node: NetworkNode) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, node.id);
+    } catch {
+      /* private mode — session only */
+    }
+    setMyId(node.id);
+  };
+
+  if (!myId) {
+    return <GenesisScreen onEntered={enter} />;
+  }
 
   return (
     <div className="obs-shell">
       <header className="obs-header">
         <div>
           <h1 className="obs-title">
-            Civilization <span className="thin">Observatory</span>
+            Network <span className="thin">Observatory</span>
           </h1>
           <div className="obs-tagline">
-            {obs.hello ? obs.hello.protocol : "APP v5.4"} — observe, do not
-            govern · no voting · no commands
+            watch the branches, join the network · observe, do not govern ·
+            no votes, only signatures
           </div>
         </div>
         <div className="obs-ws">
-          <span className={`status-dot ${obs.conn === "online" ? "online" : obs.conn === "connecting" ? "connecting" : ""}`} />
-          <span>
-            {obs.conn === "online"
-              ? "stream live"
-              : obs.conn === "connecting"
-                ? "connecting…"
-                : "offline — retrying"}
-          </span>
+          <span className={`status-dot ${tab === "sim" ? "online" : ""}`} />
+          <span>stream live</span>
           <span>{OBSERVATORY_URL}</span>
         </div>
       </header>
 
+      <nav className="obs-tabs">
+        <button
+          className={`tab-btn ${tab === "network" ? "active" : ""}`}
+          onClick={() => setTab("network")}
+        >
+          Network
+        </button>
+        <button
+          className={`tab-btn ${tab === "sim" ? "active" : ""}`}
+          onClick={() => setTab("sim")}
+        >
+          Simulator
+        </button>
+        <span className="obs-tab-hint">
+          your branch · {myId.slice(2, 10)}
+        </span>
+      </nav>
+
+      {tab === "network" ? (
+        <NetworkView myId={myId} />
+      ) : (
+        <SimulatorView />
+      )}
+
+      <footer className="obs-footer">
+        <div className="note">
+          The reader is not asked to govern the network. The reader is invited
+          to observe its health — and then to fork it.
+        </div>
+        <a
+          href="https://github.com/0penAGI/General-theory-of-civilisation-degradation"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Fork the future. Test the attractor.
+        </a>
+      </footer>
+    </div>
+  );
+}
+
+function SimulatorView() {
+  const obs = useObservatory();
+  const lastPulse =
+    obs.pulses.length > 0 ? obs.pulses[obs.pulses.length - 1] : null;
+
+  return (
+    <>
       <div className="obs-controls">
         {(obs.hello?.scenarios ?? [
           { id: "monolith", desc: "", immunity: false },
@@ -102,9 +171,7 @@ export default function App() {
             </div>
             <div className="verdict-stat">
               <div className="k">scenario</div>
-              <div className="v">
-                {lastPulse.scenario.toUpperCase()}
-              </div>
+              <div className="v">{lastPulse.scenario.toUpperCase()}</div>
             </div>
           </div>
         </div>
@@ -158,20 +225,6 @@ export default function App() {
           </div>
         </section>
       </div>
-
-      <footer className="obs-footer">
-        <div className="note">
-          The reader is not asked to govern the simulation. The reader is
-          invited to observe its health — and then to break it.
-        </div>
-        <a
-          href="https://github.com/0penAGI/General-theory-of-civilisation-degradation"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Fork the future. Test the attractor.
-        </a>
-      </footer>
-    </div>
+    </>
   );
 }

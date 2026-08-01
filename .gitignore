@@ -9,3 +9,7 @@ dist/
 !frontend/tsconfig.json
 node_modules/
 *.tsbuildinfo
+
+# runtime state: locally-created nodes carry private keys — never committed
+nodes/
+.staging-*

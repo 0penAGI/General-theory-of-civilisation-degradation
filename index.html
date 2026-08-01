@@ -371,6 +371,139 @@
     line-height: 1.5;
   }
 
+  /* ── PORTAL ── */
+  .portal {
+    background: #0e0e0e;
+    color: #f7f6f2;
+    padding: 72px 28px 52px;
+    margin: 0 0 56px;
+  }
+  .portal-inner { max-width: 780px; margin: 0 auto; }
+  .portal-kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #c8c6be;
+    margin-bottom: 22px;
+  }
+  .portal-slogan {
+    font-family: 'IM Fell English', serif;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 1.25;
+    margin: 0 0 10px;
+    color: #f7f6f2;
+  }
+  .portal-sub {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #c8c6be;
+    margin: 0 0 30px;
+  }
+  .portal-schema {
+    display: flex;
+    gap: 0;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 26px;
+  }
+  .portal-stage {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    border: 1px solid #4a4a4a;
+    color: #c8c6be;
+    padding: 10px 14px;
+    opacity: 0.5;
+    animation: portal-stage 4.5s infinite;
+  }
+  .portal-stage::after {
+    content: '→';
+    margin-left: 12px;
+    color: #4a4a4a;
+  }
+  .portal-stage:last-child::after { content: '↻'; color: #c8c6be; }
+  .stage0 { animation-delay: 0s; }
+  .stage1 { animation-delay: 0.9s; }
+  .stage2 { animation-delay: 1.8s; }
+  .stage3 { animation-delay: 2.7s; }
+  .stage4 { animation-delay: 3.6s; }
+  @keyframes portal-stage {
+    0%, 16% { opacity: 1; color: #f7f6f2; border-color: #f7f6f2; }
+    20%, 100% { opacity: 0.5; color: #c8c6be; border-color: #4a4a4a; }
+  }
+  .portal-line {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    line-height: 1.9;
+    color: #c8c6be;
+    border-left: 2px solid #c8c6be;
+    padding-left: 16px;
+    margin: 0 0 30px;
+  }
+  .portal-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 22px;
+  }
+  .portal .portal-btn {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #0e0e0e;
+    background: #f7f6f2;
+    border: 1px solid #f7f6f2;
+    padding: 17px 32px;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .portal .portal-btn:hover { background: #0e0e0e; color: #f7f6f2; }
+  .portal .portal-ghost {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #f7f6f2;
+    background: transparent;
+    border: 1px solid #4a4a4a;
+    padding: 17px 32px;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .portal .portal-ghost:hover { border-color: #f7f6f2; color: #f7f6f2; }
+  .portal-cmd {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: #0e0e0e;
+    background: #f7f6f2;
+    padding: 13px 18px;
+  }
+  .portal-note {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #4a4a4a;
+    margin-top: 16px;
+  }
+  .portal-temp {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #c8c6be;
+    text-align: center;
+    margin-top: 34px;
+  }
+
   @media (max-width: 600px) {
     body { padding: 40px 20px 80px; }
     .ohp, .symmetry, .invariants { grid-template-columns: 1fr; }
@@ -381,6 +514,42 @@
 </style>
 </head>
 <body>
+
+<div class="portal">
+  <div class="portal-inner">
+    <div class="portal-kicker">APP Network — Portal</div>
+    <h1 class="portal-slogan">
+      Civilization is not a state.<br>
+      It is a protocol for remaining replaceable.
+    </h1>
+    <p class="portal-sub">
+      The theory on this page is not a conclusion. It is an operating protocol
+      with running nodes, signed ledgers, and a network that replaces itself.
+    </p>
+    <div class="portal-schema">
+      <span class="portal-stage stage0">NODE</span>
+      <span class="portal-stage stage1">FORK</span>
+      <span class="portal-stage stage2">EVIDENCE</span>
+      <span class="portal-stage stage3">REVISION</span>
+      <span class="portal-stage stage4">NEW NODE</span>
+    </div>
+    <p class="portal-line">
+      A node is a branch with a memory: an identity, a signed ledger, and laws
+      it must prove by crash-testing. The first node knows nothing — and that
+      is the point. It inherits a test, not a conclusion.
+    </p>
+    <div class="portal-actions">
+      <a class="portal-btn" href="http://localhost:8765">Create your node</a>
+      <a class="portal-ghost" href="https://github.com/0penAGI/General-theory-of-civilisation-degradation">Fork on GitHub</a>
+    </div>
+    <div class="portal-cmd">pip install -e ".[node]" &amp;&amp; app-node init my-branch</div>
+    <div class="portal-note">
+      run the network locally — python observatory.py — then open
+      http://localhost:8765 and press "create your node".
+    </div>
+    <div class="portal-temp">This branch is temporary. Yours will be too.</div>
+  </div>
+</div>
 
 <header>
   <div class="journal-line">

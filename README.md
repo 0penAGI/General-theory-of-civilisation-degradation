@@ -84,6 +84,73 @@ ADAPTIVE survives (R≈0.44–0.49, the future is contested by the meters),
 ADAPTIVE_H dies against hostile AGI (R=0), META survives hostile AGI and
 rewrites its own protocol (prot v3, wins by ecosystem consensus).
 
+## The network layer — participation, not observation
+
+The sandbox crash-tests rulesets. A **protocol node** is the carrier: real
+people, teams and organizations enter the protocol through it. A node is one
+branch, one identity, one signed hash-chained ledger — and it is deliberately
+small and offline-first (local sovereignty belongs to whoever runs it).
+
+```bash
+pip install -e ".[node]"
+
+app-node init my-branch            # genesis: one identity, one signed declaration
+app-node status my-branch          # state, last crash-test, replaceability audit
+app-node pulse my-branch           # crash-test RULES.md, sign the audit
+app-node amend my-branch --rule hostile_agi=yes --note "harden the premise"
+app-node fork my-branch fork-a --statement "branch to test a hypothesis"
+app-node seal my-branch "superseded by fork-a" --superseded-by N:…
+app-node invite my-branch          # self-signed introduction
+app-node accept my-branch invite.json   # trust on first use (compare fingerprints)
+app-node sync my-branch N:… --source peer-dir
+app-node adopt my-branch peer-dir --decision D:… --statement "accept verified laws"
+app-node export my-branch bundle.json   # move the node — the bundle is verified on import
+```
+
+The one thing a node cannot do is silently rewrite a signed decision.
+Forkability is the immunity: any node may fork a branch, rewrite the laws,
+and crash-test them. `seal` retires a branch — its history stays, its
+leadership ends ("vanished" in the network).
+
+**The committed seed network** (`network/`) is the founding story made
+verifiable: six public branches with real forks, an accepted idea (commons
+adopting eliza-v2's hostile-AGI premise), a replaceability block (guardian's
+The_Leviathan), and a crystallized branch that sealed itself (old-order,
+R=0). Regenerate with `python examples/seed_network.py`.
+
+## The Network Observatory — the web entry point
+
+```bash
+python observatory.py              # http://localhost:8765
+```
+
+A single standard-library server: serves the built web app, a REST API for
+protocol nodes, and a WebSocket stream (network events + the simulator).
+
+```bash
+cd frontend && npm install && npm run build     # rebuild the web app
+```
+
+The web app opens with the **genesis screen**: "the first node knows nothing".
+Create a branch, then watch the **Network Observatory** — a lineage graph of
+real nodes (forks, accepted ideas, vanished branches), the per-branch
+crash-test and rule history, and actions on your own branch (crash-test, fork,
+adopt from any verified branch, seal, export). REST API:
+
+| Method | Route | Action |
+|---|---|---|
+| GET | `/api/network` | full network map (lineage, ideas, vanished) |
+| POST | `/api/nodes` | genesis — create a node `{name}` |
+| POST | `/api/nodes/{id}/pulse` | crash-test, sign the audit |
+| POST | `/api/nodes/{id}/fork` | fork your branch `{name, statement}` |
+| POST | `/api/nodes/{id}/adopt` | adopt a verified foreign branch `{foreign, decision, statement}` |
+| POST | `/api/nodes/{id}/seal` | retire the branch |
+| GET | `/api/nodes/{id}/export` | download the node bundle |
+
+Seeds are read-only (public states, no private keys): you adopt from them,
+never through them. Locally created nodes live in `nodes/` (gitignored) —
+your sovereignty is that directory and its key.
+
 ## Current direction (v5.5)
 
 The falsification scheme is knowable to the meters; a static audit cannot

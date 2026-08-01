@@ -103,6 +103,7 @@ export interface HelloMessage {
   scenarios: ScenarioDef[];
   running: boolean;
   current: { scenario: string; seed: number } | null;
+  network?: NetworkPayload;
 }
 
 export interface ReplayMessage {
@@ -120,6 +121,101 @@ export interface PongMessage {
   type: "pong";
 }
 
+// ── network (real protocol nodes) ────────────────────────────────────
+
+export interface AuditSlice {
+  scenario?: string;
+  status?: string;
+  R?: number;
+  R_median?: number;
+  R_min?: number;
+  R_max?: number;
+  meters?: Record<string, number>;
+  protocol_gen?: number;
+  contested?: boolean;
+  measurement_monoculture?: boolean;
+  F?: number;
+  capture?: number;
+}
+
+export interface Institution {
+  name: string;
+  function: string;
+  owner: string;
+  replaceable: string;
+  replace_with: string;
+}
+
+export interface Decision {
+  id: string;
+  parent: string;
+  kind: string;
+  node: string;
+  key: string;
+  time: string;
+  statement: string;
+  falsified_by?: string;
+  rules?: Record<string, string>;
+  audit?: AuditSlice;
+  adopted_from?: string;
+  adopted_node?: string;
+  superseded_by?: string;
+}
+
+export interface NetworkNode {
+  id: string;
+  name: string;
+  key: string;
+  parent_node: string;
+  forked_from: string;
+  source: "seed" | "local";
+  decisions: number;
+  events: number;
+  institutions: Institution[];
+  rules: Record<string, string>;
+  sealed: boolean;
+  superseded_by: string;
+  last_decision: Decision | null;
+  last_audit: AuditSlice | null;
+  rule_changes: Decision[];
+  adopted: Decision[];
+  blocks: Institution[];
+}
+
+export interface Idea {
+  node: string;
+  name: string;
+  adopted_from: string;
+  adopted_node: string;
+  time: string;
+}
+
+export interface Vanished {
+  id: string;
+  name: string;
+  superseded_by: string;
+}
+
+export interface NetworkStats {
+  branches: number;
+  live: number;
+  vanished: number;
+  ideas: number;
+  forks: number;
+}
+
+export interface NetworkPayload {
+  nodes: NetworkNode[];
+  ideas: Idea[];
+  vanished: Vanished[];
+  stats: NetworkStats;
+}
+
+export interface NetworkMessage {
+  type: "network";
+  network: NetworkPayload;
+}
+
 export type ServerMessage =
   | HelloMessage
   | RunStartMessage
@@ -127,7 +223,8 @@ export type ServerMessage =
   | VerdictMessage
   | ReplayMessage
   | ErrorMessage
-  | PongMessage;
+  | PongMessage
+  | NetworkMessage;
 
 export const EVENTS_KNOWN: Record<string, string> = {
   routine: "routine drift",

@@ -132,6 +132,7 @@ class ProtocolNode:
         audit: dict | None = None,
         adopted_from: str | None = None,
         adopted_node: str | None = None,
+        superseded_by: str | None = None,
     ) -> dict:
         parent = self.last_decision()["id"] if self.decisions() else "-"
         content = {
@@ -151,6 +152,8 @@ class ProtocolNode:
             content["adopted_from"] = adopted_from
         if adopted_node is not None:
             content["adopted_node"] = adopted_node
+        if superseded_by is not None:
+            content["superseded_by"] = superseded_by
         entry = dict(content, id=_decision_id(content))
         entry["sig"] = self._sign(content)
         _append_entry(self.dir / "DECISIONS.jsonl", entry)
@@ -242,6 +245,30 @@ class ProtocolNode:
         report = self.crash_test()
         self.append_decision("audit", statement, audit=_audit_slice(report))
         return report
+
+    # -- retirement -----------------------------------------------------
+
+    def seal(self, statement: str, superseded_by: str = "") -> dict:
+        """Retire the branch: its purpose is complete or superseded.
+
+        Nothing is erased — the identity, the history, the signed decisions
+        all remain. A sealed branch is 'vanished' in the network: visible,
+        legible, no longer leading. Replacement is the goal, not deletion.
+        """
+        return self.append_decision(
+            "seal",
+            statement,
+            falsified_by="this branch is still the best carrier of its laws",
+            superseded_by=superseded_by,
+        )
+
+    def rule_changes(self) -> list[dict]:
+        """Every decision that carried a snapshot of the laws."""
+        return [d for d in self.decisions() if "rules" in d]
+
+    def adopted_ideas(self) -> list[dict]:
+        """Every idea this branch accepted from another branch."""
+        return [d for d in self.decisions() if d["kind"] == "adopt"]
 
     # -- replaceability audit -------------------------------------------
 
@@ -335,13 +362,17 @@ class ProtocolNode:
     def status(self) -> dict:
         last = self.last_decision()
         audits = [d for d in self.decisions() if d["kind"] == "audit"]
+        sealed = bool(last and last["kind"] == "seal")
         return {
             "name": self.app["name"],
             "node": self.node_id,
             "parent_node": self.app.get("parent_node", "-"),
+            "forked_from": self.app.get("forked_from", "-"),
             "decisions": len(self.decisions()),
             "events": len(self.events()),
             "institutions": len(self.read_institutions()),
+            "sealed": sealed,
+            "superseded_by": last.get("superseded_by", "") if sealed else "",
             "last_decision": last,
             "last_audit": _audit_slice(audits[-1]["audit"]) if audits else None,
             "replaceability_blocks": self.replaceability_blocks(),
@@ -822,6 +853,11 @@ def main_cli(argv=None):
     q = sub.add_parser("audit", help="replaceability audit of institutions")
     q.add_argument("dir")
 
+    q = sub.add_parser("seal", help="retire the branch (it vanishes from the network)")
+    q.add_argument("dir")
+    q.add_argument("statement")
+    q.add_argument("--superseded-by", default="")
+
     q = sub.add_parser("fork", help="create a child branch with its own identity")
     q.add_argument("dir")
     q.add_argument("target")
@@ -934,6 +970,9 @@ def main_cli(argv=None):
             print(f"BLOCK: {b['name']} ({b['function']}) cannot be replaced")
         if not n.replaceability_blocks():
             print("ok — every institution has an exit")
+    elif args.cmd == "seal":
+        d = n.seal(args.statement, args.superseded_by)
+        print(f"{d['id']}  sealed  superseded_by={d.get('superseded_by', '-')}")
     elif args.cmd == "fork":
         child = n.fork(args.target, args.statement)
         print(f"forked: {child.node_id}  <-  {n.node_id}")

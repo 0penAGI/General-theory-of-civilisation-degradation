@@ -205,6 +205,60 @@ class ProtocolNodeTest(unittest.TestCase):
         # the import never touched alice's private key — only verifiable facts
         self.assertNotEqual(b_before, "no")
 
+    # -- retirement -----------------------------------------------------
+
+    def test_seal_marks_retirement_keeps_history(self):
+        self.a.append_decision("declare", "pre-seal")
+        sealed = self.a.seal("the branch is superseded", superseded_by="N:child")
+        self.assertEqual(sealed["kind"], "seal")
+        self.assertEqual(sealed["superseded_by"], "N:child")
+        self.assertEqual(self.a.verify_chain(), [])
+        self.assertTrue(self.a.status()["sealed"])
+        self.assertEqual(self.a.status()["superseded_by"], "N:child")
+        # nothing was erased — the identity and the history remain
+        self.assertEqual(len(self.a.decisions()), 3)
+
+    def test_rule_changes_and_adopted_ideas_helpers(self):
+        self.assertEqual(self.a.rule_changes(), self.a.decisions())
+        self.assertEqual(self.a.adopted_ideas(), [])
+        self.a.amend_rules({"hostile_agi": "yes"}, "harden the premise")
+        self.assertEqual(len(self.a.rule_changes()), 2)
+        fork = self.a.fork(self.tmp / "fork", "branch away")
+        fork.amend_rules({"self_immunity": "no"}, "drop immunity")
+        self.a.adopt(fork.dir, fork.last_decision()["id"], "take the fork's laws")
+        ideas = self.a.adopted_ideas()
+        self.assertEqual(len(ideas), 1)
+        self.assertEqual(ideas[0]["kind"], "adopt")
+        self.assertEqual(ideas[0]["adopted_node"], fork.node_id)
+
+
+class SeedNetworkTest(unittest.TestCase):
+    """The committed seed network must stay a verified set of public states."""
+
+    def test_every_seed_verifies(self):
+        root = Path(__file__).resolve().parents[1]
+        network = root / "network"
+        self.assertTrue(network.exists(), "network/ missing — run examples/seed_network.py")
+        states = []
+        for entry in sorted(network.iterdir()):
+            if not entry.is_dir() or not (entry / "APP.md").exists():
+                continue
+            state = PublicState(entry)
+            self.assertEqual(state.verify_chain(), [], f"{entry.name} fails verification")
+            states.append((entry.name, state))
+        self.assertEqual(len(states), 6)
+        names = {name for name, _ in states}
+        self.assertEqual(names, {"0penAGI", "eliza", "eliza-v2", "commons", "guardian", "old-order"})
+        # a crystallized branch sealed itself — the network must show it vanished
+        old = dict(states)["old-order"]
+        self.assertEqual(old.decisions[-1]["kind"], "seal")
+        # an idea crossed branches: commons adopted from eliza-v2
+        commons = dict(states)["commons"]
+        adopted = [d for d in commons.decisions if d["kind"] == "adopt"]
+        self.assertEqual(len(adopted), 1)
+        self.assertEqual(adopted[0]["adopted_node"],
+                         dict(states)["eliza-v2"].node_id())
+
 
 if __name__ == "__main__":
     unittest.main()
